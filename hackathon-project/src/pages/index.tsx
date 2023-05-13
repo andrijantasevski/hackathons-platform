@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/Button";
 import InputRounded from "@/components/ui/InputRounded";
 import InputUnderlined from "@/components/ui/InputUnderlined";
-import InputRadioGroup from "@/components/ui/RadioGroup";
+import InputRadioGroup from "@/components/ui/InputRadioGroup";
 import { IconMail } from "@tabler/icons-react";
+import InputSelect from "@/components/ui/InputSelect";
 
 export default function Home() {
   return (
@@ -43,6 +44,18 @@ export default function Home() {
         <InputRadioGroup
           intent="error"
           radioGroupItems={[
+            { title: "Option 1", value: "hi2" },
+            { title: "Option 2", value: "hi3" },
+            { title: "Option 3", value: "hi1" },
+          ]}
+        />
+      </div>
+
+      <div>
+        <div>STATES FOR SELECT INPUT</div>
+        <InputSelect
+          intent="primary"
+          selectItems={[
             { title: "Option 1", value: "hi2" },
             { title: "Option 2", value: "hi3" },
             { title: "Option 3", value: "hi1" },
