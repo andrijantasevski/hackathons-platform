@@ -6,6 +6,7 @@ export type EventTypes = {
   group: string;
   availability: AvailabilityEnum;
   presence: PresenceEnum;
+  food: string;
 };
 
 export enum AvailabilityEnum {

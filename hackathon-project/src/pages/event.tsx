@@ -1,3 +1,5 @@
+import Button from "@/components/ui/Button";
+import InputRadioGroup from "@/components/ui/InputRadioGroup";
 import InputSelect from "@/components/ui/InputSelect";
 import InputUnderlined from "@/components/ui/InputUnderlined";
 import { EventTypes } from "@/types/types";
@@ -30,7 +32,7 @@ const Event: NextPage = () => {
               <p>
                 Join us for an exhilarating hackathon experience! Fill out the
                 form below to register and unlock a world of creativity,
-                collaboration, and innovation. Lets embark on this exciting
+                collaboration, and innovation. Let{"'"}s embark on this exciting
                 journey together!
               </p>
             </div>
@@ -62,7 +64,7 @@ const Event: NextPage = () => {
                 <p className="font-bold">E-mail:</p>
               </InputUnderlined>
               <InputUnderlined
-                {...register("email", { required: true })}
+                {...register("phoneNumber", { required: true })}
                 intent={errors.phoneNumber ? "error" : "primary"}
                 errorMessage="Enter your phone number"
                 id="phoneNumberInput"
@@ -72,7 +74,7 @@ const Event: NextPage = () => {
               >
                 <p className="font-bold">Phone number:</p>
               </InputUnderlined>
-
+              <p className="text-left font-bold">Select academy:</p>
               <InputSelect
                 intent="primary"
                 selectOptions={[
@@ -81,30 +83,55 @@ const Event: NextPage = () => {
                   { title: "Option 3", value: "hi1" },
                 ]}
               />
-
-              <label>Select academy:</label>
-              <select {...register("academy", { required: true })}>
-                <option value="academy">Academy</option>
-              </select>
-              <label>Select group:</label>
-              <select {...register("group")}>
-                <option value="group">Group</option>
-              </select>
-              <label>
-                Are you ready for 48h work and availability during the hackaton
-              </label>
-              <select {...register("availability", { required: true })}>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-                <option value="other">Other</option>
-              </select>
-              <label>Will you be joining us online or in person?</label>
-              <select {...register("presence", { required: true })}>
-                <option value="online">Online</option>
-                <option value="inPerson">In person</option>
-                <option value="other">Other</option>
-              </select>
-              <input type="submit" />
+              <p className="text-left font-bold">Select group:</p>
+              <InputSelect
+                intent="primary"
+                selectOptions={[
+                  { title: "Option 1", value: "hi2" },
+                  { title: "Option 2", value: "hi3" },
+                  { title: "Option 3", value: "hi1" },
+                ]}
+              />
+              <p className="text-left font-bold">
+                Are you ready for 48h work and availability during the hackaton?
+              </p>
+              <InputRadioGroup
+                intent="primary"
+                radioGroupOptions={[
+                  { title: "Yes", value: "yes" },
+                  { title: "No", value: "no" },
+                  { title: "Other", value: "other" },
+                ]}
+                {...register("availability", { required: true })}
+              />
+              <p className="text-left font-bold">
+                Will you be joining us online or in person?
+              </p>
+              <InputRadioGroup
+                intent="primary"
+                radioGroupOptions={[
+                  { title: "Online", value: "online" },
+                  { title: "In person", value: "inPerson" },
+                  { title: "Other", value: "other" },
+                ]}
+                {...register("presence", { required: true })}
+              />
+              <p className="text-left font-bold">
+                Tell us your food preferences
+              </p>
+              <InputRadioGroup
+                intent="primary"
+                radioGroupOptions={[
+                  { title: "Vegetarian", value: "vegetarian" },
+                  { title: "Vegan", value: "vegan" },
+                  { title: "I don't have preferences", value: "noPreferences" },
+                  { title: "Other", value: "other" },
+                ]}
+                {...register("food", { required: true })}
+              />
+              <Button intent="primary" rounded="sm" size="lg" type="submit">
+                Confirm
+              </Button>
             </form>
           </div>
         </section>
