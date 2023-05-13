@@ -3,18 +3,18 @@ import { forwardRef, useState } from "react";
 
 interface Props {
   intent: "primary" | "error";
-  radioGroupItems: {
+  radioGroupOptions: {
     value: string | number | boolean;
     title: string;
   }[];
 }
 
-const InputRadioGroup = forwardRef<HTMLInputElement, Props>(({ intent = "primary", radioGroupItems }, ref) => {
+const InputRadioGroup = forwardRef<HTMLInputElement, Props>(({ intent = "primary", radioGroupOptions }, ref) => {
   const [value, setValue] = useState();
 
   return (
     <RadioGroup ref={ref} value={value} onChange={setValue} className="flex flex-col gap-2">
-      {radioGroupItems.map((radioGroupItem, index) => (
+      {radioGroupOptions.map((radioGroupItem, index) => (
         <RadioGroup.Option key={index} className={`flex items-center gap-2 ${intent === "error" ? "text-red-500" : ""}`} value={radioGroupItem.value}>
           {({ active, checked }) => (
             <>
