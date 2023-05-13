@@ -4,6 +4,7 @@ import InputUnderlined from "@/components/ui/InputUnderlined";
 import InputRadioGroup from "@/components/ui/InputRadioGroup";
 import { IconMail } from "@tabler/icons-react";
 import InputSelect from "@/components/ui/InputSelect";
+import ModalFinishedForm from "@/components/ModalFinishedForm";
 
 export default function Design() {
   return (
@@ -82,6 +83,11 @@ export default function Design() {
         <Button intent="error" rounded="xl" size="lg" uppercase>
           Button 1
         </Button>
+      </div>
+
+      <div>
+        <div>MODAL</div>
+        <ModalFinishedForm />
       </div>
     </main>
   );
