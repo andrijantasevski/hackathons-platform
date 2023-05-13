@@ -2,7 +2,7 @@ import { cva, VariantProps } from "class-variance-authority";
 import { IconExclamationCircle } from "@tabler/icons-react";
 import { forwardRef } from "react";
 
-const input = cva(["bg-transparent", "border-b-2", "p-2", "w-full"], {
+const inputUnderlined = cva(["bg-transparent", "border-b-2", "p-2", "w-full"], {
   variants: {
     intent: {
       // TODO
@@ -18,7 +18,7 @@ const input = cva(["bg-transparent", "border-b-2", "p-2", "w-full"], {
   },
 });
 
-interface Props extends React.InputHTMLAttributes<HTMLInputElement>, VariantProps<typeof input> {
+interface Props extends React.InputHTMLAttributes<HTMLInputElement>, VariantProps<typeof inputUnderlined> {
   id: string;
   children: React.ReactNode;
   type: "text" | "email" | "password" | "url" | "tel" | "number";
@@ -27,7 +27,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement>, VariantProp
   hideLabel?: boolean;
 }
 
-const Input = forwardRef<HTMLInputElement, Props>(({ id, children, intent, errorMessage, hideLabel, placeholder, ...props }, ref) => {
+const InputUnderlined = forwardRef<HTMLInputElement, Props>(({ id, children, intent, errorMessage, hideLabel, placeholder, ...props }, ref) => {
   return (
     <div className="flex flex-col gap-2">
       <div className="flex items-center justify-between">
@@ -39,7 +39,7 @@ const Input = forwardRef<HTMLInputElement, Props>(({ id, children, intent, error
       </div>
 
       <div className="relative">
-        <input ref={ref} id={id} className={input({ intent })} placeholder={placeholder} {...props} />
+        <input ref={ref} id={id} className={inputUnderlined({ intent })} placeholder={placeholder} {...props} />
 
         {intent === "error" && <IconExclamationCircle className="absolute right-2 top-1/2 -translate-y-1/2 text-red-600" />}
       </div>
@@ -49,6 +49,6 @@ const Input = forwardRef<HTMLInputElement, Props>(({ id, children, intent, error
   );
 });
 
-Input.displayName = "Input";
+InputUnderlined.displayName = "Input";
 
-export default Input;
+export default InputUnderlined;
