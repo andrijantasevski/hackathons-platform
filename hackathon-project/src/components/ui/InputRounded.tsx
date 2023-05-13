@@ -2,12 +2,12 @@ import { cva, VariantProps } from "class-variance-authority";
 import { IconExclamationCircle } from "@tabler/icons-react";
 import { forwardRef } from "react";
 
-const inputRounded = cva(["bg-transparent", "rounded-lg", "shadow-md", "p-3", "w-full"], {
+const inputRounded = cva(["bg-transparent", "rounded-lg", "shadow-md", "p-3", "w-full", "focus:outline-none", "focus:ring-1", "border"], {
   variants: {
     intent: {
       // TODO
       // Check color variables
-      primary: ["border-neutral-900", "focus:ring-primary-400", "focus:border-primary-400"],
+      primary: ["border-transparent", "focus:ring-primary", "focus:border-primary-100"],
       // TODO
       // Change red with error
       error: ["text-red-600", "border-red-600", "focus:ring-red-500", "focus:border-red-500", "placeholder:text-red-600"],
@@ -34,7 +34,7 @@ const InputRounded = forwardRef<HTMLInputElement, Props>(({ id, children, intent
     <div className="flex flex-col gap-2">
       <div className="flex items-center justify-between">
         {hideLabel && (
-          <label className="block font-medium" htmlFor={id}>
+          <label className="block" htmlFor={id}>
             {children}
           </label>
         )}
@@ -43,7 +43,7 @@ const InputRounded = forwardRef<HTMLInputElement, Props>(({ id, children, intent
       <div className="relative">
         <input ref={ref} id={id} className={`${inputRounded({ intent })} ${placeholderOffset}`} placeholder={placeholder} {...props} />
 
-        <div className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-600">{leadingIcon}</div>
+        <div className="absolute left-3 top-1/2 -translate-y-1/2 text-primary">{leadingIcon}</div>
 
         {intent === "error" && <IconExclamationCircle className="absolute right-2 top-1/2 -translate-y-1/2 text-red-600" />}
       </div>

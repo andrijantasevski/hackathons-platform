@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       // Add global colors here
       colors: {
+        "primary-50": "#8ea2e1",
         primary: "#4364CD",
         "primary-100": "#3c5ab9",
         secondary: "#FFFFFF",
