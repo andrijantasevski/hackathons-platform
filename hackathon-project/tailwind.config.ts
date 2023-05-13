@@ -1,22 +1,20 @@
 /** @type {import('tailwindcss').Config} */
 const defaultTheme = require("tailwindcss/defaultTheme");
+import colors from "tailwindcss/colors";
 
 module.exports = {
-  content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx}",
-    "./src/components/**/*.{js,ts,jsx,tsx}",
-    "./src/app/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./src/pages/**/*.{js,ts,jsx,tsx}", "./src/components/**/*.{js,ts,jsx,tsx}", "./src/app/**/*.{js,ts,jsx,tsx}"],
   theme: {
     // Extend the global theme here with custom variables that you can access across the whole app
     extend: {
       // Add global colors here
       colors: {
-        primary: "#000000",
+        primary: "#4364CD",
+        "primary-100": "#3c5ab9",
         secondary: "#FFFFFF",
-        success: "#4364CD",
-        warning: "#D4FFF5",
-        error: "#E6D7FF",
+        success: { ...colors.green },
+        warning: { ...colors.yellow },
+        error: { ...colors.red },
         fruit: "#FFE1D3",
         gradientPrimary: "#0F2877",
         gradientWarning: "#9EFFE8",
