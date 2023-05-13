@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/Button";
+import Button from "@/components/ui/Button";
 import InputRounded from "@/components/ui/InputRounded";
 import InputUnderlined from "@/components/ui/InputUnderlined";
 import InputRadioGroup from "@/components/ui/InputRadioGroup";
@@ -55,12 +55,33 @@ export default function Home() {
         <div>STATES FOR SELECT INPUT</div>
         <InputSelect
           intent="primary"
-          selectItems={[
+          selectOptions={[
             { title: "Option 1", value: "hi2" },
             { title: "Option 2", value: "hi3" },
             { title: "Option 3", value: "hi1" },
           ]}
         />
+      </div>
+
+      <div>
+        <div>STATES FOR BUTTONS</div>
+        <Button intent="primary" rounded="sm" size="sm">
+          Button 1
+        </Button>
+        .
+        <Button intent="primary" rounded="xl" size="base">
+          Button 1
+        </Button>
+        <Button intent="error" rounded="sm" size="lg">
+          Button 1
+        </Button>
+        .
+        <Button intent="error" rounded="xl" size="lg">
+          Button 1
+        </Button>
+        <Button intent="error" rounded="xl" size="lg" uppercase>
+          Button 1
+        </Button>
       </div>
     </main>
   );

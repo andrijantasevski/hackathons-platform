@@ -3,21 +3,32 @@ import { cva, type VariantProps } from "class-variance-authority";
 const button = cva(["font-medium", "transition-colors", "shadow-sm", "focus:outline-none", "focus:ring-2", "focus:ring-offset-2", "border", "inline-flex", "items-center"], {
   variants: {
     intent: {
-      primary: ["bg-blue-500", "text-white", "border-transparent", "hover:bg-blue-600"],
-      error: ["bg-red-500", "text-white", "border-gray-400", "hover:bg-gray-100"],
+      primary: ["bg-primary", "text-white", "border-transparent", "hover:bg-primary-100", "focus:ring-primary-100"],
+      error: ["bg-error-500", "text-white", "border-error-600", "hover:bg-error-600", "focus:ring-error-600"],
+    },
+    rounded: {
+      sm: ["rounded-md"],
+      xl: ["rounded-xl"],
     },
     size: {
-      small: ["text-sm", "py-1", "px-2"],
-      medium: ["text-base", "py-2", "px-4"],
+      sm: ["text-sm", "py-1", "px-2"],
+      base: ["text-base", "py-2", "px-4"],
+      lg: ["text-base", "py-3", "px-4"],
+    },
+    uppercase: {
+      true: ["uppercase"],
     },
   },
-  compoundVariants: [{ intent: "primary", size: "medium" }],
+  compoundVariants: [{ intent: "primary", size: "base" }],
   defaultVariants: {
     intent: "primary",
-    size: "medium",
+    size: "base",
+    rounded: "sm",
   },
 });
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof button> {}
 
-export const Button: React.FC<ButtonProps> = ({ className, intent, size, ...props }) => <button className={button({ intent, size, className })} {...props} />;
+const Button = ({ className, intent, size, rounded, uppercase, ...props }: ButtonProps) => <button className={button({ intent, size, rounded, className, uppercase })} {...props} />;
+
+export default Button;
