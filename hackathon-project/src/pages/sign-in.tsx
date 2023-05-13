@@ -63,7 +63,7 @@ export default function SignIn() {
           </form>
 
           <div className="text-center">
-            Don't have an account?{" "}
+            Don't have an account?
             <Link href="/sign-up" className="text-primary">
               Sign up!
             </Link>
