@@ -49,6 +49,6 @@ const InputUnderlined = forwardRef<HTMLInputElement, Props>(({ id, children, int
   );
 });
 
-InputUnderlined.displayName = "Input";
+InputUnderlined.displayName = "InputUnderlined";
 
 export default InputUnderlined;

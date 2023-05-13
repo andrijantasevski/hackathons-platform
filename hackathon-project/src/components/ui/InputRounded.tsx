@@ -53,6 +53,6 @@ const InputRounded = forwardRef<HTMLInputElement, Props>(({ id, children, intent
   );
 });
 
-InputRounded.displayName = "Input";
+InputRounded.displayName = "InputRounded";
 
 export default InputRounded;
