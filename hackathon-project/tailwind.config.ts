@@ -3,7 +3,7 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 import colors from "tailwindcss/colors";
 
 module.exports = {
-  content: ["./src/pages/**/*.{js,ts,jsx,tsx}", "./src/components/**/*.{js,ts,jsx,tsx}", "./src/app/**/*.{js,ts,jsx,tsx}"],
+  content: ["./src/pages/**/*.{js,ts,jsx,tsx}", "./src/components/**/*.{js,ts,jsx,tsx}", "./src/app/**/*.{js,ts,jsx,tsx}", "./src/layouts/**/*.{js,ts,jsx,tsx}"],
   theme: {
     // Extend the global theme here with custom variables that you can access across the whole app
     extend: {
@@ -34,12 +34,6 @@ module.exports = {
         ],
         base: [
           "16px",
-          {
-            lineHeight: "16px",
-          },
-        ],
-        lg: [
-          "24px",
           {
             lineHeight: "16px",
           },
