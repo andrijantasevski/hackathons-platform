@@ -5,9 +5,7 @@ import colors from "tailwindcss/colors";
 module.exports = {
   content: ["./src/pages/**/*.{js,ts,jsx,tsx}", "./src/components/**/*.{js,ts,jsx,tsx}", "./src/app/**/*.{js,ts,jsx,tsx}", "./src/layouts/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    // Extend the global theme here with custom variables that you can access across the whole app
     extend: {
-      // Add global colors here
       colors: {
         "primary-50": "#8ea2e1",
         primary: "#4364CD",
@@ -25,38 +23,7 @@ module.exports = {
       fontFamily: {
         sans: ["Verdana", ...defaultTheme.fontFamily.sans],
       },
-      fontSize: {
-        sm: [
-          "12px",
-          {
-            lineHeight: "16px",
-          },
-        ],
-        base: [
-          "16px",
-          {
-            lineHeight: "16px",
-          },
-        ],
-        xl: [
-          "50px",
-          {
-            lineHeight: "61px",
-          },
-        ],
-        xxl: [
-          "55px",
-          {
-            lineHeight: "32px",
-          },
-        ],
-        m: [
-          "32px",
-          {
-            lineHeight: "42px",
-          },
-        ],
-      },
+
       backgroundImage: {
         cloud: "url('/images/Cloud.svg')",
         brainster: "url('/icons/Brainster-Logo1.svg')",
