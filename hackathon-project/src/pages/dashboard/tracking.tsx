@@ -2,12 +2,45 @@ import type { ReactElement } from "react";
 import { NextPageWithLayout } from "../_app";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import Head from "next/head";
-import { IconChevronLeft, IconChevronRight, IconLiveView, IconScreenShare, IconUserCheck, IconUsers } from "@tabler/icons-react";
-import { useReactTable, createColumnHelper, flexRender, getCoreRowModel, getPaginationRowModel } from "@tanstack/react-table";
+import {
+  IconChevronLeft,
+  IconChevronRight,
+  IconLiveView,
+  IconScreenShare,
+  IconUserCheck,
+  IconUsers,
+} from "@tabler/icons-react";
+import {
+  useReactTable,
+  createColumnHelper,
+  flexRender,
+  getCoreRowModel,
+  getPaginationRowModel,
+} from "@tanstack/react-table";
 import { useRouter } from "next/router";
 import useGetStudents from "@/utils/useGetStudents";
 import Button from "@/components/ui/Button";
 import { IconDownload } from "@tabler/icons-react";
+import CsvDownloadButton from "react-json-to-csv";
+
+export type ExportType = {
+  id: string;
+  name: string;
+  value: string;
+};
+
+const exportData: ExportType[] = [
+  {
+    id: "1",
+    name: "Sarajane Wheatman",
+    value: "value1",
+  },
+  {
+    id: "2",
+    name: "Linell Humpherston",
+    value: "value2",
+  },
+];
 
 export type Student = {
   name: string;
@@ -59,7 +92,15 @@ const DashboardTracking: NextPageWithLayout = () => {
 
   const { data, status } = useGetStudents();
 
-  const { getHeaderGroups, getRowModel, getState, previousPage, nextPage, getCanNextPage, getCanPreviousPage } = useReactTable({
+  const {
+    getHeaderGroups,
+    getRowModel,
+    getState,
+    previousPage,
+    nextPage,
+    getCanNextPage,
+    getCanPreviousPage,
+  } = useReactTable({
     data: data ?? [],
     columns,
     initialState: {
@@ -143,20 +184,39 @@ const DashboardTracking: NextPageWithLayout = () => {
               {getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
-                    <th scope="col" className="px-3 py-3.5 text-left font-semibold text-white" key={header.id}>
-                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left font-semibold text-white"
+                      key={header.id}
+                    >
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
                     </th>
                   ))}
                 </tr>
               ))}
             </thead>
-            <tbody className={`divide-y divide-gray-500 rounded-lg bg-white ${status === "loading" ? "animate-pulse" : ""}`}>
+            <tbody
+              className={`divide-y divide-gray-500 rounded-lg bg-white ${
+                status === "loading" ? "animate-pulse" : ""
+              }`}
+            >
               {data &&
                 getRowModel().rows.map((row) => (
                   <tr key={row.id}>
                     {row.getVisibleCells().map((cell) => (
-                      <td className="w-1/6 whitespace-nowrap px-3 py-4 text-sm text-neutral-950" key={cell.id}>
-                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      <td
+                        className="w-1/6 whitespace-nowrap px-3 py-4 text-sm text-neutral-950"
+                        key={cell.id}
+                      >
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
                       </td>
                     ))}
                   </tr>
@@ -165,9 +225,15 @@ const DashboardTracking: NextPageWithLayout = () => {
               {status === "loading" &&
                 [...Array(10)].map((_, i) => (
                   <tr key={i}>
-                    <td className="w-1/3 whitespace-nowrap px-3 py-4 text-sm opacity-0">0</td>
-                    <td className="w-1/3 whitespace-nowrap px-3 py-4 text-sm opacity-0">0</td>
-                    <td className="w-1/3 whitespace-nowrap px-3 py-4 text-sm opacity-0">0</td>
+                    <td className="w-1/3 whitespace-nowrap px-3 py-4 text-sm opacity-0">
+                      0
+                    </td>
+                    <td className="w-1/3 whitespace-nowrap px-3 py-4 text-sm opacity-0">
+                      0
+                    </td>
+                    <td className="w-1/3 whitespace-nowrap px-3 py-4 text-sm opacity-0">
+                      0
+                    </td>
                   </tr>
                 ))}
             </tbody>
@@ -177,11 +243,19 @@ const DashboardTracking: NextPageWithLayout = () => {
         <div className="flex flex-col items-center justify-between gap-4 lg:flex-row">
           <div className="hidden w-full lg:block" />
           <div className="flex w-full items-center justify-center gap-4">
-            <Button intent={!getCanPreviousPage() ? "disabled" : "primary"} disabled={!getCanPreviousPage()} onClick={previousTablePage}>
+            <Button
+              intent={!getCanPreviousPage() ? "disabled" : "primary"}
+              disabled={!getCanPreviousPage()}
+              onClick={previousTablePage}
+            >
               <IconChevronLeft />
             </Button>
             <div></div>
-            <Button intent={!getCanNextPage() ? "disabled" : "primary"} disabled={!getCanNextPage()} onClick={nextTablePage}>
+            <Button
+              intent={!getCanNextPage() ? "disabled" : "primary"}
+              disabled={!getCanNextPage()}
+              onClick={nextTablePage}
+            >
               <IconChevronRight />
             </Button>
           </div>
@@ -189,12 +263,20 @@ const DashboardTracking: NextPageWithLayout = () => {
           <div className="flex w-full justify-center lg:justify-end">
             <Button size="lg">
               <div className="flex items-center gap-1">
-                Download information
+                Download resources
                 <IconDownload className="h-4 w-4" />
               </div>
             </Button>
           </div>
         </div>
+
+        <CsvDownloadButton
+          data={exportData}
+          filename="export_excel.csv"
+          delimiter=";"
+        >
+          Export to Excel
+        </CsvDownloadButton>
       </div>
     </>
   );
