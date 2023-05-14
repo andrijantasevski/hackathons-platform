@@ -6,6 +6,9 @@ import InputRounded from "@/components/ui/InputRounded";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import InputRadioGroup from "@/components/ui/InputRadioGroup";
 import Button from "@/components/ui/Button";
+import useAddHackathon from "@/utils/useAddHackathon";
+import { toast } from "react-hot-toast";
+import ModalFinishedCreatingHackathon from "@/components/ModalFinishedCreatingHackathon";
 
 const academies = [
   {
@@ -38,7 +41,7 @@ const academies = [
   },
 ];
 
-type HackathonFormData = {
+export type HackathonFormData = {
   title: string;
   application_deadline: string;
   start_date: string;
@@ -49,7 +52,11 @@ type HackathonFormData = {
 };
 
 const DashboardCreate: NextPageWithLayout = () => {
+  const [isModalShown, setIsModalShown] = useState(false);
+
   const [selectedAcademies, setSelectedAcademies] = useState<string[]>([]);
+
+  const { mutate } = useAddHackathon();
 
   const {
     register,
@@ -59,7 +66,14 @@ const DashboardCreate: NextPageWithLayout = () => {
   } = useForm<HackathonFormData>();
 
   const onSubmit: SubmitHandler<HackathonFormData> = (data) => {
-    console.log(data);
+    mutate(data, {
+      onSuccess: () => {
+        setIsModalShown(true);
+      },
+      onError: () => toast.error("There was an error creating the hackathon!"),
+    });
+
+    setIsModalShown(true);
   };
 
   function toggleAcademy(academy: string) {
@@ -93,11 +107,11 @@ const DashboardCreate: NextPageWithLayout = () => {
       <div className="mx-auto flex w-11/12 max-w-4xl flex-col items-center gap-10 py-10 lg:py-20">
         <div className="flex flex-col items-center gap-4">
           <p className="text-3xl font-bold lg:text-4xl">Create a new hackathon</p>
-          <p className="text-lg">Create an extraordinary hackathon experience with our creation page. Customize challenges, formats, and settings to inspire innovation and collaboration. Unleash your creativity and shape a remarkable event that cultivates talent. Get started today!</p>
+          <p className="text-center text-lg">Create an extraordinary hackathon experience with our creation page. Customize challenges, formats, and settings to inspire innovation and collaboration. Unleash your creativity and shape a remarkable event that cultivates talent. Get started today!</p>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="flex w-full">
-          <div className="flex w-7/12 flex-col gap-4 pr-10">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col gap-6 lg:flex-row lg:gap-0">
+          <div className="flex w-full flex-col gap-4 lg:w-7/12 lg:pr-10">
             <div className="flex flex-col gap-1">
               <p className="font-bold">Name</p>
               <InputRounded intent={errors.title ? "error" : "primary"} {...register("title", { required: true })} withIcon={false} errorMessage="Enter a name for the event" id="nameInput" type="text" placeholder="Name of the event">
@@ -157,7 +171,7 @@ const DashboardCreate: NextPageWithLayout = () => {
             </div>
           </div>
 
-          <div className="flex w-5/12 flex-col justify-between border-l-2 border-primary-50 pl-10">
+          <div className="flex w-full flex-col justify-between gap-8 border-primary-50 lg:w-5/12 lg:border-l-2 lg:pl-10">
             <div className="flex flex-col justify-between gap-3">
               <p className="font-bold">Select academies</p>
 
@@ -191,6 +205,7 @@ const DashboardCreate: NextPageWithLayout = () => {
           </div>
         </form>
       </div>
+      {isModalShown && <ModalFinishedCreatingHackathon isModalShown={isModalShown} setIsModalShown={setIsModalShown} />}
     </>
   );
 };

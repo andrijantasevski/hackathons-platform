@@ -1,7 +1,8 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useRef } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import Button from "./ui/Button";
-import { IconX, IconDownload, IconCircleCheck } from "@tabler/icons-react";
+import { IconX, IconCircleCheck, IconLink } from "@tabler/icons-react";
+import { toast } from "react-hot-toast";
 
 type Props = {
   isModalShown: boolean;
@@ -10,6 +11,7 @@ type Props = {
 
 export default function ModalFinishedCreatingHackathon({ isModalShown, setIsModalShown }: Props) {
   let closeButtonRef = useRef(null);
+  const [isLinkCopied, setIsLinkCopied] = useState(false);
 
   function closeModal() {
     setIsModalShown(false);
@@ -18,6 +20,18 @@ export default function ModalFinishedCreatingHackathon({ isModalShown, setIsModa
   function openModal() {
     setIsModalShown(true);
   }
+
+  function copyLink() {
+    navigator.clipboard.writeText("https://hackathonlink.com/event/afasfafsaf");
+    toast.success("Link copied!");
+    setIsLinkCopied(true);
+  }
+
+  useEffect(() => {
+    if (isLinkCopied) {
+      setTimeout(() => setIsLinkCopied(false), 2000);
+    }
+  }, [isLinkCopied]);
 
   return (
     <>
@@ -43,29 +57,24 @@ export default function ModalFinishedCreatingHackathon({ isModalShown, setIsModa
                     </button>
                   </div>
 
-                  <div className="mb-4 flex flex-col gap-2">
+                  <div className="mb-4 flex flex-col gap-4">
                     <div className="flex justify-center">
                       <IconCircleCheck className="h-20 w-20 text-primary" />
                     </div>
 
                     <Dialog.Title as="h3" className="text-center text-2xl font-bold leading-6 text-gray-900">
-                      You have registered successfully for the hackathon!
+                      Hackathon created sucessfully!
                     </Dialog.Title>
-
-                    <p className="text-center text-lg font-medium">Please check your email!</p>
                   </div>
 
-                  <div className="flex justify-center">
-                    <Button onClick={closeModal}>Confirm</Button>
-                  </div>
+                  <div className="flex justify-between gap-2 rounded-lg bg-white px-3 py-2 shadow-2xl">
+                    <div className="flex items-center gap-2">
+                      <IconLink />
 
-                  <div className="flex justify-center">
-                    <Button>
-                      <div className="flex items-center gap-1">
-                        Download
-                        <IconDownload className="h-4 w-4" />
-                      </div>
-                    </Button>
+                      <p>https://hackathonlink.com/event/afasfafsaf</p>
+                    </div>
+
+                    <Button onClick={copyLink}>{isLinkCopied ? "Copied" : "Copy"}</Button>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
