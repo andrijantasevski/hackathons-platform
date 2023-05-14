@@ -1,4 +1,4 @@
-import type { ReactElement } from "react";
+import { useEffect, type ReactElement } from "react";
 import { NextPageWithLayout } from "../_app";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import Image from "next/image";
@@ -39,7 +39,7 @@ const Dashboard: NextPageWithLayout = () => {
         <div className="flex flex-col-reverse gap-12 lg:flex-row">
           <div className="flex flex-col gap-10">
             <div className="flex flex-col gap-4">
-              <p className="text-xl font-bold">Take action!</p>
+              <p className="text-4xl font-bold">Take action!</p>
               <p className="text-lg leading-7">Unleash your administrative potential with our personalized admin page. Gain insights, take control, and optimize your tasks with ease. Experience efficiency and convenience in one platform. Elevate your administrative capabilities today.</p>
             </div>
 
@@ -58,10 +58,8 @@ const Dashboard: NextPageWithLayout = () => {
             <p className="text-lg font-bold">To Do</p>
 
             <div className="flex flex-col gap-4">
-              {/* TO DO  */}
-              {/* FIX COLOR VARIABLES WITH BETTER NAMES */}
-              <KanbanItem numberOfPeople="170" title="Online platform" date="17 March" backgroundColor="bg-gradientWarning" />
-              <KanbanItem numberOfPeople="170" title="Online platform" date="17 March" backgroundColor="bg-gradientWarning" />
+              <KanbanItem numberOfPeople="170" title="Online platform" date="17 March" backgroundColor="gradient-green" />
+              <KanbanItem numberOfPeople="170" title="Online platform" date="17 March" backgroundColor="gradient-green" />
             </div>
           </div>
 
@@ -69,11 +67,9 @@ const Dashboard: NextPageWithLayout = () => {
             <p className="text-lg font-bold">In progress</p>
 
             <div className="flex flex-col gap-4">
-              {/* TO DO  */}
-              {/* FIX COLOR VARIABLES WITH BETTER NAMES */}
-              <KanbanItem numberOfPeople="170" title="Online platform" date="17 March" backgroundColor="bg-gradientError" />
-              <KanbanItem numberOfPeople="170" title="Online platform" date="17 March" backgroundColor="bg-gradientError" />
-              <KanbanItem numberOfPeople="170" title="Online platform" date="17 March" backgroundColor="bg-gradientError" />
+              <KanbanItem numberOfPeople="170" title="Online platform" date="17 March" backgroundColor="gradient-purple" />
+              <KanbanItem numberOfPeople="170" title="Online platform" date="17 March" backgroundColor="gradient-purple" />
+              <KanbanItem numberOfPeople="170" title="Online platform" date="17 March" backgroundColor="gradient-purple" />
             </div>
           </div>
 
@@ -81,9 +77,7 @@ const Dashboard: NextPageWithLayout = () => {
             <p className="text-lg font-bold">Done</p>
 
             <div className="flex flex-col gap-4">
-              {/* TO DO  */}
-              {/* FIX COLOR VARIABLES WITH BETTER NAMES */}
-              <KanbanItem numberOfPeople="170" title="Online platform" date="17 March" backgroundColor="bg-fruit" />
+              <KanbanItem numberOfPeople="170" title="Online platform" date="17 March" backgroundColor="gradient-orange" />
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useRef } from "react";
 import Button from "./ui/Button";
 import { IconX, IconDownload, IconCircleCheck } from "@tabler/icons-react";
 
@@ -8,7 +8,7 @@ type Props = {
   setIsModalShown: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function ModalFinishedForm({ isModalShown, setIsModalShown }: Props) {
+export default function ModalFinishedCreatingHackathon({ isModalShown, setIsModalShown }: Props) {
   let closeButtonRef = useRef(null);
 
   function closeModal() {

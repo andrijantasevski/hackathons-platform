@@ -6,13 +6,15 @@ interface Props {
   selectOptions: {
     value: string | number | boolean;
     title: string;
+    disabled: boolean;
   }[];
   intent: "primary" | "error";
   label: string;
   onChangeController: (...event: any[]) => void;
+  errorMessage: string;
 }
 
-const InputSelect = forwardRef<HTMLInputElement, Props>(({ intent = "primary", selectOptions, label, onChangeController }, ref) => {
+const InputSelect = forwardRef<HTMLInputElement, Props>(({ intent = "primary", selectOptions, label, onChangeController, errorMessage }, ref) => {
   const [value, setValue] = useState(selectOptions[0]);
 
   return (
@@ -31,13 +33,11 @@ const InputSelect = forwardRef<HTMLInputElement, Props>(({ intent = "primary", s
           {label}
         </Listbox.Label>
       </div>
-      <Listbox.Button className={`relative mb-4 w-full border-b-2 border-black py-3 text-left ${intent === "error" ? "border-error-500" : "border-error-500"}`}>{value.title}</Listbox.Button>
+      <Listbox.Button className={`relative mb-2 w-full border-b-2 border-black py-3 text-left ${intent === "error" ? "border-error-500 text-error-500" : ""}`}>{value.title}</Listbox.Button>
 
-      {/* TODO */}
-      {/* FIX KEY PROP */}
-      <Listbox.Options className="absolute z-10 mt-4 w-full rounded-lg bg-white p-2 shadow-xl">
+      <Listbox.Options className="absolute z-10 mt-2 w-full rounded-lg bg-white p-2 shadow-xl">
         {selectOptions.map((selectOption, index) => (
-          <Listbox.Option className={({ active }) => `relative cursor-pointer select-none rounded-lg py-2 pl-10 pr-4 text-left transition-colors ${active ? "bg-primary text-white" : "text-gray-900"}`} key={index} value={selectOption}>
+          <Listbox.Option className={({ active }) => `relative cursor-pointer select-none rounded-lg py-2 pl-10 pr-4 text-left transition-colors disabled:text-gray-200 ${active ? "bg-primary text-white" : "text-gray-900"}`} disabled={selectOption.disabled} key={index} value={selectOption}>
             {({ selected, active }) => (
               <>
                 <span className={`block truncate ${selected ? "font-medium" : "font-normal"}`}>{selectOption.title}</span>
@@ -51,6 +51,7 @@ const InputSelect = forwardRef<HTMLInputElement, Props>(({ intent = "primary", s
           </Listbox.Option>
         ))}
       </Listbox.Options>
+      {intent === "error" && <div className="text-left font-medium text-error-500">{errorMessage}</div>}
     </Listbox>
   );
 });

@@ -11,9 +11,10 @@ interface Props {
   radioGroupOptions: RadioGroupOption[];
   onChangeController: (...event: any[]) => void;
   fieldValue: string;
+  errorMessage: string;
 }
 
-const InputRadioGroup = forwardRef<HTMLInputElement, Props>(({ intent = "primary", radioGroupOptions, onChangeController, fieldValue }, ref) => {
+const InputRadioGroup = forwardRef<HTMLInputElement, Props>(({ intent = "primary", radioGroupOptions, onChangeController, fieldValue, errorMessage }, ref) => {
   return (
     <RadioGroup ref={ref} value={fieldValue} onChange={onChangeController} className="flex flex-col gap-2">
       {radioGroupOptions.map((radioGroupItem, index) => (
@@ -26,6 +27,7 @@ const InputRadioGroup = forwardRef<HTMLInputElement, Props>(({ intent = "primary
           )}
         </RadioGroup.Option>
       ))}
+      {intent === "error" && <div className="text-left font-medium text-error-500">{errorMessage}</div>}
     </RadioGroup>
   );
 });

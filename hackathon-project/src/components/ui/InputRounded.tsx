@@ -21,15 +21,16 @@ const inputRounded = cva(["bg-white", "rounded-lg", "shadow-md", "p-3", "w-full"
 interface Props extends React.InputHTMLAttributes<HTMLInputElement>, VariantProps<typeof inputRounded> {
   id: string;
   children: React.ReactNode;
-  type: "text" | "email" | "password" | "url" | "tel" | "number";
+  type: "text" | "email" | "password" | "url" | "tel" | "number" | "date";
   errorMessage: string;
   placeholder: string;
   hideLabel?: boolean;
-  leadingIcon: React.ReactNode;
-  placeholderOffset: string;
+  leadingIcon?: React.ReactNode;
+  placeholderOffset?: string;
+  withIcon: boolean;
 }
 
-const InputRounded = forwardRef<HTMLInputElement, Props>(({ id, children, intent, errorMessage, hideLabel, placeholder, leadingIcon, placeholderOffset, ...props }, ref) => {
+const InputRounded = forwardRef<HTMLInputElement, Props>(({ id, children, intent, errorMessage, hideLabel, placeholder, leadingIcon, placeholderOffset, withIcon, ...props }, ref) => {
   return (
     <div className="flex flex-col gap-2">
       <div className="flex items-center justify-between">
@@ -43,7 +44,7 @@ const InputRounded = forwardRef<HTMLInputElement, Props>(({ id, children, intent
       <div className="relative">
         <input ref={ref} id={id} className={`${inputRounded({ intent })} ${placeholderOffset}`} placeholder={placeholder} {...props} />
 
-        <div className="absolute left-3 top-1/2 -translate-y-1/2 text-primary">{leadingIcon}</div>
+        {withIcon && <div className="absolute left-3 top-1/2 -translate-y-1/2 text-primary">{leadingIcon}</div>}
 
         {intent === "error" && <IconExclamationCircle className="absolute right-2 top-1/2 -translate-y-1/2 text-red-600" />}
       </div>

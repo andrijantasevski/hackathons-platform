@@ -3,7 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { IconHome, IconCirclePlus, IconGraph, IconBackpack, IconMenu } from "@tabler/icons-react";
 import { useRouter } from "next/router";
-import * as Menubar from "@radix-ui/react-menubar";
+import ModalNavigationMenu from "@/components/ModalNavigationMenu";
+import { useEffect, useState } from "react";
+import useIsLoggedIn, { useUserContext } from "@/utils/userContext";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 
 type Props = {
   children: React.ReactNode;
@@ -25,88 +28,83 @@ function DashboardLink({ href, children }: DashboardLinkProps) {
 }
 
 export default function DashboardLayout({ children }: Props) {
+  const router = useRouter();
+
+  const [isSlideInMenuOpen, setIsSlideInMenuOpen] = useState(false);
+
+  const openSlideInMenu = () => setIsSlideInMenuOpen(true);
+  const closeSlideInMenu = () => setIsSlideInMenuOpen(false);
+
+  const { user, isLoading } = useUserContext();
+
+  useEffect(() => {
+    if (!user.isLoggedIn && !isLoading) {
+      router.push("/");
+    }
+  }, [isLoading, user]);
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <LoadingSpinner size="large" />
+      </div>
+    );
+  }
+
   return (
-    <main className="relative flex min-h-screen flex-col bg-cloud bg-repeat-round lg:flex-row">
-      <nav className="mx-auto flex w-11/12 items-center justify-between rounded-lg bg-white p-4 pt-10 shadow-lg lg:hidden">
-        <Link href="/dashboard" className="flex items-center gap-2">
-          {/* TODO  */}
-          {/* ADD LOGO */}
+    <>
+      {!isLoading && user.isLoggedIn && (
+        <main className="relative flex min-h-screen flex-col bg-cloud bg-repeat-round lg:flex-row">
+          <nav className="mx-auto flex w-11/12 items-center justify-between rounded-lg bg-white p-4 pt-10 shadow-lg lg:hidden">
+            <Link href="/dashboard" className="flex items-center gap-2">
+              {/* TODO  */}
+              {/* ADD LOGO */}
 
-          {/* <img src="/logo.svg" className="h-9 w-9" /> */}
-          <span className="text-lg font-bold">Hackathon</span>
-        </Link>
+              {/* <img src="/logo.svg" className="h-9 w-9" /> */}
+              <span className="text-lg font-bold">Hackathon</span>
+            </Link>
 
-        <Menubar.Root>
-          <Menubar.Menu>
-            <Menubar.Trigger className="flex items-center justify-center">
+            <button onClick={openSlideInMenu}>
               <IconMenu className="h-6 w-6" />
-            </Menubar.Trigger>
+            </button>
+          </nav>
 
-            <Menubar.Content className="z-50 w-56 rounded-lg bg-white p-1 shadow-lg" align="end" side="bottom" sideOffset={4}>
-              <Link href="/dashboard" className="hover:text-primary-400 flex w-full items-center p-2 transition-colors">
-                <Menubar.Item className="inline-flex w-full items-center gap-2">
-                  <IconHome className="h-4 w-4" />
-                  Home
-                </Menubar.Item>
-              </Link>
+          <aside className="sticky top-0 hidden h-screen w-80 shrink-0 flex-col items-center gap-6 bg-white px-6 py-10 shadow-xl lg:flex 2xl:w-96">
+            <div className="flex w-full items-center gap-6">
+              <Image priority src="/images/user-image.png" width={70} height={70} alt="user image" />
+              <p className="text-lg font-bold">Andrijan Tasevski</p>
+            </div>
 
-              <Link href="/dashboard/create" className="hover:text-primary-400 flex w-full items-center p-2 transition-colors">
-                <Menubar.Item className="inline-flex w-full items-center gap-2">
-                  <IconGraph className="h-4 w-4" />
-                  Create
-                </Menubar.Item>
-              </Link>
+            <Separator />
 
-              <Link href="/dashboard/academy" className="hover:text-primary-400 flex w-full items-center p-2 transition-colors">
-                <Menubar.Item className="inline-flex w-full items-center gap-2">
-                  <IconBackpack className="h-4 w-4" />
-                  Academy
-                </Menubar.Item>
-              </Link>
+            <div className="flex w-full flex-col gap-2">
+              <DashboardLink href="/dashboard">
+                <IconHome />
+                Home
+              </DashboardLink>
 
-              <Link href="/dashboard/tracking" className="hover:text-primary-400 flex w-full items-center p-2 transition-colors">
-                <Menubar.Item className="inline-flex w-full items-center gap-2">
-                  <IconGraph className="h-4 w-4" />
-                  Tracking
-                </Menubar.Item>
-              </Link>
-            </Menubar.Content>
-          </Menubar.Menu>
-        </Menubar.Root>
-      </nav>
+              <DashboardLink href="/dashboard/create">
+                <IconCirclePlus />
+                Create
+              </DashboardLink>
 
-      <aside className="sticky top-0 hidden h-screen w-80 shrink-0 flex-col items-center gap-6 bg-white px-6 py-10 shadow-xl lg:flex 2xl:w-96">
-        <div className="flex w-full items-center gap-6">
-          <Image priority src="/images/user-image.png" width={70} height={70} alt="user image" />
-          <p className="text-lg font-bold">Andrijan Tasevski</p>
-        </div>
+              <DashboardLink href="/dashboard/academy">
+                <IconBackpack />
+                Academy
+              </DashboardLink>
 
-        <Separator />
+              <DashboardLink href="/dashboard/tracking">
+                <IconGraph />
+                Tracking
+              </DashboardLink>
+            </div>
+          </aside>
 
-        <div className="flex w-full flex-col gap-2">
-          <DashboardLink href="/dashboard">
-            <IconHome />
-            Home
-          </DashboardLink>
+          <section className="w-full">{children}</section>
 
-          <DashboardLink href="/dashboard/create">
-            <IconCirclePlus />
-            Create
-          </DashboardLink>
-
-          <DashboardLink href="/dashboard/academy">
-            <IconBackpack />
-            Academy
-          </DashboardLink>
-
-          <DashboardLink href="/dashboard/tracking">
-            <IconGraph />
-            Tracking
-          </DashboardLink>
-        </div>
-      </aside>
-
-      <section className="w-full">{children}</section>
-    </main>
+          {isSlideInMenuOpen && <ModalNavigationMenu isSlideInMenuOpen={isSlideInMenuOpen} closeSlideInMenu={closeSlideInMenu} />}
+        </main>
+      )}
+    </>
   );
 }
