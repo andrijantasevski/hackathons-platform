@@ -31,7 +31,7 @@ export default function Design() {
         </InputRounded>
       </div>
 
-      <div>
+      {/* <div>
         <div>STATES FOR RADIO GROUP</div>
         <InputRadioGroup
           intent="primary"
@@ -50,18 +50,18 @@ export default function Design() {
             { title: "Option 3", value: "hi1" },
           ]}
         />
-      </div>
+      </div> */}
 
       <div>
         <div>STATES FOR SELECT INPUT</div>
-        <InputSelect
+        {/* <InputSelect
           intent="primary"
           selectOptions={[
             { title: "Option 1", value: "hi2" },
             { title: "Option 2", value: "hi3" },
             { title: "Option 3", value: "hi1" },
           ]}
-        />
+        /> */}
       </div>
 
       <div>
@@ -83,11 +83,6 @@ export default function Design() {
         <Button intent="error" rounded="xl" size="lg" uppercase>
           Button 1
         </Button>
-      </div>
-
-      <div>
-        <div>MODAL</div>
-        <ModalFinishedForm />
       </div>
     </main>
   );

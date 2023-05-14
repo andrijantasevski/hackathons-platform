@@ -63,7 +63,7 @@ export default function ForgotPassword() {
             </form>
 
             <div className="text-center">
-              <span>Don't have an account? </span>
+              <span>Don{"'"}t have an account? </span>
 
               <Link href="/sign-up" className="text-primary">
                 Sign up!
@@ -74,7 +74,9 @@ export default function ForgotPassword() {
           <div className="gradient-primary hidden w-2/5 flex-col items-center justify-center gap-4 rounded-lg p-10 lg:flex">
             <p className="text-center text-2xl font-bold text-white">Forgot your password?</p>
 
-            <p className="text-center text-gray-200">Uh-oh, it looks like you've forgotten your password! Don't worry, it happens to the best of us. To reset your password, simply enter your email address associated with your account and we'll send you a link to reset it. If you have any issues, please contact our support team for assistance.</p>
+            <p className="text-center text-gray-200">
+              Uh-oh, it looks like you{"'"}ve forgotten your password! Don{"'"}t worry, it happens to the best of us. To reset your password, simply enter your email address associated with your account and we{"'"}ll send you a link to reset it. If you have any issues, please contact our support team for assistance.
+            </p>
           </div>
         </section>
 
