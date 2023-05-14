@@ -9,6 +9,7 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { useRouter } from "next/router";
 import ModalFinishedForm from "@/components/ModalFinishedForm";
 import { useState } from "react";
+import useAddRegistration from "@/utils/useAddRegistration";
 
 export type EventTypes = {
   name: string;
@@ -33,6 +34,8 @@ const Event: NextPage = () => {
 
   const [isModalShown, setIsModalShown] = useState(false);
 
+  const { mutate } = useAddRegistration();
+
   const {
     register,
     formState: { errors },
@@ -42,9 +45,8 @@ const Event: NextPage = () => {
   } = useForm<EventTypes>();
 
   const onSubmit: SubmitHandler<EventTypes> = (data) => {
-    const formData = { ...data, eventId };
-    console.log(formData);
-    setIsModalShown(true);
+    const formData = { ...data, event_id: eventId };
+    mutate(formData, { onSuccess: () => setIsModalShown(true) });
   };
 
   return (

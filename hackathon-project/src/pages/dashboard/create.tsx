@@ -13,31 +13,31 @@ import ModalFinishedCreatingHackathon from "@/components/ModalFinishedCreatingHa
 const academies = [
   {
     title: "Graphic design academy",
-    value: "graphicDesign",
+    value: "1",
   },
   {
     title: "UX/UI Design academy",
-    value: "uxUiDesign",
+    value: "2",
   },
   {
     title: "Marketing academy",
-    value: "marketing",
+    value: "3",
   },
   {
     title: "Front-end academy",
-    value: "frontEnd",
+    value: "4",
   },
   {
     title: "QA academy",
-    value: "qualityAssurance",
+    value: "5",
   },
   {
     title: "Full-stack academy",
-    value: "fullStack",
+    value: "6",
   },
   {
     title: "Product management academy",
-    value: "productManagement",
+    value: "7",
   },
 ];
 
@@ -46,7 +46,7 @@ export type HackathonFormData = {
   application_deadline: string;
   start_date: string;
   end_date: string;
-  hackathonType: string;
+  type_id: string;
   description: string;
   academies: string[];
 };
@@ -142,17 +142,17 @@ const DashboardCreate: NextPageWithLayout = () => {
               <Controller
                 control={control}
                 defaultValue={""}
-                name="hackathonType"
+                name="type_id"
                 rules={{ required: true }}
                 render={({ field: { onChange, value } }) => (
                   <InputRadioGroup
                     fieldValue={value}
                     onChangeController={onChange}
-                    intent={errors.hackathonType ? "error" : "primary"}
+                    intent={errors.type_id ? "error" : "primary"}
                     errorMessage="Select a hackathon type"
                     radioGroupOptions={[
-                      { title: "Live", value: "live" },
-                      { title: "Online", value: "online" },
+                      { title: "Live", value: "1" },
+                      { title: "Online", value: "2" },
                     ]}
                   />
                 )}
