@@ -3,9 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { IconHome, IconCirclePlus, IconGraph, IconBackpack, IconMenu } from "@tabler/icons-react";
 import { useRouter } from "next/router";
-import * as Menubar from "@radix-ui/react-menubar";
 import ModalNavigationMenu from "@/components/ModalNavigationMenu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useIsLoggedIn, { useUserContext } from "@/utils/userContext";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 
 type Props = {
   children: React.ReactNode;
@@ -27,60 +28,83 @@ function DashboardLink({ href, children }: DashboardLinkProps) {
 }
 
 export default function DashboardLayout({ children }: Props) {
+  const router = useRouter();
+
   const [isSlideInMenuOpen, setIsSlideInMenuOpen] = useState(false);
 
   const openSlideInMenu = () => setIsSlideInMenuOpen(true);
   const closeSlideInMenu = () => setIsSlideInMenuOpen(false);
+
+  const { user, isLoading } = useUserContext();
+
+  useEffect(() => {
+    if (!user.isLoggedIn && !isLoading) {
+      router.push("/");
+    }
+  }, [isLoading, user]);
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <LoadingSpinner size="large" />
+      </div>
+    );
+  }
+
   return (
-    <main className="relative flex min-h-screen flex-col bg-cloud bg-repeat-round lg:flex-row">
-      <nav className="mx-auto flex w-11/12 items-center justify-between rounded-lg bg-white p-4 pt-10 shadow-lg lg:hidden">
-        <Link href="/dashboard" className="flex items-center gap-2">
-          {/* TODO  */}
-          {/* ADD LOGO */}
+    <>
+      {!isLoading && user.isLoggedIn && (
+        <main className="relative flex min-h-screen flex-col bg-cloud bg-repeat-round lg:flex-row">
+          <nav className="mx-auto flex w-11/12 items-center justify-between rounded-lg bg-white p-4 pt-10 shadow-lg lg:hidden">
+            <Link href="/dashboard" className="flex items-center gap-2">
+              {/* TODO  */}
+              {/* ADD LOGO */}
 
-          {/* <img src="/logo.svg" className="h-9 w-9" /> */}
-          <span className="text-lg font-bold">Hackathon</span>
-        </Link>
+              {/* <img src="/logo.svg" className="h-9 w-9" /> */}
+              <span className="text-lg font-bold">Hackathon</span>
+            </Link>
 
-        <button onClick={openSlideInMenu}>
-          <IconMenu className="h-6 w-6" />
-        </button>
-      </nav>
+            <button onClick={openSlideInMenu}>
+              <IconMenu className="h-6 w-6" />
+            </button>
+          </nav>
 
-      <aside className="sticky top-0 hidden h-screen w-80 shrink-0 flex-col items-center gap-6 bg-white px-6 py-10 shadow-xl lg:flex 2xl:w-96">
-        <div className="flex w-full items-center gap-6">
-          <Image priority src="/images/user-image.png" width={70} height={70} alt="user image" />
-          <p className="text-lg font-bold">Andrijan Tasevski</p>
-        </div>
+          <aside className="sticky top-0 hidden h-screen w-80 shrink-0 flex-col items-center gap-6 bg-white px-6 py-10 shadow-xl lg:flex 2xl:w-96">
+            <div className="flex w-full items-center gap-6">
+              <Image priority src="/images/user-image.png" width={70} height={70} alt="user image" />
+              <p className="text-lg font-bold">Andrijan Tasevski</p>
+            </div>
 
-        <Separator />
+            <Separator />
 
-        <div className="flex w-full flex-col gap-2">
-          <DashboardLink href="/dashboard">
-            <IconHome />
-            Home
-          </DashboardLink>
+            <div className="flex w-full flex-col gap-2">
+              <DashboardLink href="/dashboard">
+                <IconHome />
+                Home
+              </DashboardLink>
 
-          <DashboardLink href="/dashboard/create">
-            <IconCirclePlus />
-            Create
-          </DashboardLink>
+              <DashboardLink href="/dashboard/create">
+                <IconCirclePlus />
+                Create
+              </DashboardLink>
 
-          <DashboardLink href="/dashboard/academy">
-            <IconBackpack />
-            Academy
-          </DashboardLink>
+              <DashboardLink href="/dashboard/academy">
+                <IconBackpack />
+                Academy
+              </DashboardLink>
 
-          <DashboardLink href="/dashboard/tracking">
-            <IconGraph />
-            Tracking
-          </DashboardLink>
-        </div>
-      </aside>
+              <DashboardLink href="/dashboard/tracking">
+                <IconGraph />
+                Tracking
+              </DashboardLink>
+            </div>
+          </aside>
 
-      <section className="w-full">{children}</section>
+          <section className="w-full">{children}</section>
 
-      {isSlideInMenuOpen && <ModalNavigationMenu isSlideInMenuOpen={isSlideInMenuOpen} closeSlideInMenu={closeSlideInMenu} />}
-    </main>
+          {isSlideInMenuOpen && <ModalNavigationMenu isSlideInMenuOpen={isSlideInMenuOpen} closeSlideInMenu={closeSlideInMenu} />}
+        </main>
+      )}
+    </>
   );
 }

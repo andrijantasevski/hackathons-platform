@@ -48,7 +48,7 @@ export default function ForgotPassword() {
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 gap-4">
-              <InputRounded {...register("email", { required: true })} intent={errors.email ? "error" : "primary"} leadingIcon={<IconMail className="h-6 w-6" />} placeholderOffset="pl-14" errorMessage="Enter your email" id="emailInput" type="email" placeholder="Email">
+              <InputRounded withIcon {...register("email", { required: true })} intent={errors.email ? "error" : "primary"} leadingIcon={<IconMail className="h-6 w-6" />} placeholderOffset="pl-14" errorMessage="Enter your email" id="emailInput" type="email" placeholder="Email">
                 Email
               </InputRounded>
 

@@ -8,6 +8,7 @@ const loadingSpinner = cva(["animate-spin"], {
     size: {
       small: ["h-4", "w-4"],
       base: ["h-5", "w-5"],
+      large: ["h-8", "w-8"],
     },
   },
   defaultVariants: {

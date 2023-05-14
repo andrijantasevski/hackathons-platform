@@ -4,6 +4,7 @@ import type { NextPage } from "next";
 import type { ReactElement, ReactNode } from "react";
 import QueryLayout from "@/layouts/QueryLayout";
 import { Toaster } from "react-hot-toast";
+import UserContextProvider from "@/utils/userContext";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -17,9 +18,11 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
 
   return (
-    <QueryLayout>
-      {getLayout(<Component {...pageProps} />)}
-      <Toaster position="top-right" />
-    </QueryLayout>
+    <UserContextProvider>
+      <QueryLayout>
+        {getLayout(<Component {...pageProps} />)}
+        <Toaster position="top-right" />
+      </QueryLayout>
+    </UserContextProvider>
   );
 }
