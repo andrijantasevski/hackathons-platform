@@ -24,8 +24,6 @@ export default function useSignIn() {
       throw new Error("There was an error signing in the user!");
     }
 
-    console.log(response.json());
-
     return response.json();
   }
 

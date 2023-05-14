@@ -8,6 +8,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import useSignUp, { SignUpFormData } from "@/utils/useSignUp";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import { toast } from "react-hot-toast";
 
 export default function SignUp() {
   const router = useRouter();
@@ -26,7 +27,12 @@ export default function SignUp() {
       onSuccess: () => {
         reset();
 
-        router.push("/dashboard");
+        toast.success("Account created successfully!");
+
+        setTimeout(() => router.push("/dashboard"), 400);
+      },
+      onError: () => {
+        toast.error("There was an error signing you up!");
       },
     });
   };
@@ -39,9 +45,11 @@ export default function SignUp() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="relative flex min-h-screen w-full items-center justify-center bg-cloud bg-repeat-round">
-        <section className="mx-auto flex w-11/12 max-w-6xl rounded-lg bg-white shadow-lg">
-          <div className="flex w-full flex-col gap-6 p-10 lg:w-3/5 lg:px-20 lg:py-20">
+      <main className="relative mx-auto flex min-h-screen w-11/12 flex-col items-center justify-between gap-10 bg-cloud bg-repeat-round py-10">
+        <div className="w-full" />
+
+        <section className="mx-auto flex w-full max-w-6xl rounded-lg bg-white shadow-lg">
+          <div className="flex w-full flex-col gap-6 px-6 py-8 lg:w-3/5 lg:p-20">
             <div className="flex flex-col gap-2 text-center">
               <p className="text-2xl font-bold">Hello!</p>
               <p className="text-lg">Register to your account</p>
@@ -87,7 +95,7 @@ export default function SignUp() {
           </div>
         </section>
 
-        <div className="absolute bottom-10 flex items-center gap-20">
+        <div className="flex items-center gap-20">
           <Link href="https://www.brainster.co/">
             <Image src="/icons/Brainster-Logo1.svg" width={150} height={150} alt="Brainster Logo" />
           </Link>
