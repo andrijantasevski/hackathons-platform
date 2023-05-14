@@ -2,7 +2,7 @@ import { cva, VariantProps } from "class-variance-authority";
 import { IconExclamationCircle } from "@tabler/icons-react";
 import { forwardRef } from "react";
 
-const inputRounded = cva(["bg-transparent", "rounded-lg", "shadow-md", "p-3", "w-full", "focus:outline-none", "focus:ring-1", "border"], {
+const inputRounded = cva(["bg-white", "rounded-lg", "shadow-md", "p-3", "w-full", "focus:outline-none", "focus:ring-1", "border"], {
   variants: {
     intent: {
       // TODO

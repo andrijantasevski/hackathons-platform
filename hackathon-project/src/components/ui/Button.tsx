@@ -6,6 +6,7 @@ const button = cva(["font-medium", "transition-colors", "shadow-sm", "focus:outl
       primary: ["bg-primary", "text-white", "border-transparent", "hover:bg-primary-100", "focus:ring-primary-100"],
       error: ["bg-error-500", "text-white", "border-error-600", "hover:bg-error-600", "focus:ring-error-600"],
       loading: ["bg-primary-50", "text-white"],
+      disabled: ["bg-gray-100", "text-gray-400", "cursor-auto", "border-transparent"],
     },
     rounded: {
       sm: ["rounded-md"],

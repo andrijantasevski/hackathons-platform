@@ -1,21 +1,33 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
 export type SignInFormData = {
   email: string;
   password: string;
 };
 
-export default function useSignIn() {
-  async function signInUser() {
-    const res = await fetch("https://jsonplaceholder.typicode.com/users");
+// email: varus.varusanov@mail.com
+// password: Admin123#
 
-    if (!res.ok) {
+export default function useSignIn() {
+  async function signInUser(formData: SignInFormData) {
+    const formDataObj = new FormData();
+
+    formDataObj.set("email", formData.email);
+    formDataObj.set("password", formData.password);
+
+    const response = await fetch("https://david-petkovski.sharedwithexpose.com/api/auth/login", {
+      method: "POST",
+      body: formDataObj,
+    });
+
+    if (!response.ok) {
       throw new Error("There was an error signing in the user!");
     }
 
-    return res.json();
+    console.log(response.json());
+
+    return response.json();
   }
-  // TODO
-  // Add type of response
-  return useQuery({ queryKey: ["user"], queryFn: () => signInUser() });
+
+  return useMutation<SignInFormData, Error, SignInFormData>({ mutationFn: (formData) => signInUser(formData) });
 }
