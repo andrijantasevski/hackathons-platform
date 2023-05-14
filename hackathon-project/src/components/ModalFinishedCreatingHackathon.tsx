@@ -22,7 +22,7 @@ export default function ModalFinishedCreatingHackathon({ isModalShown, setIsModa
   }
 
   function copyLink() {
-    navigator.clipboard.writeText("https://hackathonlink.com/event/afasfafsaf");
+    navigator.clipboard.writeText("https://hackathonprojectbrainsterscidev.vercel.app/event/1");
     toast.success("Link copied!");
     setIsLinkCopied(true);
   }
@@ -71,7 +71,7 @@ export default function ModalFinishedCreatingHackathon({ isModalShown, setIsModa
                     <div className="flex items-center gap-2">
                       <IconLink />
 
-                      <p>https://hackathonlink.com/event/afasfafsaf</p>
+                      <p>https://hackathonprojectbrainsterscidev.vercel.app/event/1</p>
                     </div>
 
                     <Button onClick={copyLink}>{isLinkCopied ? "Copied" : "Copy"}</Button>
