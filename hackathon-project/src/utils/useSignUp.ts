@@ -8,7 +8,6 @@ export type SignUpFormData = {
 
 export default function useSignUp() {
   async function signUpUser(formData: SignUpFormData) {
-    // axios
     const response = await fetch("https://jsonplaceholder.typicode.com/users", {
       method: "POST",
       body: JSON.stringify(formData),

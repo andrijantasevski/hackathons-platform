@@ -54,8 +54,8 @@ export default function DashboardLayout({ children }: Props) {
   return (
     <>
       {!isLoading && user.isLoggedIn && (
-        <main className="relative flex min-h-screen flex-col bg-cloud bg-repeat-round lg:flex-row">
-          <nav className="mx-auto flex w-11/12 items-center justify-between rounded-lg bg-white p-4 pt-10 shadow-lg lg:hidden">
+        <main className="relative flex min-h-screen flex-col bg-cloud bg-repeat-round pt-6 lg:flex-row lg:pt-0">
+          <nav className="mx-auto flex w-11/12 items-center justify-between rounded-lg bg-white p-4 shadow-lg lg:hidden">
             <Link href="/dashboard" className="flex items-center gap-2">
               {/* TODO  */}
               {/* ADD LOGO */}
