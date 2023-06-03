@@ -1,14 +1,14 @@
-<svg width="857" height="715" viewBox="0 0 857 715" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g filter="url(#filter0_f_54_1048)">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M391.614 69.9539C461.243 75.993 515.831 111.462 567.099 149.123C621.127 188.81 676.934 229.98 687.87 287.579C700.425 353.699 685.347 424.937 628.943 474.831C569.994 526.975 480.042 553.451 391.614 549.639C307.203 546 235.389 505.034 178.874 455.43C125.732 408.786 94.1646 350.293 93.0426 287.579C91.9034 223.908 113.5 158.132 172.782 114.922C230.34 72.969 313.723 63.1981 391.614 69.9539Z" fill="url(#paint0_linear_54_1048)" fill-opacity="0.25"/>
+<svg width="929" height="812" viewBox="0 0 929 812" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_f_435_138)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M463.614 166.954C533.243 172.993 587.831 208.462 639.099 246.123C693.127 285.81 748.934 326.98 759.87 384.579C772.425 450.699 757.347 521.937 700.943 571.831C641.994 623.975 552.042 650.451 463.614 646.639C379.203 643 307.389 602.034 250.874 552.43C197.732 505.786 166.165 447.293 165.043 384.579C163.903 320.908 185.5 255.132 244.782 211.922C302.34 169.969 385.723 160.198 463.614 166.954Z" fill="url(#paint0_linear_435_138)" fill-opacity="0.25"/>
 </g>
 <defs>
-<filter id="filter0_f_54_1048" x="-72" y="-97" width="929" height="812" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter0_f_435_138" x="0" y="0" width="929" height="812" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
-<feGaussianBlur stdDeviation="82.5" result="effect1_foregroundBlur_54_1048"/>
+<feGaussianBlur stdDeviation="82.5" result="effect1_foregroundBlur_435_138"/>
 </filter>
-<linearGradient id="paint0_linear_54_1048" x1="291.274" y1="95.6494" x2="369.142" y2="518.991" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint0_linear_435_138" x1="363.274" y1="192.649" x2="441.142" y2="615.991" gradientUnits="userSpaceOnUse">
 <stop offset="0.255208" stop-color="#35339E"/>
 <stop offset="0.583248" stop-color="#51247E"/>
 <stop offset="1" stop-color="#270945"/>
