@@ -16,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/Select";
+import { Label } from "@/components/ui/Label";
 
 export type EventTypes = {
   name: string;
@@ -145,6 +146,7 @@ const Event: NextPage = () => {
                   rules={{ required: true }}
                   render={({ field: { onChange, value } }) => (
                     <div className="flex flex-col gap-2">
+                      <Label htmlFor="selectAcademy">Select an academy</Label>
                       <Select
                         isError={errors.academy}
                         errorMessage="Please select an academy"
@@ -152,6 +154,7 @@ const Event: NextPage = () => {
                         onValueChange={onChange}
                       >
                         <SelectTrigger
+                          id="selectAcademy"
                           intent={
                             errors.academy ? "underlined-error" : "underlined"
                           }
@@ -172,28 +175,31 @@ const Event: NextPage = () => {
               <InputContainer>
                 <Controller
                   control={control}
-                  defaultValue={""}
                   name="group"
                   rules={{ required: true }}
                   render={({ field: { onChange } }) => (
-                    <Select
-                      isError={errors.group}
-                      errorMessage="Please select a group"
-                      onValueChange={onChange}
-                    >
-                      <SelectTrigger
-                        intent={
-                          errors.group ? "underlined-error" : "underlined"
-                        }
+                    <div className="flex flex-col gap-2">
+                      <Label htmlFor="selectGroup">Select a group</Label>
+                      <Select
+                        isError={errors.group}
+                        errorMessage="Please select a group"
+                        onValueChange={onChange}
                       >
-                        <SelectValue placeholder="Select a group" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="1">Group 1</SelectItem>
-                        <SelectItem value="2">Group 2</SelectItem>
-                        <SelectItem value="3">Group 3</SelectItem>
-                      </SelectContent>
-                    </Select>
+                        <SelectTrigger
+                          id="selectGroup"
+                          intent={
+                            errors.group ? "underlined-error" : "underlined"
+                          }
+                        >
+                          <SelectValue placeholder="Select a group" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="1">Group 1</SelectItem>
+                          <SelectItem value="2">Group 2</SelectItem>
+                          <SelectItem value="3">Group 3</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
                   )}
                 />
               </InputContainer>

@@ -33,7 +33,6 @@ const selectTriggerVariants = cva(
     "items-center",
     "justify-between",
     "bg-white",
-    "placeholder:text-neutral-400",
     "focus:outline-none",
     "focus:ring-2",
     "focus:ring-primary",
@@ -44,12 +43,18 @@ const selectTriggerVariants = cva(
   {
     variants: {
       intent: {
-        primary: ["p-3", "shadow-lg", "rounded-md"],
+        primary: [
+          "p-3",
+          "shadow-lg",
+          "rounded-md",
+          "data-[placeholder]:text-neutral-400",
+        ],
         underlined: [
           "rounded-sm",
           "border-b-2",
           "border-neutral-900",
           "py-3 pr-3",
+          "data-[placeholder]:text-neutral-400",
         ],
         error: [],
         "underlined-error": [
@@ -58,6 +63,7 @@ const selectTriggerVariants = cva(
           "py-3",
           "pr-3",
           "text-error-500",
+          "data-[placeholder]:text-error-500",
         ],
       },
       defaultVariants: {
@@ -116,6 +122,18 @@ const SelectContent = React.forwardRef<
   </SelectPrimitive.Portal>
 ));
 SelectContent.displayName = SelectPrimitive.Content.displayName;
+
+const SelectLabel = React.forwardRef<
+  React.ElementRef<typeof SelectPrimitive.Label>,
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Label>
+>(({ className, ...props }, ref) => (
+  <SelectPrimitive.Label
+    ref={ref}
+    className={twMerge("py-1.5 pl-8 pr-2 text-sm font-semibold", className)}
+    {...props}
+  />
+));
+SelectLabel.displayName = SelectPrimitive.Label.displayName;
 
 const SelectItem = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Item>,
