@@ -1,6 +1,7 @@
 import { cva, VariantProps } from "class-variance-authority";
 import { IconExclamationCircle } from "@tabler/icons-react";
 import { forwardRef } from "react";
+import {twMerge} from "tailwind-merge";
 
 const inputUnderlinedVariants = cva(
   [
@@ -55,6 +56,7 @@ const InputUnderlined = forwardRef<HTMLInputElement, Props>(
       errorMessage,
       showLabel = true,
       placeholder,
+      className,
       ...props
     },
     ref
@@ -72,7 +74,7 @@ const InputUnderlined = forwardRef<HTMLInputElement, Props>(
           <input
             ref={ref}
             id={id}
-            className={inputUnderlinedVariants({ intent })}
+            className={twMerge(inputUnderlinedVariants({ intent }), className)}
             placeholder={placeholder}
             {...props}
           />
