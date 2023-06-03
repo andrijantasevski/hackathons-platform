@@ -58,30 +58,78 @@ const Event: NextPage = () => {
       </Head>
 
       <main className="bg-cloud bg-repeat-round text-center">
-        <Image priority className="hidden w-full lg:block" src="/images/hackathon-hero-image.png" width={1920} height={270} alt="People working at a hackathon behind computers." />
+        <Image
+          priority
+          className="hidden w-full lg:block"
+          src="/images/hackathon-hero-image.png"
+          width={1920}
+          height={270}
+          alt="People working at a hackathon behind computers."
+        />
 
         <section className="mx-auto w-11/12 max-w-4xl justify-center py-8 lg:py-10">
           <div className="flex flex-col gap-10">
             <div className="flex flex-col gap-4 text-center">
-              <h1 className="text-3xl font-bold lg:text-4xl">Please fill out this form!</h1>
-              <p className="text-lg">Join us for an exhilarating hackathon experience! Fill out the form below to register and unlock a world of creativity, collaboration, and innovation. Let{"'"}s embark on this exciting journey together!</p>
+              <h1 className="text-3xl font-bold lg:text-4xl">
+                Please fill out this form!
+              </h1>
+              <p className="text-lg">
+                Join us for an exhilarating hackathon experience! Fill out the
+                form below to register and unlock a world of creativity,
+                collaboration, and innovation. Let{"'"}s embark on this exciting
+                journey together!
+              </p>
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 gap-6">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="grid grid-cols-1 gap-6"
+            >
               <InputContainer>
-                <InputUnderlined {...register("name", { required: true })} intent={errors.name ? "error" : "primary"} errorMessage="Enter your full name" id="fullNameInput" type="text" placeholder="Full name" hideLabel={true}>
+                <InputUnderlined
+                  {...register("name", { required: true })}
+                  intent={errors.name ? "error" : "primary"}
+                  errorMessage="Enter your full name"
+                  id="fullNameInput"
+                  type="text"
+                  placeholder="Full name"
+                  hideLabel={true}
+                >
                   Name and surname
                 </InputUnderlined>
               </InputContainer>
 
               <InputContainer>
-                <InputUnderlined {...register("email", { required: true, pattern: /^[A-Za-z0-9+_.-]+@(.+)$/ })} intent={errors.email ? "error" : "primary"} errorMessage="Enter your email" id="emailInput" type="email" placeholder="example@email.com" hideLabel={true}>
+                <InputUnderlined
+                  {...register("email", {
+                    required: true,
+                    pattern: /^[A-Za-z0-9+_.-]+@(.+)$/,
+                  })}
+                  intent={errors.email ? "error" : "primary"}
+                  errorMessage="Enter your email"
+                  id="emailInput"
+                  type="email"
+                  placeholder="example@email.com"
+                  hideLabel={true}
+                >
                   E-mail
                 </InputUnderlined>
               </InputContainer>
 
               <InputContainer>
-                <InputUnderlined {...register("phoneNumber", { required: true, pattern: /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/gm })} intent={errors.phoneNumber ? "error" : "primary"} errorMessage="Enter your phone number" id="phoneNumberInput" type="tel" placeholder="Phone number" hideLabel={true}>
+                <InputUnderlined
+                  {...register("phoneNumber", {
+                    required: true,
+                    pattern:
+                      /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/gm,
+                  })}
+                  intent={errors.phoneNumber ? "error" : "primary"}
+                  errorMessage="Enter your phone number"
+                  id="phoneNumberInput"
+                  type="tel"
+                  placeholder="Phone number"
+                  hideLabel={true}
+                >
                   Phone number
                 </InputUnderlined>
               </InputContainer>
@@ -99,7 +147,11 @@ const Event: NextPage = () => {
                       intent={errors.academy ? "error" : "primary"}
                       errorMessage="Select an academy"
                       selectOptions={[
-                        { title: "Select an academy", value: "", disabled: true },
+                        {
+                          title: "Select an academy",
+                          value: "",
+                          disabled: true,
+                        },
                         { title: "Option 1", value: "hi2", disabled: false },
                         { title: "Option 2", value: "hi3", disabled: false },
                         { title: "Option 3", value: "hi1", disabled: false },
@@ -135,7 +187,10 @@ const Event: NextPage = () => {
               </InputContainer>
 
               <InputContainer>
-                <p className="mb-3 text-left font-bold">Are you ready for 48h work and availability during the hackaton?</p>
+                <p className="mb-3 text-left font-bold">
+                  Are you ready for 48h work and availability during the
+                  hackaton?
+                </p>
                 <Controller
                   control={control}
                   defaultValue={""}
@@ -157,7 +212,9 @@ const Event: NextPage = () => {
               </InputContainer>
 
               <InputContainer>
-                <p className="mb-3 text-left font-bold">Will you be joining us online or in person?</p>
+                <p className="mb-3 text-left font-bold">
+                  Will you be joining us online or in person?
+                </p>
                 <Controller
                   control={control}
                   name="presence"
@@ -179,7 +236,9 @@ const Event: NextPage = () => {
               </InputContainer>
 
               <InputContainer>
-                <p className="mb-3 text-left font-bold">Tell us your food preferences</p>
+                <p className="mb-3 text-left font-bold">
+                  Tell us your food preferences
+                </p>
                 <Controller
                   control={control}
                   name="food"
@@ -194,7 +253,10 @@ const Event: NextPage = () => {
                       radioGroupOptions={[
                         { title: "Vegetarian", value: "vegetarian" },
                         { title: "Vegan", value: "vegan" },
-                        { title: "I don't have preferences", value: "noPreferences" },
+                        {
+                          title: "I don't have preferences",
+                          value: "noPreferences",
+                        },
                       ]}
                     />
                   )}
@@ -202,12 +264,20 @@ const Event: NextPage = () => {
               </InputContainer>
 
               <InputContainer>
-                <InputUnderlined {...register("comment")} intent={errors.comment ? "error" : "primary"} errorMessage="Enter a message" id="commentInput" type="text" placeholder="Your message" hideLabel={true}>
+                <InputUnderlined
+                  {...register("comment")}
+                  intent={errors.comment ? "error" : "primary"}
+                  errorMessage="Enter a message"
+                  id="commentInput"
+                  type="text"
+                  placeholder="Your message"
+                  hideLabel={true}
+                >
                   Anything else you would like to mention?
                 </InputUnderlined>
               </InputContainer>
 
-              <Button intent="primary" rounded="sm" size="lg" type="submit">
+              <Button intent="primary" size="lg" type="submit">
                 Confirm
               </Button>
             </form>
@@ -215,7 +285,12 @@ const Event: NextPage = () => {
         </section>
       </main>
 
-      {isModalShown && <ModalFinishedForm isModalShown={isModalShown} setIsModalShown={setIsModalShown} />}
+      {isModalShown && (
+        <ModalFinishedForm
+          isModalShown={isModalShown}
+          setIsModalShown={setIsModalShown}
+        />
+      )}
     </>
   );
 };
