@@ -93,7 +93,6 @@ const Event: NextPage = () => {
                   id="fullNameInput"
                   type="text"
                   placeholder="Full name"
-                  hideLabel={true}
                 >
                   Name and surname
                 </InputUnderlined>
@@ -110,7 +109,6 @@ const Event: NextPage = () => {
                   id="emailInput"
                   type="email"
                   placeholder="example@email.com"
-                  hideLabel={true}
                 >
                   E-mail
                 </InputUnderlined>
@@ -128,7 +126,6 @@ const Event: NextPage = () => {
                   id="phoneNumberInput"
                   type="tel"
                   placeholder="Phone number"
-                  hideLabel={true}
                 >
                   Phone number
                 </InputUnderlined>
@@ -271,14 +268,13 @@ const Event: NextPage = () => {
                   id="commentInput"
                   type="text"
                   placeholder="Your message"
-                  hideLabel={true}
                 >
                   Anything else you would like to mention?
                 </InputUnderlined>
               </InputContainer>
 
               <Button intent="primary" size="lg" type="submit">
-                Confirm
+                Submit
               </Button>
             </form>
           </div>
