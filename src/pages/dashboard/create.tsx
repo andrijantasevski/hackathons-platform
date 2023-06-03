@@ -114,7 +114,7 @@ const DashboardCreate: NextPageWithLayout = () => {
           <div className="flex w-full flex-col gap-4 lg:w-7/12 lg:pr-10">
             <div className="flex flex-col gap-1">
               <p className="font-bold">Name</p>
-              <InputRounded intent={errors.title ? "error" : "primary"} {...register("title", { required: true })} withIcon={false} errorMessage="Enter a name for the event" id="nameInput" type="text" placeholder="Name of the event">
+              <InputRounded intent={errors.title ? "error" : "primary"} {...register("title", { required: true })} errorMessage="Enter a name for the event" id="nameInput" type="text" placeholder="Name of the event">
                 Name
               </InputRounded>
             </div>
@@ -123,15 +123,15 @@ const DashboardCreate: NextPageWithLayout = () => {
               <p className="font-bold">Date</p>
 
               <div className="flex flex-col gap-2">
-                <InputRounded intent={errors.application_deadline ? "error" : "primary"} {...register("application_deadline", { required: true })} withIcon={false} errorMessage="Enter a date for the deadline" id="deadlineInput" type="date" placeholder="Deadline for application">
+                <InputRounded intent={errors.application_deadline ? "error" : "primary"} {...register("application_deadline", { required: true })} errorMessage="Enter a date for the deadline" id="deadlineInput" type="date" placeholder="Deadline for application">
                   Deadline for application
                 </InputRounded>
 
-                <InputRounded intent={errors.start_date ? "error" : "primary"} {...register("start_date", { required: true })} withIcon={false} errorMessage="Enter a date for the start of the hackathon" id="startDateInput" type="date" placeholder="Start of hackathon">
+                <InputRounded intent={errors.start_date ? "error" : "primary"} {...register("start_date", { required: true })} errorMessage="Enter a date for the start of the hackathon" id="startDateInput" type="date" placeholder="Start of hackathon">
                   Start of hackathon
                 </InputRounded>
 
-                <InputRounded intent={errors.end_date ? "error" : "primary"} {...register("end_date", { required: true })} withIcon={false} errorMessage="Enter a date for the end of the hackathon" id="endDateInput" type="date" placeholder="End of hackathon">
+                <InputRounded intent={errors.end_date ? "error" : "primary"} {...register("end_date", { required: true })} errorMessage="Enter a date for the end of the hackathon" id="endDateInput" type="date" placeholder="End of hackathon">
                   End of hackathon
                 </InputRounded>
               </div>
