@@ -1,6 +1,5 @@
 import Button from "@/components/ui/Button";
 import InputRadioGroup from "@/components/ui/InputRadioGroup";
-import InputSelect from "@/components/ui/InputSelect";
 import InputUnderlined from "@/components/ui/InputUnderlined";
 import type { NextPage } from "next";
 import Head from "next/head";
@@ -10,6 +9,13 @@ import { useRouter } from "next/router";
 import ModalFinishedForm from "@/components/ModalFinishedForm";
 import { useState } from "react";
 import useAddRegistration from "@/utils/useAddRegistration";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/Select";
 
 export type EventTypes = {
   name: string;
@@ -45,6 +51,7 @@ const Event: NextPage = () => {
   } = useForm<EventTypes>();
 
   const onSubmit: SubmitHandler<EventTypes> = (data) => {
+    console.log(data);
     const formData = { ...data, event_id: eventId };
     mutate(formData, { onSuccess: () => setIsModalShown(true) });
   };
@@ -133,27 +140,31 @@ const Event: NextPage = () => {
 
               <InputContainer>
                 <Controller
-                  defaultValue={""}
                   control={control}
                   name="academy"
                   rules={{ required: true }}
-                  render={({ field: { onChange } }) => (
-                    <InputSelect
-                      onChangeController={onChange}
-                      label="Select academy:"
-                      intent={errors.academy ? "error" : "primary"}
-                      errorMessage="Select an academy"
-                      selectOptions={[
-                        {
-                          title: "Select an academy",
-                          value: "",
-                          disabled: true,
-                        },
-                        { title: "Option 1", value: "hi2", disabled: false },
-                        { title: "Option 2", value: "hi3", disabled: false },
-                        { title: "Option 3", value: "hi1", disabled: false },
-                      ]}
-                    />
+                  render={({ field: { onChange, value } }) => (
+                    <div className="flex flex-col gap-2">
+                      <Select
+                        isError={errors.academy}
+                        errorMessage="Please select an academy"
+                        defaultValue={value}
+                        onValueChange={onChange}
+                      >
+                        <SelectTrigger
+                          intent={
+                            errors.academy ? "underlined-error" : "underlined"
+                          }
+                        >
+                          <SelectValue placeholder="Select an academy" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="fe">Front-End</SelectItem>
+                          <SelectItem value="be">Back-End</SelectItem>
+                          <SelectItem value="qa">Quality Assurance</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
                   )}
                 />
               </InputContainer>
@@ -165,20 +176,24 @@ const Event: NextPage = () => {
                   name="group"
                   rules={{ required: true }}
                   render={({ field: { onChange } }) => (
-                    <InputSelect
-                      onChangeController={onChange}
-                      label="Select group:"
-                      intent={errors.group ? "error" : "primary"}
-                      errorMessage="Select a group"
-                      selectOptions={[
-                        { title: "Select a group", value: "", disabled: true },
-                        { title: "Group 1", value: "1", disabled: false },
-                        { title: "Group 2", value: "2", disabled: false },
-                        { title: "Group 3", value: "3", disabled: false },
-                        { title: "Group 4", value: "4", disabled: false },
-                        { title: "Group 5", value: "5", disabled: false },
-                      ]}
-                    />
+                    <Select
+                      isError={errors.group}
+                      errorMessage="Please select a group"
+                      onValueChange={onChange}
+                    >
+                      <SelectTrigger
+                        intent={
+                          errors.group ? "underlined-error" : "underlined"
+                        }
+                      >
+                        <SelectValue placeholder="Select a group" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="1">Group 1</SelectItem>
+                        <SelectItem value="2">Group 2</SelectItem>
+                        <SelectItem value="3">Group 3</SelectItem>
+                      </SelectContent>
+                    </Select>
                   )}
                 />
               </InputContainer>

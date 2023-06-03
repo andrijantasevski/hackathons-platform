@@ -11,6 +11,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.14",
     "@radix-ui/react-menubar": "^1.0.2",
+    "@radix-ui/react-select": "^1.2.2",
     "@radix-ui/react-slot": "^1.0.2",
     "@tabler/icons-react": "^2.18.0",
     "@tanstack/react-query": "^4.29.5",
@@ -40,6 +41,7 @@
     "@types/react-json-to-csv": "^1.2.0",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.2.8",
-    "sass": "^1.62.1"
+    "sass": "^1.62.1",
+    "tailwindcss-animate": "^1.0.5"
   }
 }

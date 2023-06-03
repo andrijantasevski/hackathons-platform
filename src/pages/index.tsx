@@ -1,7 +1,7 @@
 import Button from "@/components/ui/Button";
 import InputRounded from "@/components/ui/InputRounded";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
-import { IconMail, IconUserCircle, IconLock } from "@tabler/icons-react";
+import { IconMail, IconLock } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -9,6 +9,13 @@ import useSignIn, { type SignInFormData } from "@/utils/useSignIn";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { toast } from "react-hot-toast";
+import {
+  Select,
+  SelectContent,
+  SelectTrigger,
+  SelectValue,
+  SelectItem,
+} from "@/components/ui/Select";
 
 export default function SignIn() {
   const router = useRouter();
@@ -59,13 +66,36 @@ export default function SignIn() {
               <p className="text-lg">Sign in to your account</p>
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 gap-4">
-              <InputRounded showLabel={false} {...register("email", { required: true })} intent={errors.email ? "error" : "primary"} leadingIcon={<IconMail className="h-6 w-6" />} placeholderOffset="pl-14" errorMessage="Enter your email" id="emailInput" type="email" placeholder="Email">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="grid grid-cols-1 gap-4"
+            >
+              <InputRounded
+                showLabel={false}
+                {...register("email", { required: true })}
+                intent={errors.email ? "error" : "primary"}
+                leadingIcon={<IconMail className="h-6 w-6" />}
+                placeholderOffset="pl-14"
+                errorMessage="Enter your email"
+                id="emailInput"
+                type="email"
+                placeholder="Email"
+              >
                 Email
               </InputRounded>
 
               <div className="flex flex-col gap-2">
-                <InputRounded showLabel={false} {...register("password", { required: true, minLength: 8 })} intent={errors.password ? "error" : "primary"} leadingIcon={<IconLock className="h-6 w-6" />} placeholderOffset="pl-14" errorMessage="Enter a password" id="passwordInput" type="password" placeholder="Password">
+                <InputRounded
+                  showLabel={false}
+                  {...register("password", { required: true, minLength: 8 })}
+                  intent={errors.password ? "error" : "primary"}
+                  leadingIcon={<IconLock className="h-6 w-6" />}
+                  placeholderOffset="pl-14"
+                  errorMessage="Enter a password"
+                  id="passwordInput"
+                  type="password"
+                  placeholder="Password"
+                >
                   Password
                 </InputRounded>
 
@@ -74,7 +104,11 @@ export default function SignIn() {
                 </div>
               </div>
 
-              <Button intent={isLoading ? "loading" : "primary"} disabled={isLoading} size="lg">
+              <Button
+                intent={isLoading ? "loading" : "primary"}
+                disabled={isLoading}
+                size="lg"
+              >
                 {!isLoading && !isSuccess && "Sign in"}
                 {isLoading && (
                   <div className="flex items-center gap-1">
@@ -96,21 +130,37 @@ export default function SignIn() {
           </div>
 
           <div className="gradient-primary hidden w-2/5 flex-col items-center justify-center gap-4 rounded-lg p-10 lg:flex">
-            <p className="text-center text-2xl font-bold text-white">Welcome back!</p>
+            <p className="text-center text-2xl font-bold text-white">
+              Welcome back!
+            </p>
 
             <p className="text-center text-gray-200">
-              Welcome back to our Hackathon app! We{"'"}ve added new features based on your feedback. Whether you{"'"}re planning or participating in a hackathon, our platform is here to support you. Thanks for choosing our app and we can{"'"}t wait to see your next great project!
+              Welcome back to our Hackathon app! We{"'"}ve added new features
+              based on your feedback. Whether you{"'"}re planning or
+              participating in a hackathon, our platform is here to support you.
+              Thanks for choosing our app and we can{"'"}t wait to see your next
+              great project!
             </p>
           </div>
         </section>
 
         <div className="flex items-center gap-20">
           <Link href="https://www.brainster.co/">
-            <Image src="/icons/Brainster-Logo1.svg" width={150} height={150} alt="Brainster Logo" />
+            <Image
+              src="/icons/Brainster-Logo1.svg"
+              width={150}
+              height={150}
+              alt="Brainster Logo"
+            />
           </Link>
 
           <Link href="https://scidevcenter.org/">
-            <Image src="/icons/LogoSCiDEV1.svg" width={150} height={150} alt="Brainster Logo" />
+            <Image
+              src="/icons/LogoSCiDEV1.svg"
+              width={150}
+              height={150}
+              alt="Brainster Logo"
+            />
           </Link>
         </div>
       </main>
