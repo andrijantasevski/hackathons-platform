@@ -17,6 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/Select";
 import { Label } from "@/components/ui/Label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/RadioGroup";
 
 export type EventTypes = {
   name: string;
@@ -146,7 +147,9 @@ const Event: NextPage = () => {
                   rules={{ required: true }}
                   render={({ field: { onChange, value } }) => (
                     <div className="flex flex-col gap-2">
-                      <Label htmlFor="selectAcademy">Select an academy</Label>
+                      <Label fontWeight="bold" htmlFor="selectAcademy">
+                        Select an academy
+                      </Label>
                       <Select
                         isError={errors.academy}
                         errorMessage="Please select an academy"
@@ -179,7 +182,9 @@ const Event: NextPage = () => {
                   rules={{ required: true }}
                   render={({ field: { onChange } }) => (
                     <div className="flex flex-col gap-2">
-                      <Label htmlFor="selectGroup">Select a group</Label>
+                      <Label fontWeight="bold" htmlFor="selectGroup">
+                        Select a group
+                      </Label>
                       <Select
                         isError={errors.group}
                         errorMessage="Please select a group"
@@ -215,16 +220,20 @@ const Event: NextPage = () => {
                   name="availability"
                   rules={{ required: true }}
                   render={({ field: { onChange, value } }) => (
-                    <InputRadioGroup
-                      fieldValue={value}
-                      onChangeController={onChange}
-                      intent={errors.availability ? "error" : "primary"}
-                      errorMessage="Select availability"
-                      radioGroupOptions={[
-                        { title: "Yes", value: "yes" },
-                        { title: "No", value: "no" },
-                      ]}
-                    />
+                    <RadioGroup onValueChange={onChange} defaultValue="">
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem
+                          intent={errors.availability ? "error" : "primary"}
+                          value="option-one"
+                          id="option-one"
+                        />
+                        <Label intent={errors.availability ? "error" : "primary"} htmlFor="option-one">Option One</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="option-two" id="option-two" />
+                        <Label htmlFor="option-two">Option Two</Label>
+                      </div>
+                    </RadioGroup>
                   )}
                 />
               </InputContainer>
