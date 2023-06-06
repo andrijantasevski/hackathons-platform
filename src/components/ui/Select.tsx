@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as SelectPrimitive from "@radix-ui/react-select";
+import * as ScrollArea from "@radix-ui/react-scroll-area";
 import { twMerge } from "tailwind-merge";
 import { IconCheck, IconChevronDown } from "@tabler/icons-react";
 import { cva, type VariantProps } from "class-variance-authority";
@@ -103,21 +104,26 @@ const SelectContent = React.forwardRef<
       ref={ref}
       className={twMerge(
         "relative z-50 overflow-hidden rounded-md border bg-neutral-50 text-neutral-950 shadow-md animate-in fade-in-80",
-        position === "popper" && "translate-y-1",
+        position === "popper" &&
+          "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)] translate-y-1",
         className
       )}
       position={position}
       {...props}
     >
-      <SelectPrimitive.Viewport
-        className={twMerge(
-          "p-3",
-          position === "popper" &&
-            "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]"
-        )}
-      >
-        {children}
-      </SelectPrimitive.Viewport>
+      <ScrollArea.Root className="h-full w-full" type="auto">
+        <SelectPrimitive.Viewport asChild className={twMerge("p-3")}>
+          <ScrollArea.Viewport className="h-full w-full">
+            {children}
+          </ScrollArea.Viewport>
+        </SelectPrimitive.Viewport>
+        <ScrollArea.Scrollbar
+          className="w-6 px-0.5 py-1"
+          orientation="vertical"
+        >
+          <ScrollArea.Thumb className="rounded-md bg-gray-200" />
+        </ScrollArea.Scrollbar>
+      </ScrollArea.Root>
     </SelectPrimitive.Content>
   </SelectPrimitive.Portal>
 ));

@@ -18,13 +18,14 @@ import {
 } from "@/components/ui/Select";
 import { Label } from "@/components/ui/Label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/RadioGroup";
+import useGetAcademies from "@/utils/useGetAcademies";
 
 export type EventTypes = {
   name: string;
   email: string;
-  phoneNumber: string;
-  academy: string;
-  group: string;
+  phone: string;
+  academy_id: number;
+  group: number;
   availability: string;
   presence: string;
   food: string;
@@ -43,6 +44,8 @@ const Event: NextPage = () => {
   const [isModalShown, setIsModalShown] = useState(false);
 
   const { mutate } = useAddRegistration();
+
+  const { data: academies } = useGetAcademies();
 
   const {
     register,
@@ -125,12 +128,12 @@ const Event: NextPage = () => {
 
               <InputContainer>
                 <InputUnderlined
-                  {...register("phoneNumber", {
+                  {...register("phone", {
                     required: true,
                     pattern:
                       /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/gm,
                   })}
-                  intent={errors.phoneNumber ? "error" : "primary"}
+                  intent={errors.phone ? "error" : "primary"}
                   errorMessage="Enter your phone number"
                   id="phoneNumberInput"
                   type="tel"
@@ -143,7 +146,7 @@ const Event: NextPage = () => {
               <InputContainer>
                 <Controller
                   control={control}
-                  name="academy"
+                  name="academy_id"
                   rules={{ required: true }}
                   render={({ field: { onChange, value } }) => (
                     <div className="flex flex-col gap-2">
@@ -151,23 +154,29 @@ const Event: NextPage = () => {
                         Select an academy
                       </Label>
                       <Select
-                        isError={errors.academy}
+                        isError={errors.academy_id}
                         errorMessage="Please select an academy"
-                        defaultValue={value}
                         onValueChange={onChange}
                       >
                         <SelectTrigger
                           id="selectAcademy"
                           intent={
-                            errors.academy ? "underlined-error" : "underlined"
+                            errors.academy_id
+                              ? "underlined-error"
+                              : "underlined"
                           }
                         >
                           <SelectValue placeholder="Select an academy" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="fe">Front-End</SelectItem>
-                          <SelectItem value="be">Back-End</SelectItem>
-                          <SelectItem value="qa">Quality Assurance</SelectItem>
+                          {academies && academies.academies.map((academy) => (
+                            <SelectItem
+                              key={academy.id}
+                              value={String(academy.id)}
+                            >
+                              {academy.academy_name}
+                            </SelectItem>
+                          ))}
                         </SelectContent>
                       </Select>
                     </div>
@@ -224,14 +233,19 @@ const Event: NextPage = () => {
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem
                           intent={errors.availability ? "error" : "primary"}
-                          value="option-one"
-                          id="option-one"
+                          value="yes"
+                          id="availabilityYes"
                         />
-                        <Label intent={errors.availability ? "error" : "primary"} htmlFor="option-one">Option One</Label>
+                        <Label
+                          intent={errors.availability ? "error" : "primary"}
+                          htmlFor="availabilityYes"
+                        >
+                          Option One
+                        </Label>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="option-two" id="option-two" />
-                        <Label htmlFor="option-two">Option Two</Label>
+                        <RadioGroupItem value="no" id="availabilityNo" />
+                        <Label htmlFor="availabilityNo">Option Two</Label>
                       </div>
                     </RadioGroup>
                   )}
@@ -255,7 +269,7 @@ const Event: NextPage = () => {
                       errorMessage="Select presence"
                       radioGroupOptions={[
                         { title: "Online", value: "online" },
-                        { title: "In person", value: "inPerson" },
+                        { title: "Live", value: "live" },
                       ]}
                     />
                   )}
@@ -282,7 +296,7 @@ const Event: NextPage = () => {
                         { title: "Vegan", value: "vegan" },
                         {
                           title: "I don't have preferences",
-                          value: "noPreferences",
+                          value: "no_preferences",
                         },
                       ]}
                     />
