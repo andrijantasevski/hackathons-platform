@@ -17,7 +17,11 @@ import {
   SelectValue,
 } from "@/components/ui/Select";
 import { Label } from "@/components/ui/Label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/RadioGroup";
+import {
+  RadioGroup,
+  RadioGroupItem,
+  RadioGroupTitle,
+} from "@/components/ui/RadioGroup";
 import useGetAcademies from "@/utils/useGetAcademies";
 
 export type EventTypes = {
@@ -220,10 +224,10 @@ const Event: NextPage = () => {
               </InputContainer>
 
               <InputContainer>
-                <p className="mb-3 text-left font-bold">
+                <RadioGroupTitle>
                   Are you ready for 48h work and availability during the
                   hackaton?
-                </p>
+                </RadioGroupTitle>
                 <Controller
                   control={control}
                   defaultValue={""}
@@ -241,12 +245,19 @@ const Event: NextPage = () => {
                           intent={errors.availability ? "error" : "primary"}
                           htmlFor="availabilityYes"
                         >
-                          Option One
+                          Yes
                         </Label>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="no" id="availabilityNo" />
-                        <Label htmlFor="availabilityNo">Option Two</Label>
+                        <RadioGroupItem intent={errors.availability ? "error" : "primary"} value="no" id="availabilityNo" />
+                        <Label intent={errors.availability ? "error" : "primary"} htmlFor="availabilityNo">No</Label>
+                      </div>
+                      <div>
+                        {errors.availability && (
+                          <p className="text-left text-error-500">
+                            Please choose availability
+                          </p>
+                        )}
                       </div>
                     </RadioGroup>
                   )}
@@ -254,25 +265,41 @@ const Event: NextPage = () => {
               </InputContainer>
 
               <InputContainer>
-                <p className="mb-3 text-left font-bold">
+                <RadioGroupTitle>
                   Will you be joining us online or in person?
-                </p>
+                </RadioGroupTitle>
                 <Controller
                   control={control}
                   name="presence"
                   defaultValue={""}
                   rules={{ required: true }}
                   render={({ field: { onChange, value } }) => (
-                    <InputRadioGroup
-                      fieldValue={value}
-                      onChangeController={onChange}
-                      intent={errors.presence ? "error" : "primary"}
-                      errorMessage="Select presence"
-                      radioGroupOptions={[
-                        { title: "Online", value: "online" },
-                        { title: "Live", value: "live" },
-                      ]}
-                    />
+                    <RadioGroup onValueChange={onChange} defaultValue="">
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem
+                          intent={errors.presence ? "error" : "primary"}
+                          value="live"
+                          id="live"
+                        />
+                        <Label
+                          intent={errors.presence ? "error" : "primary"}
+                          htmlFor="live"
+                        >
+                          Live
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem intent={errors.presence ? "error" : "primary"} value="no" id="online" />
+                        <Label intent={errors.presence ? "error" : "primary"} htmlFor="online">Online</Label>
+                      </div>
+                      <div>
+                        {errors.availability && (
+                          <p className="text-left text-error-500">
+                            Please select presence
+                          </p>
+                        )}
+                      </div>
+                    </RadioGroup>
                   )}
                 />
               </InputContainer>
@@ -287,20 +314,40 @@ const Event: NextPage = () => {
                   defaultValue={""}
                   rules={{ required: true }}
                   render={({ field: { onChange, value } }) => (
-                    <InputRadioGroup
-                      fieldValue={value}
-                      onChangeController={onChange}
-                      intent={errors.food ? "error" : "primary"}
-                      errorMessage="Select food"
-                      radioGroupOptions={[
-                        { title: "Vegetarian", value: "vegetarian" },
-                        { title: "Vegan", value: "vegan" },
-                        {
-                          title: "I don't have preferences",
-                          value: "no_preferences",
-                        },
-                      ]}
-                    />
+                    <RadioGroup onValueChange={onChange} defaultValue="">
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem
+                          intent={errors.food ? "error" : "primary"}
+                          value="vegetarian"
+                          id="vegetarian"
+                        />
+                        <Label
+                          intent={errors.food ? "error" : "primary"}
+                          htmlFor="live"
+                        >
+                          Vegetarian
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem intent={errors.food ? "error" : "primary"} value="vegan" id="vegan" />
+                        <Label intent={errors.food ? "error" : "primary"} htmlFor="vegan">Vegan</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem
+                        intent={errors.food ? "error" : "primary"}
+                          value="no_preferences"
+                          id="noPreferences"
+                        />
+                        <Label intent={errors.food ? "error" : "primary"} htmlFor="noPreferences">No preferences</Label>
+                      </div>
+                      <div>
+                        {errors.availability && (
+                          <p className="text-left text-error-500">
+                            Select presence
+                          </p>
+                        )}
+                      </div>
+                    </RadioGroup>
                   )}
                 />
               </InputContainer>

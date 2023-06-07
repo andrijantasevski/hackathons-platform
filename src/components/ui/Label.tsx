@@ -27,10 +27,10 @@ const Label = React.forwardRef<
   React.ElementRef<typeof LabelPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> &
     VariantProps<typeof labelVariants>
->(({ className, fontWeight, ...props }, ref) => (
+>(({ className, fontWeight,intent, ...props }, ref) => (
   <LabelPrimitive.Root
     ref={ref}
-    className={twMerge(labelVariants({ fontWeight }), className)}
+    className={twMerge(labelVariants({ intent, fontWeight }), className)}
     {...props}
   />
 ));

@@ -42,10 +42,10 @@ const radioGroupItemVariants = cva(
     "ring-offset-background",
     "focus-visible:ring-ring",
     "aspect-square",
-    "h-4",
-    "w-4",
+    "h-5",
+    "w-5",
     "rounded-full",
-    "border",
+    "border-2",
     "focus:outline-none",
     "focus-visible:ring-2",
     "focus-visible:ring-offset-2",
@@ -56,7 +56,7 @@ const radioGroupItemVariants = cva(
     variants: {
       intent: {
         primary: ["border-neutral-950", "text-primary"],
-        error: ["border-error-500"]
+        error: ["border-error-500"],
       },
     },
     defaultVariants: { intent: "primary" },
@@ -78,11 +78,19 @@ const RadioGroupItem = React.forwardRef<
       {...props}
     >
       <RadioGroupPrimitive.Indicator className="flex items-center justify-center">
-        <IconCircleFilled className="h-2.5 w-2.5 fill-current text-current" />
+        <IconCircleFilled className="h-3 w-3 fill-current text-current" />
       </RadioGroupPrimitive.Indicator>
     </RadioGroupPrimitive.Item>
   );
 });
 RadioGroupItem.displayName = RadioGroupPrimitive.Item.displayName;
 
-export { RadioGroup, RadioGroupItem };
+type RadioGroupTitleProps = {
+  children: React.ReactNode;
+};
+
+const RadioGroupTitle = ({ children }: RadioGroupTitleProps) => {
+  return <p className="mb-3 text-left font-bold">{children}</p>;
+};
+
+export { RadioGroup, RadioGroupItem, RadioGroupTitle };
