@@ -1,6 +1,5 @@
 import Button from "@/components/ui/Button";
 import InputRadioGroup from "@/components/ui/InputRadioGroup";
-import InputSelect from "@/components/ui/InputSelect";
 import InputUnderlined from "@/components/ui/InputUnderlined";
 import type { NextPage } from "next";
 import Head from "next/head";
@@ -10,13 +9,27 @@ import { useRouter } from "next/router";
 import ModalFinishedForm from "@/components/ModalFinishedForm";
 import { useState } from "react";
 import useAddRegistration from "@/utils/useAddRegistration";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/Select";
+import { Label } from "@/components/ui/Label";
+import {
+  RadioGroup,
+  RadioGroupItem,
+  RadioGroupTitle,
+} from "@/components/ui/RadioGroup";
+import useGetAcademies from "@/utils/useGetAcademies";
 
 export type EventTypes = {
   name: string;
   email: string;
-  phoneNumber: string;
-  academy: string;
-  group: string;
+  phone: string;
+  academy_id: number;
+  group: number;
   availability: string;
   presence: string;
   food: string;
@@ -36,6 +49,8 @@ const Event: NextPage = () => {
 
   const { mutate } = useAddRegistration();
 
+  const { data: academies } = useGetAcademies();
+
   const {
     register,
     formState: { errors },
@@ -45,6 +60,7 @@ const Event: NextPage = () => {
   } = useForm<EventTypes>();
 
   const onSubmit: SubmitHandler<EventTypes> = (data) => {
+    console.log(data);
     const formData = { ...data, event_id: eventId };
     mutate(formData, { onSuccess: () => setIsModalShown(true) });
   };
@@ -93,7 +109,6 @@ const Event: NextPage = () => {
                   id="fullNameInput"
                   type="text"
                   placeholder="Full name"
-                  hideLabel={true}
                 >
                   Name and surname
                 </InputUnderlined>
@@ -110,7 +125,6 @@ const Event: NextPage = () => {
                   id="emailInput"
                   type="email"
                   placeholder="example@email.com"
-                  hideLabel={true}
                 >
                   E-mail
                 </InputUnderlined>
@@ -118,17 +132,16 @@ const Event: NextPage = () => {
 
               <InputContainer>
                 <InputUnderlined
-                  {...register("phoneNumber", {
+                  {...register("phone", {
                     required: true,
                     pattern:
                       /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/gm,
                   })}
-                  intent={errors.phoneNumber ? "error" : "primary"}
+                  intent={errors.phone ? "error" : "primary"}
                   errorMessage="Enter your phone number"
                   id="phoneNumberInput"
                   type="tel"
                   placeholder="Phone number"
-                  hideLabel={true}
                 >
                   Phone number
                 </InputUnderlined>
@@ -136,27 +149,42 @@ const Event: NextPage = () => {
 
               <InputContainer>
                 <Controller
-                  defaultValue={""}
                   control={control}
-                  name="academy"
+                  name="academy_id"
                   rules={{ required: true }}
-                  render={({ field: { onChange } }) => (
-                    <InputSelect
-                      onChangeController={onChange}
-                      label="Select academy:"
-                      intent={errors.academy ? "error" : "primary"}
-                      errorMessage="Select an academy"
-                      selectOptions={[
-                        {
-                          title: "Select an academy",
-                          value: "",
-                          disabled: true,
-                        },
-                        { title: "Option 1", value: "hi2", disabled: false },
-                        { title: "Option 2", value: "hi3", disabled: false },
-                        { title: "Option 3", value: "hi1", disabled: false },
-                      ]}
-                    />
+                  render={({ field: { onChange, value } }) => (
+                    <div className="flex flex-col gap-2">
+                      <Label fontWeight="bold" htmlFor="selectAcademy">
+                        Select an academy
+                      </Label>
+                      <Select
+                        isError={errors.academy_id}
+                        errorMessage="Please select an academy"
+                        onValueChange={onChange}
+                      >
+                        <SelectTrigger
+                          id="selectAcademy"
+                          intent={
+                            errors.academy_id
+                              ? "underlined-error"
+                              : "underlined"
+                          }
+                        >
+                          <SelectValue placeholder="Select an academy" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {/* {academies && academies.academies.map((academy) => (
+                            <SelectItem
+                              key={academy.id}
+                              value={String(academy.id)}
+                            >
+                              {academy.academy_name}
+                            </SelectItem>
+                          ))} */}
+                          <SelectItem value="1">Group 1</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
                   )}
                 />
               </InputContainer>
@@ -164,73 +192,114 @@ const Event: NextPage = () => {
               <InputContainer>
                 <Controller
                   control={control}
-                  defaultValue={""}
                   name="group"
                   rules={{ required: true }}
                   render={({ field: { onChange } }) => (
-                    <InputSelect
-                      onChangeController={onChange}
-                      label="Select group:"
-                      intent={errors.group ? "error" : "primary"}
-                      errorMessage="Select a group"
-                      selectOptions={[
-                        { title: "Select a group", value: "", disabled: true },
-                        { title: "Group 1", value: "1", disabled: false },
-                        { title: "Group 2", value: "2", disabled: false },
-                        { title: "Group 3", value: "3", disabled: false },
-                        { title: "Group 4", value: "4", disabled: false },
-                        { title: "Group 5", value: "5", disabled: false },
-                      ]}
-                    />
+                    <div className="flex flex-col gap-2">
+                      <Label fontWeight="bold" htmlFor="selectGroup">
+                        Select a group
+                      </Label>
+                      <Select
+                        isError={errors.group}
+                        errorMessage="Please select a group"
+                        onValueChange={onChange}
+                      >
+                        <SelectTrigger
+                          id="selectGroup"
+                          intent={
+                            errors.group ? "underlined-error" : "underlined"
+                          }
+                        >
+                          <SelectValue placeholder="Select a group" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="1">Group 1</SelectItem>
+                          <SelectItem value="2">Group 2</SelectItem>
+                          <SelectItem value="3">Group 3</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
                   )}
                 />
               </InputContainer>
 
               <InputContainer>
-                <p className="mb-3 text-left font-bold">
+                <RadioGroupTitle>
                   Are you ready for 48h work and availability during the
                   hackaton?
-                </p>
+                </RadioGroupTitle>
                 <Controller
                   control={control}
                   defaultValue={""}
                   name="availability"
                   rules={{ required: true }}
                   render={({ field: { onChange, value } }) => (
-                    <InputRadioGroup
-                      fieldValue={value}
-                      onChangeController={onChange}
-                      intent={errors.availability ? "error" : "primary"}
-                      errorMessage="Select availability"
-                      radioGroupOptions={[
-                        { title: "Yes", value: "yes" },
-                        { title: "No", value: "no" },
-                      ]}
-                    />
+                    <RadioGroup onValueChange={onChange} defaultValue="">
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem
+                          intent={errors.availability ? "error" : "primary"}
+                          value="yes"
+                          id="availabilityYes"
+                        />
+                        <Label
+                          intent={errors.availability ? "error" : "primary"}
+                          htmlFor="availabilityYes"
+                        >
+                          Yes
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem intent={errors.availability ? "error" : "primary"} value="no" id="availabilityNo" />
+                        <Label intent={errors.availability ? "error" : "primary"} htmlFor="availabilityNo">No</Label>
+                      </div>
+                      <div>
+                        {errors.availability && (
+                          <p className="text-left text-error-500">
+                            Please choose availability
+                          </p>
+                        )}
+                      </div>
+                    </RadioGroup>
                   )}
                 />
               </InputContainer>
 
               <InputContainer>
-                <p className="mb-3 text-left font-bold">
+                <RadioGroupTitle>
                   Will you be joining us online or in person?
-                </p>
+                </RadioGroupTitle>
                 <Controller
                   control={control}
                   name="presence"
                   defaultValue={""}
                   rules={{ required: true }}
                   render={({ field: { onChange, value } }) => (
-                    <InputRadioGroup
-                      fieldValue={value}
-                      onChangeController={onChange}
-                      intent={errors.presence ? "error" : "primary"}
-                      errorMessage="Select presence"
-                      radioGroupOptions={[
-                        { title: "Online", value: "online" },
-                        { title: "In person", value: "inPerson" },
-                      ]}
-                    />
+                    <RadioGroup onValueChange={onChange} defaultValue="">
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem
+                          intent={errors.presence ? "error" : "primary"}
+                          value="live"
+                          id="live"
+                        />
+                        <Label
+                          intent={errors.presence ? "error" : "primary"}
+                          htmlFor="live"
+                        >
+                          Live
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem intent={errors.presence ? "error" : "primary"} value="no" id="online" />
+                        <Label intent={errors.presence ? "error" : "primary"} htmlFor="online">Online</Label>
+                      </div>
+                      <div>
+                        {errors.availability && (
+                          <p className="text-left text-error-500">
+                            Please select presence
+                          </p>
+                        )}
+                      </div>
+                    </RadioGroup>
                   )}
                 />
               </InputContainer>
@@ -245,20 +314,40 @@ const Event: NextPage = () => {
                   defaultValue={""}
                   rules={{ required: true }}
                   render={({ field: { onChange, value } }) => (
-                    <InputRadioGroup
-                      fieldValue={value}
-                      onChangeController={onChange}
-                      intent={errors.food ? "error" : "primary"}
-                      errorMessage="Select food"
-                      radioGroupOptions={[
-                        { title: "Vegetarian", value: "vegetarian" },
-                        { title: "Vegan", value: "vegan" },
-                        {
-                          title: "I don't have preferences",
-                          value: "noPreferences",
-                        },
-                      ]}
-                    />
+                    <RadioGroup onValueChange={onChange} defaultValue="">
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem
+                          intent={errors.food ? "error" : "primary"}
+                          value="vegetarian"
+                          id="vegetarian"
+                        />
+                        <Label
+                          intent={errors.food ? "error" : "primary"}
+                          htmlFor="live"
+                        >
+                          Vegetarian
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem intent={errors.food ? "error" : "primary"} value="vegan" id="vegan" />
+                        <Label intent={errors.food ? "error" : "primary"} htmlFor="vegan">Vegan</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem
+                        intent={errors.food ? "error" : "primary"}
+                          value="no_preferences"
+                          id="noPreferences"
+                        />
+                        <Label intent={errors.food ? "error" : "primary"} htmlFor="noPreferences">No preferences</Label>
+                      </div>
+                      <div>
+                        {errors.availability && (
+                          <p className="text-left text-error-500">
+                            Select presence
+                          </p>
+                        )}
+                      </div>
+                    </RadioGroup>
                   )}
                 />
               </InputContainer>
@@ -271,14 +360,13 @@ const Event: NextPage = () => {
                   id="commentInput"
                   type="text"
                   placeholder="Your message"
-                  hideLabel={true}
                 >
                   Anything else you would like to mention?
                 </InputUnderlined>
               </InputContainer>
 
               <Button intent="primary" size="lg" type="submit">
-                Confirm
+                Submit
               </Button>
             </form>
           </div>

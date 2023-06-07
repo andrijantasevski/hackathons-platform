@@ -56,15 +56,15 @@ export default function SignUp() {
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 gap-4">
-              <InputRounded withIcon={true} {...register("fullName", { required: true })} intent={errors.fullName ? "error" : "primary"} leadingIcon={<IconUserCircle className="h-6 w-6" />} placeholderOffset="pl-14" errorMessage="Enter your full name" id="fullNameInput" type="text" placeholder="Full name">
+              <InputRounded showLabel={false} {...register("fullName", { required: true })} intent={errors.fullName ? "error" : "primary"} leadingIcon={<IconUserCircle className="h-6 w-6" />} placeholderOffset="pl-14" errorMessage="Enter your full name" id="fullNameInput" type="text" placeholder="Full name">
                 Full name
               </InputRounded>
 
-              <InputRounded withIcon={true} {...register("email", { required: true })} intent={errors.email ? "error" : "primary"} leadingIcon={<IconMail className="h-6 w-6" />} placeholderOffset="pl-14" errorMessage="Enter your email" id="emailInput" type="email" placeholder="Email">
+              <InputRounded showLabel={false} {...register("email", { required: true })} intent={errors.email ? "error" : "primary"} leadingIcon={<IconMail className="h-6 w-6" />} placeholderOffset="pl-14" errorMessage="Enter your email" id="emailInput" type="email" placeholder="Email">
                 Email
               </InputRounded>
 
-              <InputRounded withIcon={true} {...register("password", { required: true, minLength: 8 })} intent={errors.password ? "error" : "primary"} leadingIcon={<IconLock className="h-6 w-6" />} placeholderOffset="pl-14" errorMessage="Enter a password" id="passwordInput" type="password" placeholder="Password">
+              <InputRounded showLabel={false} {...register("password", { required: true, minLength: 8 })} intent={errors.password ? "error" : "primary"} leadingIcon={<IconLock className="h-6 w-6" />} placeholderOffset="pl-14" errorMessage="Enter a password" id="passwordInput" type="password" placeholder="Password">
                 Password
               </InputRounded>
 
