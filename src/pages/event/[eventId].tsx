@@ -169,14 +169,15 @@ const Event: NextPage = () => {
                           <SelectValue placeholder="Select an academy" />
                         </SelectTrigger>
                         <SelectContent>
-                          {academies && academies.academies.map((academy) => (
+                          {/* {academies && academies.academies.map((academy) => (
                             <SelectItem
                               key={academy.id}
                               value={String(academy.id)}
                             >
                               {academy.academy_name}
                             </SelectItem>
-                          ))}
+                          ))} */}
+                          <SelectItem value="1">Group 1</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>

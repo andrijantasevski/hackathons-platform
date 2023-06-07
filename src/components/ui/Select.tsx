@@ -100,25 +100,18 @@ const SelectContent = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
 >(({ className, children, position = "popper", ...props }, ref) => (
   <SelectPrimitive.Portal>
-    <SelectPrimitive.Content
-      ref={ref}
-      className={twMerge(
-        "relative z-50 overflow-hidden rounded-md border bg-neutral-50 text-neutral-950 shadow-md animate-in fade-in-80",
-        position === "popper" &&
-          "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)] translate-y-1",
-        className
-      )}
-      position={position}
-      {...props}
-    >
+    <SelectPrimitive.Content ref={ref} position={position} {...props}>
       <ScrollArea.Root className="h-full w-full" type="auto">
-        <SelectPrimitive.Viewport asChild className={twMerge("p-3")}>
-          <ScrollArea.Viewport className="h-full w-full">
+        <SelectPrimitive.Viewport asChild>
+          <ScrollArea.Viewport
+            style={{ overflowY: undefined }}
+            className="max-h-56 w-full min-w-[var(--radix-select-trigger-width)] rounded-lg bg-white p-3 shadow-lg mt-1"
+          >
             {children}
           </ScrollArea.Viewport>
         </SelectPrimitive.Viewport>
         <ScrollArea.Scrollbar
-          className="w-6 px-0.5 py-1"
+          className="w-3 px-0.5 py-1"
           orientation="vertical"
         >
           <ScrollArea.Thumb className="rounded-md bg-gray-200" />
@@ -148,7 +141,7 @@ const SelectItem = React.forwardRef<
   <SelectPrimitive.Item
     ref={ref}
     className={twMerge(
-      "relative flex w-full cursor-default select-none items-center rounded-md py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-primary focus:text-white data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "relative flex w-full cursor-default select-none items-center rounded-md py-1.5 pl-8 pr-2 outline-none focus:bg-primary focus:text-white data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       className
     )}
     {...props}
