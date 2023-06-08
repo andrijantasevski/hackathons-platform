@@ -148,22 +148,21 @@ export default function SignIn() {
 
         <div className="flex items-center gap-20">
           <Link href="https://www.brainster.co/">
-            <Image
+            <img
               src="/images/logos/brainster-logo.svg"
-              width={150}
-              height={150}
+              width={178}
+              height={50}
               alt="Brainster Logo"
-              priority
+              fetchPriority="high"
             />
           </Link>
 
-          <Link href="https://scidevcenter.org/">
+          <Link className="h-42 w-42 block" href="https://scidevcenter.org/">
             <Image
               src="/images/logos/scidev-logo.png"
-              width={150}
-              height={150}
               alt="SCIDev Logo"
-              priority
+              width={184}
+              height={57}
             />
           </Link>
         </div>
