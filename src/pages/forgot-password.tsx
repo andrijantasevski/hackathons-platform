@@ -119,7 +119,7 @@ export default function ForgotPassword() {
 
           <Link href="https://scidevcenter.org/">
             <Image
-              src="/icons/LogoSCiDEV1.svg"
+              src="/icons/LogoSCiDEV1.png"
               width={150}
               height={150}
               alt="SCIDev Logo"
