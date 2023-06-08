@@ -6,26 +6,13 @@ export default function useAddRegistration() {
     fetch(
       "https://hackathonplatform-production.up.railway.app/sanctum/csrf-cookie"
     );
-
     const response = await fetch(
       "https://hackathonplatform-production.up.railway.app/api/applicants/create",
       {
         method: "POST",
-        body: JSON.stringify({
-          name: "Andrijan",
-          email: "andrijan@email.com",
-          phone: "070242141",
-          academy_id: 1,
-          group: "1",
-          availability: "yes",
-          presence: "live",
-          food: "vegetarian",
-          comment: "no comment",
-          event_id: 4,
-        }),
+        body: JSON.stringify(formData),
         headers: {
           "Content-Type": "application/json",
-          Accept: "application/json",
         },
       }
     );

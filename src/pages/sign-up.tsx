@@ -55,20 +55,57 @@ export default function SignUp() {
               <p className="text-lg">Register to your account</p>
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 gap-4">
-              <InputRounded showLabel={false} {...register("fullName", { required: true })} intent={errors.fullName ? "error" : "primary"} leadingIcon={<IconUserCircle className="h-6 w-6" />} placeholderOffset="pl-14" errorMessage="Enter your full name" id="fullNameInput" type="text" placeholder="Full name">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="grid grid-cols-1 gap-4"
+            >
+              <InputRounded
+                showLabel={false}
+                {...register("fullName", { required: true })}
+                intent={errors.fullName ? "error" : "primary"}
+                leadingIcon={<IconUserCircle className="h-6 w-6" />}
+                placeholderOffset="pl-14"
+                errorMessage="Enter your full name"
+                id="fullNameInput"
+                type="text"
+                placeholder="Full name"
+              >
                 Full name
               </InputRounded>
 
-              <InputRounded showLabel={false} {...register("email", { required: true })} intent={errors.email ? "error" : "primary"} leadingIcon={<IconMail className="h-6 w-6" />} placeholderOffset="pl-14" errorMessage="Enter your email" id="emailInput" type="email" placeholder="Email">
+              <InputRounded
+                showLabel={false}
+                {...register("email", { required: true })}
+                intent={errors.email ? "error" : "primary"}
+                leadingIcon={<IconMail className="h-6 w-6" />}
+                placeholderOffset="pl-14"
+                errorMessage="Enter your email"
+                id="emailInput"
+                type="email"
+                placeholder="Email"
+              >
                 Email
               </InputRounded>
 
-              <InputRounded showLabel={false} {...register("password", { required: true, minLength: 8 })} intent={errors.password ? "error" : "primary"} leadingIcon={<IconLock className="h-6 w-6" />} placeholderOffset="pl-14" errorMessage="Enter a password" id="passwordInput" type="password" placeholder="Password">
+              <InputRounded
+                showLabel={false}
+                {...register("password", { required: true, minLength: 8 })}
+                intent={errors.password ? "error" : "primary"}
+                leadingIcon={<IconLock className="h-6 w-6" />}
+                placeholderOffset="pl-14"
+                errorMessage="Enter a password"
+                id="passwordInput"
+                type="password"
+                placeholder="Password"
+              >
                 Password
               </InputRounded>
 
-              <Button intent={isLoading ? "loading" : "primary"} disabled={isLoading} size="lg">
+              <Button
+                intent={isLoading ? "loading" : "primary"}
+                disabled={isLoading}
+                size="lg"
+              >
                 {!isLoading && !isSuccess && "Create account"}
                 {isLoading && (
                   <div className="flex items-center gap-1">
@@ -89,19 +126,45 @@ export default function SignUp() {
           </div>
 
           <div className="gradient-primary hidden w-2/5 flex-col items-center justify-center gap-4 rounded-lg p-10 lg:flex">
-            <p className="text-center text-2xl font-bold text-white">Welcome!</p>
+            <p className="text-center text-2xl font-bold text-white">
+              Welcome!
+            </p>
 
-            <p className="text-center text-gray-200">Welcome to our Hackathon app! Create your own hackathon event with ease. Sign up now and access powerful tools to manage registrations, track progress, and connect with participants. Let{"'"}s get started and create an amazing hackathon experience together!</p>
+            <p className="text-center text-gray-200">
+              Welcome to our Hackathon app! Create your own hackathon event with
+              ease. Sign up now and access powerful tools to manage
+              registrations, track progress, and connect with participants. Let
+              {"'"}s get started and create an amazing hackathon experience
+              together!
+            </p>
           </div>
         </section>
 
-        <div className="flex items-center gap-20">
-          <Link href="https://www.brainster.co/">
-            <Image src="/icons/Brainster-Logo1.svg" width={150} height={150} alt="Brainster Logo" />
+        <div className="flex items-center gap-6 lg:gap-20">
+          <Link
+            className="block h-[48px] w-[150px]"
+            href="https://www.brainster.co/"
+          >
+            <Image
+              src="/images/logos/brainster-logo.png"
+              width={150}
+              height={48}
+              alt="Brainster Logo"
+              fetchPriority="high"
+            />
           </Link>
 
-          <Link href="https://scidevcenter.org/">
-            <Image src="/icons/LogoSCiDEV1.svg" width={150} height={150} alt="Brainster Logo" />
+          <Link
+            className="block h-[48px] w-[150px]"
+            href="https://scidevcenter.org/"
+          >
+            <Image
+              src="/images/logos/scidev-logo.png"
+              alt="SCIDev Logo"
+              width={150}
+              height={48}
+              priority
+            />
           </Link>
         </div>
       </main>

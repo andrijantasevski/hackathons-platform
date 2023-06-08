@@ -1,5 +1,4 @@
 import Button from "@/components/ui/Button";
-import InputRadioGroup from "@/components/ui/InputRadioGroup";
 import InputUnderlined from "@/components/ui/InputUnderlined";
 import type { NextPage } from "next";
 import Head from "next/head";
@@ -77,7 +76,7 @@ const Event: NextPage = () => {
         <Image
           priority
           className="hidden w-full lg:block"
-          src="/images/hackathon-hero-image.png"
+          src="/images/hackathon-hero-image.jpg"
           width={1920}
           height={270}
           alt="People working at a hackathon behind computers."
@@ -173,15 +172,16 @@ const Event: NextPage = () => {
                           <SelectValue placeholder="Select an academy" />
                         </SelectTrigger>
                         <SelectContent>
-                          {/* {academies && academies.academies.map((academy) => (
-                            <SelectItem
-                              key={academy.id}
-                              value={String(academy.id)}
-                            >
-                              {academy.academy_name}
-                            </SelectItem>
-                          ))} */}
-                          <SelectItem value="1">Group 1</SelectItem>
+                          {academies &&
+                            academies.academies.slice(0, 10).map((academy) => (
+                              <SelectItem
+                                key={academy.id}
+                                value={String(academy.id)}
+                              >
+                                {academy.academy_name}
+                              </SelectItem>
+                            ))}
+                          {/* <SelectItem value="1">Group 1</SelectItem> */}
                         </SelectContent>
                       </Select>
                     </div>
@@ -249,8 +249,17 @@ const Event: NextPage = () => {
                         </Label>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <RadioGroupItem intent={errors.availability ? "error" : "primary"} value="no" id="availabilityNo" />
-                        <Label intent={errors.availability ? "error" : "primary"} htmlFor="availabilityNo">No</Label>
+                        <RadioGroupItem
+                          intent={errors.availability ? "error" : "primary"}
+                          value="no"
+                          id="availabilityNo"
+                        />
+                        <Label
+                          intent={errors.availability ? "error" : "primary"}
+                          htmlFor="availabilityNo"
+                        >
+                          No
+                        </Label>
                       </div>
                       <div>
                         {errors.availability && (
@@ -289,8 +298,17 @@ const Event: NextPage = () => {
                         </Label>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <RadioGroupItem intent={errors.presence ? "error" : "primary"} value="no" id="online" />
-                        <Label intent={errors.presence ? "error" : "primary"} htmlFor="online">Online</Label>
+                        <RadioGroupItem
+                          intent={errors.presence ? "error" : "primary"}
+                          value="no"
+                          id="online"
+                        />
+                        <Label
+                          intent={errors.presence ? "error" : "primary"}
+                          htmlFor="online"
+                        >
+                          Online
+                        </Label>
                       </div>
                       <div>
                         {errors.availability && (
@@ -313,8 +331,8 @@ const Event: NextPage = () => {
                   name="food"
                   defaultValue={""}
                   rules={{ required: true }}
-                  render={({ field: { onChange, value } }) => (
-                    <RadioGroup onValueChange={onChange} defaultValue="">
+                  render={({ field: { onChange } }) => (
+                    <RadioGroup onValueChange={onChange}>
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem
                           intent={errors.food ? "error" : "primary"}
@@ -323,22 +341,36 @@ const Event: NextPage = () => {
                         />
                         <Label
                           intent={errors.food ? "error" : "primary"}
-                          htmlFor="live"
+                          htmlFor="vegetarian"
                         >
                           Vegetarian
                         </Label>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <RadioGroupItem intent={errors.food ? "error" : "primary"} value="vegan" id="vegan" />
-                        <Label intent={errors.food ? "error" : "primary"} htmlFor="vegan">Vegan</Label>
+                        <RadioGroupItem
+                          intent={errors.food ? "error" : "primary"}
+                          value="vegan"
+                          id="vegan"
+                        />
+                        <Label
+                          intent={errors.food ? "error" : "primary"}
+                          htmlFor="vegan"
+                        >
+                          Vegan
+                        </Label>
                       </div>
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem
-                        intent={errors.food ? "error" : "primary"}
+                          intent={errors.food ? "error" : "primary"}
                           value="no_preferences"
                           id="noPreferences"
                         />
-                        <Label intent={errors.food ? "error" : "primary"} htmlFor="noPreferences">No preferences</Label>
+                        <Label
+                          intent={errors.food ? "error" : "primary"}
+                          htmlFor="noPreferences"
+                        >
+                          No preferences
+                        </Label>
                       </div>
                       <div>
                         {errors.availability && (
