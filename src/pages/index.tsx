@@ -158,10 +158,10 @@ export default function SignIn() {
           </Link>
 
           <Link href="https://scidevcenter.org/">
-            <img
+            <Image
               src="/icons/LogoSCiDEV1.png"
-              width={150}
-              height={150}
+              width={184}
+              height={57}
               alt="SCIDev Logo"
               fetchPriority="high"
               decoding="async"
