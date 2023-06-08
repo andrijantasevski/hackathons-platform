@@ -4,7 +4,7 @@ import { twMerge } from "tailwind-merge";
 import { IconCircleFilled } from "@tabler/icons-react";
 import { cva, type VariantProps } from "class-variance-authority";
 
-const radioGroupVariants = cva(["flex", "gap-2"], {
+const radioGroupVariants = cva(["flex", "gap-2.5"], {
   variants: {
     /**
      * To override the gap between each item, use className="gap-8", for example.
