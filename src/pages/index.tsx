@@ -163,8 +163,7 @@ export default function SignIn() {
               width={184}
               height={57}
               alt="SCIDev Logo"
-              fetchPriority="high"
-              decoding="async"
+              priority
             />
           </Link>
         </div>
