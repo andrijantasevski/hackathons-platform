@@ -7,7 +7,9 @@ import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import useForgotPassword, { ForgotPasswordFormData } from "@/utils/useForgotPassword";
+import useForgotPassword, {
+  ForgotPasswordFormData,
+} from "@/utils/useForgotPassword";
 import { toast } from "react-hot-toast";
 
 export default function ForgotPassword() {
@@ -47,12 +49,29 @@ export default function ForgotPassword() {
               <p className="text-lg">Enter your email to reset your password</p>
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 gap-4">
-              <InputRounded showLabel={false}  {...register("email", { required: true })} intent={errors.email ? "error" : "primary"} leadingIcon={<IconMail className="h-6 w-6" />} placeholderOffset="pl-14" errorMessage="Enter your email" id="emailInput" type="email" placeholder="Email">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="grid grid-cols-1 gap-4"
+            >
+              <InputRounded
+                showLabel={false}
+                {...register("email", { required: true })}
+                intent={errors.email ? "error" : "primary"}
+                leadingIcon={<IconMail className="h-6 w-6" />}
+                placeholderOffset="pl-14"
+                errorMessage="Enter your email"
+                id="emailInput"
+                type="email"
+                placeholder="Email"
+              >
                 Email
               </InputRounded>
 
-              <Button intent={isLoading ? "loading" : "primary"} disabled={isLoading} size="lg">
+              <Button
+                intent={isLoading ? "loading" : "primary"}
+                disabled={isLoading}
+                size="lg"
+              >
                 {!isLoading && "Reset password"}
                 {isLoading && (
                   <div className="flex items-center gap-1">
@@ -73,21 +92,39 @@ export default function ForgotPassword() {
           </div>
 
           <div className="gradient-primary hidden w-2/5 flex-col items-center justify-center gap-4 rounded-lg p-10 lg:flex">
-            <p className="text-center text-2xl font-bold text-white">Forgot your password?</p>
+            <p className="text-center text-2xl font-bold text-white">
+              Forgot your password?
+            </p>
 
             <p className="text-center text-gray-200">
-              Uh-oh, it looks like you{"'"}ve forgotten your password! Don{"'"}t worry, it happens to the best of us. To reset your password, simply enter your email address associated with your account and we{"'"}ll send you a link to reset it. If you have any issues, please contact our support team for assistance.
+              Uh-oh, it looks like you{"'"}ve forgotten your password! Don{"'"}t
+              worry, it happens to the best of us. To reset your password,
+              simply enter your email address associated with your account and
+              we{"'"}ll send you a link to reset it. If you have any issues,
+              please contact our support team for assistance.
             </p>
           </div>
         </section>
 
         <div className="flex items-center gap-20">
           <Link href="https://www.brainster.co/">
-            <Image src="/icons/Brainster-Logo1.svg" width={150} height={150} alt="Brainster Logo" />
+            <Image
+              src="/icons/Brainster-Logo1.svg"
+              width={150}
+              height={150}
+              alt="Brainster Logo"
+              priority
+            />
           </Link>
 
           <Link href="https://scidevcenter.org/">
-            <Image src="/icons/LogoSCiDEV1.svg" width={150} height={150} alt="Brainster Logo" />
+            <Image
+              src="/icons/LogoSCiDEV1.svg"
+              width={150}
+              height={150}
+              alt="SCIDev Logo"
+              priority
+            />
           </Link>
         </div>
       </main>

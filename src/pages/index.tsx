@@ -153,6 +153,7 @@ export default function SignIn() {
               width={150}
               height={150}
               alt="Brainster Logo"
+              priority
             />
           </Link>
 
@@ -161,12 +162,12 @@ export default function SignIn() {
               src="/icons/LogoSCiDEV1.svg"
               width={150}
               height={150}
-              alt="Brainster Logo"
+              alt="SCIDev Logo"
+              priority
             />
           </Link>
         </div>
       </main>
-      
     </>
   );
 }
