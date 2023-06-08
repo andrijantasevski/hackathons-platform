@@ -106,7 +106,7 @@ export default function ForgotPassword() {
           </div>
         </section>
 
-        <div className="flex items-center gap-20">
+        <div className="flex items-center gap-6 lg:gap-20">
           <Link
             className="block h-[48px] w-[150px]"
             href="https://www.brainster.co/"
