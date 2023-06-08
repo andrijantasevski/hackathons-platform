@@ -24,9 +24,7 @@ module.exports = {
       },
 
       backgroundImage: {
-        cloud: "url('/images/Cloud.svg')",
-        brainster: "url('/icons/Brainster-Logo1.svg')",
-        scidev: "url('/icons/LogoSCiDEV1.png')",
+        cloud: "url('/images/background-images/background-cloud.svg')",
       },
     },
   },

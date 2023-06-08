@@ -109,7 +109,7 @@ export default function ForgotPassword() {
         <div className="flex items-center gap-20">
           <Link href="https://www.brainster.co/">
             <Image
-              src="/icons/Brainster-Logo1.svg"
+              src="/images/logos/brainster-logo.svg"
               width={150}
               height={150}
               alt="Brainster Logo"
@@ -119,7 +119,7 @@ export default function ForgotPassword() {
 
           <Link href="https://scidevcenter.org/">
             <Image
-              src="/icons/LogoSCiDEV1.png"
+              src="/images/logos/scidev-logo.png"
               width={150}
               height={150}
               alt="SCIDev Logo"
