@@ -4,11 +4,20 @@ import DashboardLayout from "@/layouts/DashboardLayout";
 import Head from "next/head";
 import InputRounded from "@/components/ui/InputRounded";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import InputRadioGroup from "@/components/ui/InputRadioGroup";
 import Button from "@/components/ui/Button";
 import useAddHackathon from "@/utils/useAddHackathon";
 import { toast } from "react-hot-toast";
 import ModalFinishedCreatingHackathon from "@/components/ModalFinishedCreatingHackathon";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/RadioGroup";
+import { Label } from "@/components/ui/Label";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/Popover";
+import { Calendar } from "@/components/ui/Calendar";
+import { InputDatePicker } from "@/components/ui/InputDatePicker";
+import { format } from "date-fns";
 
 const academies = [
   {
@@ -63,6 +72,7 @@ const DashboardCreate: NextPageWithLayout = () => {
     control,
     formState: { errors },
     handleSubmit,
+    watch,
   } = useForm<HackathonFormData>();
 
   const onSubmit: SubmitHandler<HackathonFormData> = (data) => {
@@ -78,17 +88,24 @@ const DashboardCreate: NextPageWithLayout = () => {
 
   function toggleAcademy(academy: string) {
     if (selectedAcademies.includes(academy)) {
-      const filteredAcadamies = selectedAcademies.filter((academyFiltered) => academy !== academyFiltered);
+      const filteredAcadamies = selectedAcademies.filter(
+        (academyFiltered) => academy !== academyFiltered
+      );
 
       setSelectedAcademies(filteredAcadamies);
     } else {
-      setSelectedAcademies((prevSelectedAcadamies) => [...prevSelectedAcadamies, academy]);
+      setSelectedAcademies((prevSelectedAcadamies) => [
+        ...prevSelectedAcadamies,
+        academy,
+      ]);
     }
   }
 
   function toggleAcademies(academy: string) {
     if (selectedAcademies.includes(academy)) {
-      const filteredAcadamies = selectedAcademies.filter((academyFiltered) => academy !== academyFiltered);
+      const filteredAcadamies = selectedAcademies.filter(
+        (academyFiltered) => academy !== academyFiltered
+      );
 
       return filteredAcadamies;
     }
@@ -106,34 +123,141 @@ const DashboardCreate: NextPageWithLayout = () => {
 
       <div className="mx-auto flex w-11/12 max-w-4xl flex-col items-center gap-10 py-10 lg:py-20">
         <div className="flex flex-col items-center gap-4">
-          <p className="text-3xl font-bold lg:text-4xl">Create a new hackathon</p>
-          <p className="text-center text-lg">Create an extraordinary hackathon experience with our creation page. Customize challenges, formats, and settings to inspire innovation and collaboration. Unleash your creativity and shape a remarkable event that cultivates talent. Get started today!</p>
+          <p className="text-3xl font-bold lg:text-4xl">
+            Create a new hackathon
+          </p>
+          <p className="text-center text-lg">
+            Create an extraordinary hackathon experience with our creation page.
+            Customize challenges, formats, and settings to inspire innovation
+            and collaboration. Unleash your creativity and shape a remarkable
+            event that cultivates talent. Get started today!
+          </p>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col gap-6 lg:flex-row lg:gap-0">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex w-full flex-col gap-6 lg:flex-row lg:gap-0"
+        >
           <div className="flex w-full flex-col gap-4 lg:w-7/12 lg:pr-10">
             <div className="flex flex-col gap-1">
-              <p className="font-bold">Name</p>
-              <InputRounded intent={errors.title ? "error" : "primary"} {...register("title", { required: true })} errorMessage="Enter a name for the event" id="nameInput" type="text" placeholder="Name of the event">
+              <InputRounded
+                intent={errors.title ? "error" : "primary"}
+                {...register("title", { required: true })}
+                errorMessage="Enter a name for the event"
+                id="nameInput"
+                type="text"
+                placeholder="Name of the event"
+              >
                 Name
               </InputRounded>
             </div>
 
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-2">
               <p className="font-bold">Date</p>
 
-              <div className="flex flex-col gap-2">
-                <InputRounded intent={errors.application_deadline ? "error" : "primary"} {...register("application_deadline", { required: true })} errorMessage="Enter a date for the deadline" id="deadlineInput" type="date" placeholder="Deadline for application">
-                  Deadline for application
-                </InputRounded>
+              <div className="flex flex-col gap-4">
+                <Controller
+                  name="application_deadline"
+                  control={control}
+                  render={({ field: { onChange, value } }) => {
+                    return (
+                      <Popover>
+                        <PopoverTrigger>
+                          <InputDatePicker
+                            variant={
+                              value
+                                ? "primary"
+                                : errors.end_date
+                                ? "primary-error"
+                                : "primary-placeholder"
+                            }
+                          >
+                            {value
+                              ? format(new Date(value), "PPP")
+                              : "Deadline for application"}
+                          </InputDatePicker>
+                        </PopoverTrigger>
 
-                <InputRounded intent={errors.start_date ? "error" : "primary"} {...register("start_date", { required: true })} errorMessage="Enter a date for the start of the hackathon" id="startDateInput" type="date" placeholder="Start of hackathon">
-                  Start of hackathon
-                </InputRounded>
+                        <PopoverContent className="w-auto">
+                          <Calendar
+                            mode="single"
+                            selected={new Date(value)}
+                            onSelect={onChange}
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    );
+                  }}
+                />
 
-                <InputRounded intent={errors.end_date ? "error" : "primary"} {...register("end_date", { required: true })} errorMessage="Enter a date for the end of the hackathon" id="endDateInput" type="date" placeholder="End of hackathon">
-                  End of hackathon
-                </InputRounded>
+                <Controller
+                  name="start_date"
+                  control={control}
+                  render={({ field: { onChange, value } }) => {
+                    return (
+                      <Popover>
+                        <PopoverTrigger>
+                          <InputDatePicker
+                            variant={
+                              value
+                                ? "primary"
+                                : errors.end_date
+                                ? "primary-error"
+                                : "primary-placeholder"
+                            }
+                          >
+                            {value
+                              ? format(new Date(value), "PPP")
+                              : "Start of hackathon"}
+                          </InputDatePicker>
+                        </PopoverTrigger>
+
+                        <PopoverContent className="w-auto">
+                          <Calendar
+                            mode="single"
+                            selected={new Date(value)}
+                            onSelect={onChange}
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    );
+                  }}
+                />
+
+                <Controller
+                  name="end_date"
+                  rules={{ required: true }}
+                  control={control}
+                  render={({ field: { onChange, value } }) => {
+                    return (
+                      <Popover>
+                        <PopoverTrigger>
+                          <InputDatePicker
+                            variant={
+                              value
+                                ? "primary"
+                                : errors.end_date
+                                ? "primary-error"
+                                : "primary-placeholder"
+                            }
+                          >
+                            {value
+                              ? format(new Date(value), "PPP")
+                              : "End of hackathon"}
+                          </InputDatePicker>
+                        </PopoverTrigger>
+
+                        <PopoverContent className="w-auto">
+                          <Calendar
+                            mode="single"
+                            selected={new Date(value)}
+                            onSelect={onChange}
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    );
+                  }}
+                />
               </div>
             </div>
 
@@ -144,29 +268,74 @@ const DashboardCreate: NextPageWithLayout = () => {
                 defaultValue={""}
                 name="type_id"
                 rules={{ required: true }}
-                render={({ field: { onChange, value } }) => (
-                  <InputRadioGroup
-                    fieldValue={value}
-                    onChangeController={onChange}
-                    intent={errors.type_id ? "error" : "primary"}
-                    errorMessage="Select a hackathon type"
-                    radioGroupOptions={[
-                      { title: "Live", value: "1" },
-                      { title: "Online", value: "2" },
-                    ]}
-                  />
+                render={({ field: { onChange } }) => (
+                  <RadioGroup onValueChange={onChange}>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem
+                        intent={errors.type_id ? "error" : "primary"}
+                        value="live"
+                        id="live"
+                      />
+                      <Label
+                        intent={errors.type_id ? "error" : "primary"}
+                        htmlFor="live"
+                      >
+                        Live
+                      </Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem
+                        intent={errors.type_id ? "error" : "primary"}
+                        value="online"
+                        id="online"
+                      />
+                      <Label
+                        intent={errors.type_id ? "error" : "primary"}
+                        htmlFor="online"
+                      >
+                        Online
+                      </Label>
+                    </div>
+                    <div>
+                      {errors.type_id && (
+                        <p className="text-left font-medium text-error-500">
+                          Select a hackathon type
+                        </p>
+                      )}
+                    </div>
+                  </RadioGroup>
                 )}
               />
             </div>
 
             <div className="flex flex-col gap-4">
-              <label className="font-bold">Information about the event/client</label>
-              <textarea {...register("description", { required: true })} id="informationClientInput" cols={10} rows={10} className={`resize-none rounded-lg border p-4 shadow-lg focus:outline-none focus:ring-1 ${errors.description ? "border-error-500 focus:border-error-500 focus:ring-error-500" : "focus:border-primary-100 focus:ring-primary"}`}></textarea>
-              <div>{errors.description && <span className="font-medium text-red-500">Enter information about the event/client</span>}</div>
+              <label className="font-bold">
+                Information about the event/client
+              </label>
+              <textarea
+                {...register("description", { required: true })}
+                id="informationClientInput"
+                cols={10}
+                rows={10}
+                className={`resize-none rounded-lg border p-4 shadow-lg focus:outline-none focus:ring-1 ${
+                  errors.description
+                    ? "border-error-500 focus:border-error-500 focus:ring-error-500"
+                    : "focus:border-primary-100 focus:ring-primary"
+                }`}
+              ></textarea>
+              <div>
+                {errors.description && (
+                  <span className="font-medium text-red-500">
+                    Enter information about the event/client
+                  </span>
+                )}
+              </div>
             </div>
 
             <div className="flex flex-col gap-4">
-              <p className="font-bold">Upload resources from the client (if provided)</p>
+              <p className="font-bold">
+                Upload resources from the client (if provided)
+              </p>
               <input type="file" />
             </div>
           </div>
@@ -190,7 +359,13 @@ const DashboardCreate: NextPageWithLayout = () => {
                             onChange(toggleAcademies(academy.value));
                           }}
                           key={academy.value}
-                          className={`flex w-full cursor-pointer justify-center rounded-lg p-3 shadow-lg transition-colors hover:bg-primary hover:text-white ${selectedAcademies.includes(academy.value) ? "bg-primary text-white" : errors.academies ? "bg-red-500 text-white" : "bg-white"}`}
+                          className={`flex w-full cursor-pointer justify-center rounded-lg border p-3 shadow-lg transition-colors hover:border-transparent hover:bg-primary hover:text-white ${
+                            selectedAcademies.includes(academy.value)
+                              ? "border-transparent bg-primary text-white"
+                              : errors.academies
+                              ? "border-error-500 bg-white text-error-500"
+                              : "border-transparent bg-white"
+                          }`}
                         >
                           {academy.title}
                         </button>
@@ -205,7 +380,12 @@ const DashboardCreate: NextPageWithLayout = () => {
           </div>
         </form>
       </div>
-      {isModalShown && <ModalFinishedCreatingHackathon isModalShown={isModalShown} setIsModalShown={setIsModalShown} />}
+      {isModalShown && (
+        <ModalFinishedCreatingHackathon
+          isModalShown={isModalShown}
+          setIsModalShown={setIsModalShown}
+        />
+      )}
     </>
   );
 };
