@@ -3,7 +3,7 @@ import { Slot } from "@radix-ui/react-slot";
 import { forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
 
-const buttonVariants = cva(
+export const buttonVariants = cva(
   [
     "font-medium",
     "transition-colors",
