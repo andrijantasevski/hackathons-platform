@@ -137,7 +137,7 @@ export default function SignIn() {
             </div>
           </div>
 
-          <div className="gradient-primary hidden w-2/5 flex-col items-center justify-center gap-4 rounded-lg p-10 lg:flex">
+          <div className="hidden w-2/5 flex-col items-center justify-center gap-4 rounded-lg bg-gradient-primary p-10 lg:flex">
             <p className="text-center text-2xl font-bold text-white">
               Welcome back!
             </p>
