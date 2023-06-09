@@ -82,13 +82,13 @@ const Dashboard: NextPageWithLayout = () => {
                 numberOfPeople="170"
                 title="Online platform"
                 date="17 March"
-                backgroundColor="gradient-green"
+                backgroundColor="bg-gradient-green"
               />
               <KanbanItem
                 numberOfPeople="170"
                 title="Online platform"
                 date="17 March"
-                backgroundColor="gradient-green"
+                backgroundColor="bg-gradient-green"
               />
             </div>
           </div>
@@ -101,19 +101,19 @@ const Dashboard: NextPageWithLayout = () => {
                 numberOfPeople="170"
                 title="Online platform"
                 date="17 March"
-                backgroundColor="gradient-purple"
+                backgroundColor="bg-gradient-purple"
               />
               <KanbanItem
                 numberOfPeople="170"
                 title="Online platform"
                 date="17 March"
-                backgroundColor="gradient-purple"
+                backgroundColor="bg-gradient-purple"
               />
               <KanbanItem
                 numberOfPeople="170"
                 title="Online platform"
                 date="17 March"
-                backgroundColor="gradient-purple"
+                backgroundColor="bg-gradient-purple"
               />
             </div>
           </div>
@@ -126,7 +126,7 @@ const Dashboard: NextPageWithLayout = () => {
                 numberOfPeople="170"
                 title="Online platform"
                 date="17 March"
-                backgroundColor="gradient-orange"
+                backgroundColor="bg-gradient-orange"
               />
             </div>
           </div>

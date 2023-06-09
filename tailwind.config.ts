@@ -25,6 +25,11 @@ module.exports = {
 
       backgroundImage: {
         cloud: "url('/images/background-images/background-cloud.svg')",
+        "gradient-primary":
+          "linear-gradient(154.29deg, #4364cd 0%, #0f2877 100%)",
+        "gradient-green": "linear-gradient(180deg, #d5fff5 0%, #9effe8 100%)",
+        "gradient-purple": "linear-gradient(180deg, #e6d7ff 0%, #d8c0ff 100%)",
+        "gradient-orange": "linear-gradient(180deg, #ffe1d3 0%, #ffcfba 100%)",
       },
     },
   },
