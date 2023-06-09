@@ -1,4 +1,3 @@
-import Separator from "@/components/ui/Separator";
 import Image from "next/image";
 import Link from "next/link";
 import { IconHome, IconCirclePlus, IconGraph, IconBackpack, IconMenu } from "@tabler/icons-react";
@@ -7,6 +6,7 @@ import ModalNavigationMenu from "@/components/ModalNavigationMenu";
 import { useEffect, useState } from "react";
 import useIsLoggedIn, { useUserContext } from "@/utils/userContext";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import { Separator } from "@/components/ui/Separator";
 
 type Props = {
   children: React.ReactNode;
