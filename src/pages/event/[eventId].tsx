@@ -195,7 +195,7 @@ const Event: NextPage = () => {
                       >
                         <SelectTrigger
                           id="selectAcademy"
-                          intent={
+                          variant={
                             errors.academy_id
                               ? "underlined-error"
                               : "underlined"
@@ -241,7 +241,7 @@ const Event: NextPage = () => {
                       >
                         <SelectTrigger
                           id="selectGroup"
-                          intent={
+                          variant={
                             errors.group ? "underlined-error" : "underlined"
                           }
                         >
@@ -272,7 +272,7 @@ const Event: NextPage = () => {
                     <RadioGroup id="availabilityInput" onValueChange={onChange}>
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem
-                          intent={errors.availability ? "error" : "primary"}
+                          variant={errors.availability ? "error" : "primary"}
                           value="yes"
                           id="availabilityYes"
                         />
@@ -285,7 +285,7 @@ const Event: NextPage = () => {
                       </div>
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem
-                          intent={errors.availability ? "error" : "primary"}
+                          variant={errors.availability ? "error" : "primary"}
                           value="no"
                           id="availabilityNo"
                         />
@@ -321,7 +321,7 @@ const Event: NextPage = () => {
                     <RadioGroup onValueChange={onChange} defaultValue="">
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem
-                          intent={errors.presence ? "error" : "primary"}
+                          variant={errors.presence ? "error" : "primary"}
                           value="live"
                           id="live"
                         />
@@ -334,7 +334,7 @@ const Event: NextPage = () => {
                       </div>
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem
-                          intent={errors.presence ? "error" : "primary"}
+                          variant={errors.presence ? "error" : "primary"}
                           value="no"
                           id="online"
                         />
@@ -370,7 +370,7 @@ const Event: NextPage = () => {
                     <RadioGroup onValueChange={onChange}>
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem
-                          intent={errors.food ? "error" : "primary"}
+                          variant={errors.food ? "error" : "primary"}
                           value="vegetarian"
                           id="vegetarian"
                         />
@@ -383,7 +383,7 @@ const Event: NextPage = () => {
                       </div>
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem
-                          intent={errors.food ? "error" : "primary"}
+                          variant={errors.food ? "error" : "primary"}
                           value="vegan"
                           id="vegan"
                         />
@@ -396,7 +396,7 @@ const Event: NextPage = () => {
                       </div>
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem
-                          intent={errors.food ? "error" : "primary"}
+                          variant={errors.food ? "error" : "primary"}
                           value="no_preferences"
                           id="noPreferences"
                         />
@@ -434,7 +434,7 @@ const Event: NextPage = () => {
                 />
               </InputContainer>
 
-              <Button intent="primary" size="lg" type="submit">
+              <Button variant="primary" size="lg" type="submit">
                 Submit
               </Button>
             </form>

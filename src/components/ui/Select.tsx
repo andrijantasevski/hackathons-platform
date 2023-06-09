@@ -43,7 +43,7 @@ const selectTriggerVariants = cva(
   ],
   {
     variants: {
-      intent: {
+      variant: {
         primary: [
           "p-3",
           "shadow-lg",
@@ -68,7 +68,7 @@ const selectTriggerVariants = cva(
         ],
       },
       defaultVariants: {
-        intent: "primary",
+        variant: "primary",
       },
     },
   }
@@ -81,10 +81,10 @@ interface SelectTriggerProps
 const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
   SelectTriggerProps
->(({ className, intent, children, ...props }, ref) => (
+>(({ className, variant, children, ...props }, ref) => (
   <SelectPrimitive.Trigger
     ref={ref}
-    className={twMerge(selectTriggerVariants({ intent }), className)}
+    className={twMerge(selectTriggerVariants({ variant }), className)}
     {...props}
   >
     {children}

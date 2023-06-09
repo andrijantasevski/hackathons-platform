@@ -113,7 +113,7 @@ export default function SignIn() {
               </div>
 
               <Button
-                intent={isLoading ? "loading" : "primary"}
+                variant={isLoading ? "loading" : "primary"}
                 disabled={isLoading}
                 size="lg"
               >

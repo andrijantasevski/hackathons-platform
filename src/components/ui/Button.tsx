@@ -19,7 +19,7 @@ export const buttonVariants = cva(
   ],
   {
     variants: {
-      intent: {
+      variant: {
         primary: [
           "bg-primary",
           "text-white",
@@ -52,7 +52,7 @@ export const buttonVariants = cva(
       },
     },
     defaultVariants: {
-      intent: "primary",
+      variant: "primary",
       size: "base",
     },
   }
@@ -65,13 +65,13 @@ export interface ButtonProps
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, intent, size, uppercase, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, uppercase, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
 
     return (
       <Comp
         className={twMerge(
-          buttonVariants({ intent, size, uppercase }),
+          buttonVariants({ variant, size, uppercase }),
           className
         )}
         ref={ref}

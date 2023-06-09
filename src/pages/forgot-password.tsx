@@ -72,7 +72,7 @@ export default function ForgotPassword() {
               </div>
 
               <Button
-                intent={isLoading ? "loading" : "primary"}
+                variant={isLoading ? "loading" : "primary"}
                 disabled={isLoading}
                 size="lg"
               >

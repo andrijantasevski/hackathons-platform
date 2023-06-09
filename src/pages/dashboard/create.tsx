@@ -298,7 +298,7 @@ const DashboardCreate: NextPageWithLayout = () => {
                   <RadioGroup id="hackathonTypeInput" onValueChange={onChange}>
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem
-                        intent={errors.type_id ? "error" : "primary"}
+                        variant={errors.type_id ? "error" : "primary"}
                         value="live"
                         id="live"
                       />
@@ -311,7 +311,7 @@ const DashboardCreate: NextPageWithLayout = () => {
                     </div>
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem
-                        intent={errors.type_id ? "error" : "primary"}
+                        variant={errors.type_id ? "error" : "primary"}
                         value="online"
                         id="online"
                       />
