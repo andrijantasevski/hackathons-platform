@@ -16,7 +16,7 @@ const inputRoundedVariants = cva(
   ],
   {
     variants: {
-      intent: {
+      variant: {
         primary: [
           "border-transparent",
           "focus:ring-primary",
@@ -33,7 +33,7 @@ const inputRoundedVariants = cva(
       },
     },
     defaultVariants: {
-      intent: "primary",
+      variant: "primary",
     },
   }
 );
@@ -42,10 +42,8 @@ interface Props
   extends React.InputHTMLAttributes<HTMLInputElement>,
     VariantProps<typeof inputRoundedVariants> {
   id: string;
-  children: React.ReactNode;
   errorMessage: string;
   placeholder: string;
-  showLabel?: boolean;
   /**
    * Icon to show before the placeholder/input text.
    */
@@ -80,9 +78,8 @@ const InputRounded = forwardRef<HTMLInputElement, Props>(
     {
       id,
       children,
-      intent,
+      variant,
       errorMessage,
-      showLabel = true,
       placeholder,
       leadingIcon,
       placeholderOffset,
@@ -93,13 +90,6 @@ const InputRounded = forwardRef<HTMLInputElement, Props>(
   ) => {
     return (
       <div className="flex flex-col gap-2">
-        <label
-          className={`block text-left font-bold ${showLabel ? "" : "sr-only"}`}
-          htmlFor={id}
-        >
-          {children}
-        </label>
-
         <div className="relative">
           {leadingIcon && (
             <div className="absolute left-3 top-1/2 -translate-y-1/2 text-primary">
@@ -111,7 +101,7 @@ const InputRounded = forwardRef<HTMLInputElement, Props>(
             ref={ref}
             id={id}
             className={twMerge(
-              `${inputRoundedVariants({ intent })} ${
+              `${inputRoundedVariants({ variant })} ${
                 placeholderOffset ? placeholderOffset : ""
               }`,
               className
@@ -120,12 +110,12 @@ const InputRounded = forwardRef<HTMLInputElement, Props>(
             {...props}
           />
 
-          {intent === "error" && (
+          {variant === "error" && (
             <IconExclamationCircle className="absolute right-2 top-1/2 -translate-y-1/2 text-red-600" />
           )}
         </div>
 
-        {intent === "error" && (
+        {variant === "error" && (
           <div className="font-medium text-red-500">{errorMessage}</div>
         )}
       </div>

@@ -138,17 +138,19 @@ const DashboardCreate: NextPageWithLayout = () => {
           className="flex w-full flex-col gap-6 lg:flex-row lg:gap-0"
         >
           <div className="flex w-full flex-col gap-4 lg:w-7/12 lg:pr-10">
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-3">
+              <Label htmlFor="nameInput" fontWeight="bold">
+                Name
+              </Label>
+
               <InputRounded
-                intent={errors.title ? "error" : "primary"}
+                variant={errors.title ? "error" : "primary"}
                 {...register("title", { required: true })}
                 errorMessage="Enter a name for the event"
                 id="nameInput"
                 type="text"
                 placeholder="Name of the event"
-              >
-                Name
-              </InputRounded>
+              />
             </div>
 
             <div className="flex flex-col gap-2">
@@ -283,15 +285,17 @@ const DashboardCreate: NextPageWithLayout = () => {
               </div>
             </div>
 
-            <div className="flex flex-col gap-2">
-              <p className="font-bold">Hackathon type</p>
+            <div className="flex flex-col gap-3">
+              <Label htmlFor="hackathonTypeInput" fontWeight="bold">
+                Hackathon type
+              </Label>
               <Controller
                 control={control}
                 defaultValue={""}
                 name="type_id"
                 rules={{ required: true }}
                 render={({ field: { onChange } }) => (
-                  <RadioGroup onValueChange={onChange}>
+                  <RadioGroup id="hackathonTypeInput" onValueChange={onChange}>
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem
                         intent={errors.type_id ? "error" : "primary"}
@@ -299,7 +303,7 @@ const DashboardCreate: NextPageWithLayout = () => {
                         id="live"
                       />
                       <Label
-                        intent={errors.type_id ? "error" : "primary"}
+                        variant={errors.type_id ? "error" : "primary"}
                         htmlFor="live"
                       >
                         Live
@@ -312,7 +316,7 @@ const DashboardCreate: NextPageWithLayout = () => {
                         id="online"
                       />
                       <Label
-                        intent={errors.type_id ? "error" : "primary"}
+                        variant={errors.type_id ? "error" : "primary"}
                         htmlFor="online"
                       >
                         Online
@@ -330,10 +334,10 @@ const DashboardCreate: NextPageWithLayout = () => {
               />
             </div>
 
-            <div className="flex flex-col gap-4">
-              <label className="font-bold">
+            <div className="flex flex-col gap-3">
+              <Label htmlFor="informationClientInput" fontWeight="bold">
                 Information about the event/client
-              </label>
+              </Label>
               <textarea
                 {...register("description", { required: true })}
                 id="informationClientInput"

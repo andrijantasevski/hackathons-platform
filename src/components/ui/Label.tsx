@@ -11,14 +11,17 @@ const labelVariants = cva(
         normal: "font-normal",
         bold: "font-bold",
       },
-      intent: {
+      variant: {
         primary: ["text-neutral-950"],
         error: ["text-red-500"],
+      },
+      srOnly: {
+        true: ["sr-only"],
       },
     },
     defaultVariants: {
       fontWeight: "normal",
-      intent: "primary",
+      variant: "primary",
     },
   }
 );
@@ -27,10 +30,13 @@ const Label = React.forwardRef<
   React.ElementRef<typeof LabelPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> &
     VariantProps<typeof labelVariants>
->(({ className, fontWeight,intent, ...props }, ref) => (
+>(({ className, fontWeight, variant, srOnly, ...props }, ref) => (
   <LabelPrimitive.Root
     ref={ref}
-    className={twMerge(labelVariants({ intent, fontWeight }), className)}
+    className={twMerge(
+      labelVariants({ variant, fontWeight, srOnly }),
+      className
+    )}
     {...props}
   />
 ));
