@@ -1,7 +1,7 @@
 import { cva, VariantProps } from "class-variance-authority";
 import { IconExclamationCircle } from "@tabler/icons-react";
 import { forwardRef } from "react";
-import {twMerge} from "tailwind-merge";
+import { twMerge } from "tailwind-merge";
 
 const inputUnderlinedVariants = cva(
   [
@@ -16,7 +16,7 @@ const inputUnderlinedVariants = cva(
   ],
   {
     variants: {
-      intent: {
+      variant: {
         primary: [
           "border-neutral-900",
           "focus:ring-primary",
@@ -32,7 +32,7 @@ const inputUnderlinedVariants = cva(
       },
     },
     defaultVariants: {
-      intent: "primary",
+      variant: "primary",
     },
   }
 );
@@ -41,50 +41,29 @@ interface Props
   extends React.InputHTMLAttributes<HTMLInputElement>,
     VariantProps<typeof inputUnderlinedVariants> {
   id: string;
-  children: React.ReactNode;
   errorMessage: string;
   placeholder: string;
-  showLabel?: boolean;
 }
 
 const InputUnderlined = forwardRef<HTMLInputElement, Props>(
-  (
-    {
-      id,
-      children,
-      intent,
-      errorMessage,
-      showLabel = true,
-      placeholder,
-      className,
-      ...props
-    },
-    ref
-  ) => {
+  ({ id, variant, errorMessage, placeholder, className, ...props }, ref) => {
     return (
       <div className="flex flex-col gap-2">
-        <label
-          className={`block text-left font-bold ${showLabel ? "" : "sr-only"}`}
-          htmlFor={id}
-        >
-          {children}
-        </label>
-
         <div className="relative">
           <input
             ref={ref}
             id={id}
-            className={twMerge(inputUnderlinedVariants({ intent }), className)}
+            className={twMerge(inputUnderlinedVariants({ variant }), className)}
             placeholder={placeholder}
             {...props}
           />
 
-          {intent === "error" && (
+          {variant === "error" && (
             <IconExclamationCircle className="absolute right-2 top-1/2 -translate-y-1/2 text-error-600" />
           )}
         </div>
 
-        {intent === "error" && (
+        {variant === "error" && (
           <div className="text-left font-medium text-error-500">
             {errorMessage}
           </div>

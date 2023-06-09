@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/RadioGroup";
 import useGetAcademies from "@/utils/useGetAcademies";
 import useGetGroups from "@/utils/useGetGroups";
+import { twMerge } from "tailwind-merge";
 
 export type EventTypes = {
   name: string;
@@ -36,8 +37,18 @@ export type EventTypes = {
   comment: string;
 };
 
-function InputContainer({ children }: { children: React.ReactNode }) {
-  return <div className="rounded-lg bg-white p-6 shadow-lg">{children}</div>;
+function InputContainer({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={twMerge("rounded-lg bg-white p-6 shadow-lg", className)}>
+      {children}
+    </div>
+  );
 }
 
 const Event: NextPage = () => {
@@ -115,50 +126,56 @@ const Event: NextPage = () => {
               onSubmit={handleSubmit(onSubmit)}
               className="grid grid-cols-1 gap-6"
             >
-              <InputContainer>
+              <InputContainer className="flex flex-col gap-2">
+                <Label htmlFor="fullNameInput" fontWeight="bold">
+                  Full name
+                </Label>
+
                 <InputUnderlined
                   {...register("name", { required: true })}
-                  intent={errors.name ? "error" : "primary"}
+                  variant={errors.name ? "error" : "primary"}
                   errorMessage="Enter your full name"
                   id="fullNameInput"
                   type="text"
                   placeholder="Full name"
-                >
-                  Name and surname
-                </InputUnderlined>
+                />
               </InputContainer>
 
-              <InputContainer>
+              <InputContainer className="flex flex-col gap-2">
+                <Label htmlFor="emailInput" fontWeight="bold">
+                  Email
+                </Label>
+
                 <InputUnderlined
                   {...register("email", {
                     required: true,
                     pattern: /^[A-Za-z0-9+_.-]+@(.+)$/,
                   })}
-                  intent={errors.email ? "error" : "primary"}
+                  variant={errors.email ? "error" : "primary"}
                   errorMessage="Enter your email"
                   id="emailInput"
                   type="email"
                   placeholder="example@email.com"
-                >
-                  E-mail
-                </InputUnderlined>
+                />
               </InputContainer>
 
-              <InputContainer>
+              <InputContainer className="flex flex-col gap-2">
+                <Label htmlFor="phoneNumberInput" fontWeight="bold">
+                  Phone number
+                </Label>
+
                 <InputUnderlined
                   {...register("phone", {
                     required: true,
                     pattern:
                       /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/gm,
                   })}
-                  intent={errors.phone ? "error" : "primary"}
+                  variant={errors.phone ? "error" : "primary"}
                   errorMessage="Enter your phone number"
                   id="phoneNumberInput"
                   type="tel"
                   placeholder="Phone number"
-                >
-                  Phone number
-                </InputUnderlined>
+                />
               </InputContainer>
 
               <InputContainer>
@@ -251,8 +268,8 @@ const Event: NextPage = () => {
                   defaultValue={""}
                   name="availability"
                   rules={{ required: true }}
-                  render={({ field: { onChange, value } }) => (
-                    <RadioGroup onValueChange={onChange}>
+                  render={({ field: { onChange } }) => (
+                    <RadioGroup id="availabilityInput" onValueChange={onChange}>
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem
                           intent={errors.availability ? "error" : "primary"}
@@ -402,17 +419,19 @@ const Event: NextPage = () => {
                 />
               </InputContainer>
 
-              <InputContainer>
+              <InputContainer className="flex flex-col gap-2">
+                <Label htmlFor="commentInput" fontWeight="bold">
+                  Anything else you would like to mention?
+                </Label>
+
                 <InputUnderlined
                   {...register("comment")}
-                  intent={errors.comment ? "error" : "primary"}
+                  variant={errors.comment ? "error" : "primary"}
                   errorMessage="Enter a message"
                   id="commentInput"
                   type="text"
                   placeholder="Your message"
-                >
-                  Anything else you would like to mention?
-                </InputUnderlined>
+                />
               </InputContainer>
 
               <Button intent="primary" size="lg" type="submit">
