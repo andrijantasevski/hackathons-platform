@@ -260,7 +260,7 @@ const Event: NextPage = () => {
                           id="availabilityYes"
                         />
                         <Label
-                          intent={errors.availability ? "error" : "primary"}
+                          variant={errors.availability ? "error" : "primary"}
                           htmlFor="availabilityYes"
                         >
                           Yes
@@ -273,7 +273,7 @@ const Event: NextPage = () => {
                           id="availabilityNo"
                         />
                         <Label
-                          intent={errors.availability ? "error" : "primary"}
+                          variant={errors.availability ? "error" : "primary"}
                           htmlFor="availabilityNo"
                         >
                           No
@@ -309,7 +309,7 @@ const Event: NextPage = () => {
                           id="live"
                         />
                         <Label
-                          intent={errors.presence ? "error" : "primary"}
+                          variant={errors.presence ? "error" : "primary"}
                           htmlFor="live"
                         >
                           Live
@@ -322,7 +322,7 @@ const Event: NextPage = () => {
                           id="online"
                         />
                         <Label
-                          intent={errors.presence ? "error" : "primary"}
+                          variant={errors.presence ? "error" : "primary"}
                           htmlFor="online"
                         >
                           Online
@@ -358,7 +358,7 @@ const Event: NextPage = () => {
                           id="vegetarian"
                         />
                         <Label
-                          intent={errors.food ? "error" : "primary"}
+                          variant={errors.food ? "error" : "primary"}
                           htmlFor="vegetarian"
                         >
                           Vegetarian
@@ -371,7 +371,7 @@ const Event: NextPage = () => {
                           id="vegan"
                         />
                         <Label
-                          intent={errors.food ? "error" : "primary"}
+                          variant={errors.food ? "error" : "primary"}
                           htmlFor="vegan"
                         >
                           Vegan
@@ -384,7 +384,7 @@ const Event: NextPage = () => {
                           id="noPreferences"
                         />
                         <Label
-                          intent={errors.food ? "error" : "primary"}
+                          variant={errors.food ? "error" : "primary"}
                           htmlFor="noPreferences"
                         >
                           No preferences
