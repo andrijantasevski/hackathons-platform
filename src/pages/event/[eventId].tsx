@@ -22,13 +22,14 @@ import {
   RadioGroupTitle,
 } from "@/components/ui/RadioGroup";
 import useGetAcademies from "@/utils/useGetAcademies";
+import useGetGroups from "@/utils/useGetGroups";
 
 export type EventTypes = {
   name: string;
   email: string;
   phone: string;
-  academy_id: number;
-  group: number;
+  academy_id: string;
+  group: string;
   availability: string;
   presence: string;
   food: string;
@@ -50,13 +51,27 @@ const Event: NextPage = () => {
 
   const { data: academies } = useGetAcademies();
 
+  const { data: groups } = useGetGroups();
+
   const {
     register,
     formState: { errors },
     handleSubmit,
     reset,
     control,
+    watch,
   } = useForm<EventTypes>();
+
+  const selectedAcademyId = watch("academy_id");
+
+  const groupsPerSelectedAcademy =
+    selectedAcademyId &&
+    groups &&
+    groups.filter((group) => group.academy_id === Number(selectedAcademyId));
+
+  const isGroupsPerSelectedAcademyEmpty =
+    Array.isArray(groupsPerSelectedAcademy) &&
+    groupsPerSelectedAcademy.length === 0;
 
   const onSubmit: SubmitHandler<EventTypes> = (data) => {
     console.log(data);
@@ -152,7 +167,7 @@ const Event: NextPage = () => {
                   name="academy_id"
                   rules={{ required: true }}
                   render={({ field: { onChange, value } }) => (
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-2.5">
                       <Label fontWeight="bold" htmlFor="selectAcademy">
                         Select an academy
                       </Label>
@@ -181,7 +196,6 @@ const Event: NextPage = () => {
                                 {academy.academy_name}
                               </SelectItem>
                             ))}
-                          {/* <SelectItem value="1">Group 1</SelectItem> */}
                         </SelectContent>
                       </Select>
                     </div>
@@ -195,11 +209,15 @@ const Event: NextPage = () => {
                   name="group"
                   rules={{ required: true }}
                   render={({ field: { onChange } }) => (
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-2.5">
                       <Label fontWeight="bold" htmlFor="selectGroup">
                         Select a group
                       </Label>
                       <Select
+                        disabled={
+                          (!selectedAcademyId && !groupsPerSelectedAcademy) ||
+                          isGroupsPerSelectedAcademyEmpty
+                        }
                         isError={errors.group}
                         errorMessage="Please select a group"
                         onValueChange={onChange}
@@ -234,7 +252,7 @@ const Event: NextPage = () => {
                   name="availability"
                   rules={{ required: true }}
                   render={({ field: { onChange, value } }) => (
-                    <RadioGroup onValueChange={onChange} defaultValue="">
+                    <RadioGroup onValueChange={onChange}>
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem
                           intent={errors.availability ? "error" : "primary"}
