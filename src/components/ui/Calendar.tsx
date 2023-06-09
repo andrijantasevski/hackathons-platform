@@ -23,7 +23,7 @@ function Calendar({
         caption_label: "text-sm font-medium",
         nav: "space-x-1 flex items-center",
         nav_button: twMerge(
-          buttonVariants({ intent: "primary" }),
+          buttonVariants({ variant: "primary" }),
           "h-7 w-7 p-0"
         ),
         nav_button_previous: "absolute left-1",
@@ -35,7 +35,7 @@ function Calendar({
         row: "flex w-full mt-2",
         cell: "text-center text-sm p-0 relative [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
         day: twMerge(
-          buttonVariants({ intent: "disabled" }),
+          buttonVariants({ variant: "disabled" }),
           "h-9 w-9 p-0 font-normal text-black bg-transparent shadow-none aria-selected:bg-primary aria-selected:text-white"
         ),
         day_selected:

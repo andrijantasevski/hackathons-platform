@@ -54,12 +54,12 @@ const radioGroupItemVariants = cva(
   ],
   {
     variants: {
-      intent: {
+      variant: {
         primary: ["border-neutral-950", "text-primary"],
         error: ["border-error-500"],
       },
     },
-    defaultVariants: { intent: "primary" },
+    defaultVariants: { variant: "primary" },
   }
 );
 
@@ -70,11 +70,11 @@ interface RadioGroupItemProps
 const RadioGroupItem = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Item>,
   RadioGroupItemProps
->(({ className, intent, children, ...props }, ref) => {
+>(({ className, variant, children, ...props }, ref) => {
   return (
     <RadioGroupPrimitive.Item
       ref={ref}
-      className={twMerge(radioGroupItemVariants({ intent }), className)}
+      className={twMerge(radioGroupItemVariants({ variant }), className)}
       {...props}
     >
       <RadioGroupPrimitive.Indicator className="flex items-center justify-center">
