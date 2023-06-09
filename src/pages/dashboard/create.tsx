@@ -72,7 +72,6 @@ const DashboardCreate: NextPageWithLayout = () => {
     control,
     formState: { errors },
     handleSubmit,
-    watch,
   } = useForm<HackathonFormData>();
 
   const onSubmit: SubmitHandler<HackathonFormData> = (data) => {
@@ -159,33 +158,41 @@ const DashboardCreate: NextPageWithLayout = () => {
                 <Controller
                   name="application_deadline"
                   control={control}
+                  rules={{ required: true }}
                   render={({ field: { onChange, value } }) => {
                     return (
-                      <Popover>
-                        <PopoverTrigger>
-                          <InputDatePicker
-                            variant={
-                              value
-                                ? "primary"
-                                : errors.end_date
-                                ? "primary-error"
-                                : "primary-placeholder"
-                            }
-                          >
-                            {value
-                              ? format(new Date(value), "PPP")
-                              : "Deadline for application"}
-                          </InputDatePicker>
-                        </PopoverTrigger>
+                      <div className="flex flex-col gap-2">
+                        <Popover>
+                          <PopoverTrigger>
+                            <InputDatePicker
+                              variant={
+                                value
+                                  ? "primary"
+                                  : errors.end_date
+                                  ? "primary-error"
+                                  : "primary-placeholder"
+                              }
+                            >
+                              {value
+                                ? format(new Date(value), "PPP")
+                                : "Deadline for application"}
+                            </InputDatePicker>
+                          </PopoverTrigger>
 
-                        <PopoverContent className="w-auto">
-                          <Calendar
-                            mode="single"
-                            selected={new Date(value)}
-                            onSelect={onChange}
-                          />
-                        </PopoverContent>
-                      </Popover>
+                          <PopoverContent className="w-auto">
+                            <Calendar
+                              mode="single"
+                              selected={new Date(value)}
+                              onSelect={onChange}
+                            />
+                          </PopoverContent>
+                        </Popover>
+                        {errors.application_deadline && (
+                          <p className="text-left font-medium text-error-500">
+                            Select a deadline for application
+                          </p>
+                        )}
+                      </div>
                     );
                   }}
                 />
@@ -193,33 +200,41 @@ const DashboardCreate: NextPageWithLayout = () => {
                 <Controller
                   name="start_date"
                   control={control}
+                  rules={{ required: true }}
                   render={({ field: { onChange, value } }) => {
                     return (
-                      <Popover>
-                        <PopoverTrigger>
-                          <InputDatePicker
-                            variant={
-                              value
-                                ? "primary"
-                                : errors.end_date
-                                ? "primary-error"
-                                : "primary-placeholder"
-                            }
-                          >
-                            {value
-                              ? format(new Date(value), "PPP")
-                              : "Start of hackathon"}
-                          </InputDatePicker>
-                        </PopoverTrigger>
+                      <div className="flex flex-col gap-2">
+                        <Popover>
+                          <PopoverTrigger>
+                            <InputDatePicker
+                              variant={
+                                value
+                                  ? "primary"
+                                  : errors.end_date
+                                  ? "primary-error"
+                                  : "primary-placeholder"
+                              }
+                            >
+                              {value
+                                ? format(new Date(value), "PPP")
+                                : "Start of hackathon"}
+                            </InputDatePicker>
+                          </PopoverTrigger>
 
-                        <PopoverContent className="w-auto">
-                          <Calendar
-                            mode="single"
-                            selected={new Date(value)}
-                            onSelect={onChange}
-                          />
-                        </PopoverContent>
-                      </Popover>
+                          <PopoverContent className="w-auto">
+                            <Calendar
+                              mode="single"
+                              selected={new Date(value)}
+                              onSelect={onChange}
+                            />
+                          </PopoverContent>
+                        </Popover>
+                        {errors.start_date && (
+                          <p className="text-left font-medium text-error-500">
+                            Select a start date for the hackathon
+                          </p>
+                        )}
+                      </div>
                     );
                   }}
                 />
@@ -230,31 +245,38 @@ const DashboardCreate: NextPageWithLayout = () => {
                   control={control}
                   render={({ field: { onChange, value } }) => {
                     return (
-                      <Popover>
-                        <PopoverTrigger>
-                          <InputDatePicker
-                            variant={
-                              value
-                                ? "primary"
-                                : errors.end_date
-                                ? "primary-error"
-                                : "primary-placeholder"
-                            }
-                          >
-                            {value
-                              ? format(new Date(value), "PPP")
-                              : "End of hackathon"}
-                          </InputDatePicker>
-                        </PopoverTrigger>
+                      <div className="flex flex-col gap-2">
+                        <Popover>
+                          <PopoverTrigger>
+                            <InputDatePicker
+                              variant={
+                                value
+                                  ? "primary"
+                                  : errors.end_date
+                                  ? "primary-error"
+                                  : "primary-placeholder"
+                              }
+                            >
+                              {value
+                                ? format(new Date(value), "PPP")
+                                : "End of hackathon"}
+                            </InputDatePicker>
+                          </PopoverTrigger>
 
-                        <PopoverContent className="w-auto">
-                          <Calendar
-                            mode="single"
-                            selected={new Date(value)}
-                            onSelect={onChange}
-                          />
-                        </PopoverContent>
-                      </Popover>
+                          <PopoverContent className="w-auto">
+                            <Calendar
+                              mode="single"
+                              selected={new Date(value)}
+                              onSelect={onChange}
+                            />
+                          </PopoverContent>
+                        </Popover>
+                        {errors.end_date && (
+                          <p className="text-left font-medium text-error-500">
+                            Select an end date for the hackathon
+                          </p>
+                        )}
+                      </div>
                     );
                   }}
                 />
