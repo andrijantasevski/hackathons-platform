@@ -9,6 +9,7 @@ import useSignUp, { SignUpFormData } from "@/utils/useSignUp";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { toast } from "react-hot-toast";
+import { Label } from "@/components/ui/Label";
 
 export default function SignUp() {
   const router = useRouter();
@@ -59,47 +60,56 @@ export default function SignUp() {
               onSubmit={handleSubmit(onSubmit)}
               className="grid grid-cols-1 gap-4"
             >
-              <InputRounded
-                showLabel={false}
-                {...register("fullName", { required: true })}
-                intent={errors.fullName ? "error" : "primary"}
-                leadingIcon={<IconUserCircle className="h-6 w-6" />}
-                placeholderOffset="pl-14"
-                errorMessage="Enter your full name"
-                id="fullNameInput"
-                type="text"
-                placeholder="Full name"
-              >
-                Full name
-              </InputRounded>
+              <div>
+                <Label htmlFor="fullNameInput" srOnly>
+                  Full name
+                </Label>
 
-              <InputRounded
-                showLabel={false}
-                {...register("email", { required: true })}
-                intent={errors.email ? "error" : "primary"}
-                leadingIcon={<IconMail className="h-6 w-6" />}
-                placeholderOffset="pl-14"
-                errorMessage="Enter your email"
-                id="emailInput"
-                type="email"
-                placeholder="Email"
-              >
-                Email
-              </InputRounded>
+                <InputRounded
+                  {...register("fullName", { required: true })}
+                  variant={errors.fullName ? "error" : "primary"}
+                  leadingIcon={<IconUserCircle className="h-6 w-6" />}
+                  placeholderOffset="pl-14"
+                  errorMessage="Enter your full name"
+                  id="fullNameInput"
+                  type="text"
+                  placeholder="Full name"
+                />
+              </div>
 
-              <InputRounded
-                showLabel={false}
-                {...register("password", { required: true, minLength: 8 })}
-                intent={errors.password ? "error" : "primary"}
-                leadingIcon={<IconLock className="h-6 w-6" />}
-                placeholderOffset="pl-14"
-                errorMessage="Enter a password"
-                id="passwordInput"
-                type="password"
-                placeholder="Password"
-              >
-                Password
-              </InputRounded>
+              <div>
+                <Label htmlFor="emailInput" srOnly>
+                  Email
+                </Label>
+
+                <InputRounded
+                  {...register("email", { required: true })}
+                  variant={errors.email ? "error" : "primary"}
+                  leadingIcon={<IconMail className="h-6 w-6" />}
+                  placeholderOffset="pl-14"
+                  errorMessage="Enter your email"
+                  id="emailInput"
+                  type="email"
+                  placeholder="Email"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="passwordInput" srOnly>
+                  Password
+                </Label>
+
+                <InputRounded
+                  {...register("password", { required: true, minLength: 8 })}
+                  variant={errors.password ? "error" : "primary"}
+                  leadingIcon={<IconLock className="h-6 w-6" />}
+                  placeholderOffset="pl-14"
+                  errorMessage="Enter a password"
+                  id="passwordInput"
+                  type="password"
+                  placeholder="Password"
+                />
+              </div>
 
               <Button
                 intent={isLoading ? "loading" : "primary"}

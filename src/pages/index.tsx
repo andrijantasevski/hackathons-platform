@@ -72,34 +72,40 @@ export default function SignIn() {
               onSubmit={handleSubmit(onSubmit)}
               className="grid grid-cols-1 gap-4"
             >
-              <InputRounded
-                showLabel={false}
-                {...register("email", { required: true })}
-                intent={errors.email ? "error" : "primary"}
-                leadingIcon={<IconMail className="h-6 w-6" />}
-                placeholderOffset="pl-14"
-                errorMessage="Enter your email"
-                id="emailInput"
-                type="email"
-                placeholder="Email"
-              >
-                Email
-              </InputRounded>
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="emailInput" srOnly>
+                  Email
+                </Label>
+
+                <InputRounded
+                  {...register("email", { required: true })}
+                  variant={errors.email ? "error" : "primary"}
+                  leadingIcon={<IconMail className="h-6 w-6" />}
+                  placeholderOffset="pl-14"
+                  errorMessage="Enter your email"
+                  id="emailInput"
+                  type="email"
+                  placeholder="Email"
+                />
+              </div>
 
               <div className="flex flex-col gap-2">
-                <InputRounded
-                  showLabel={false}
-                  {...register("password", { required: true, minLength: 8 })}
-                  intent={errors.password ? "error" : "primary"}
-                  leadingIcon={<IconLock className="h-6 w-6" />}
-                  placeholderOffset="pl-14"
-                  errorMessage="Enter a password"
-                  id="passwordInput"
-                  type="password"
-                  placeholder="Password"
-                >
-                  Password
-                </InputRounded>
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor="passwordInput" srOnly>
+                    Email
+                  </Label>
+
+                  <InputRounded
+                    {...register("password", { required: true, minLength: 8 })}
+                    variant={errors.password ? "error" : "primary"}
+                    leadingIcon={<IconLock className="h-6 w-6" />}
+                    placeholderOffset="pl-14"
+                    errorMessage="Enter a password"
+                    id="passwordInput"
+                    type="password"
+                    placeholder="Password"
+                  />
+                </div>
 
                 <div className="flex justify-end">
                   <Link href="/forgot-password">Forgot password?</Link>

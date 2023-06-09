@@ -11,6 +11,7 @@ import useForgotPassword, {
   ForgotPasswordFormData,
 } from "@/utils/useForgotPassword";
 import { toast } from "react-hot-toast";
+import { Label } from "@/components/ui/Label";
 
 export default function ForgotPassword() {
   const router = useRouter();
@@ -53,19 +54,22 @@ export default function ForgotPassword() {
               onSubmit={handleSubmit(onSubmit)}
               className="grid grid-cols-1 gap-4"
             >
-              <InputRounded
-                showLabel={false}
-                {...register("email", { required: true })}
-                intent={errors.email ? "error" : "primary"}
-                leadingIcon={<IconMail className="h-6 w-6" />}
-                placeholderOffset="pl-14"
-                errorMessage="Enter your email"
-                id="emailInput"
-                type="email"
-                placeholder="Email"
-              >
-                Email
-              </InputRounded>
+              <div>
+                <Label htmlFor="emailInput" srOnly>
+                  Email
+                </Label>
+
+                <InputRounded
+                  {...register("email", { required: true })}
+                  variant={errors.email ? "error" : "primary"}
+                  leadingIcon={<IconMail className="h-6 w-6" />}
+                  placeholderOffset="pl-14"
+                  errorMessage="Enter your email"
+                  id="emailInput"
+                  type="email"
+                  placeholder="Email"
+                />
+              </div>
 
               <Button
                 intent={isLoading ? "loading" : "primary"}
