@@ -168,7 +168,7 @@ const DashboardCreate: NextPageWithLayout = () => {
                               variant={
                                 value
                                   ? "primary"
-                                  : errors.end_date
+                                  : errors.application_deadline
                                   ? "primary-error"
                                   : "primary-placeholder"
                               }
@@ -210,7 +210,7 @@ const DashboardCreate: NextPageWithLayout = () => {
                               variant={
                                 value
                                   ? "primary"
-                                  : errors.end_date
+                                  : errors.start_date
                                   ? "primary-error"
                                   : "primary-placeholder"
                               }
