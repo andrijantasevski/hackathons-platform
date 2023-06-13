@@ -5,34 +5,14 @@ import Image from "next/image";
 import Head from "next/head";
 import Button from "@/components/ui/Button";
 import Link from "next/link";
-
-type KanbanItemProps = {
-  backgroundColor: string;
-  numberOfPeople: string;
-  date: string;
-  title: string;
-};
-
-function KanbanItem({
-  backgroundColor,
-  numberOfPeople,
-  date,
-  title,
-}: KanbanItemProps) {
-  return (
-    <div className={`${backgroundColor} flex flex-col gap-2 rounded-lg p-3`}>
-      <div className="flex items-center justify-between">
-        <p>{numberOfPeople} people</p>
-
-        <p>{date}</p>
-      </div>
-
-      <div className="text-lg">{title}</div>
-    </div>
-  );
-}
+import useGetHackathons from "@/utils/useGetHackathons";
+import KanbanItem, {
+  KanbanItemLoadingSkeleton,
+} from "@/components/common/KanbanItem";
 
 const Dashboard: NextPageWithLayout = () => {
+  const { data: hackathons, status } = useGetHackathons();
+
   return (
     <>
       <Head>
@@ -78,18 +58,23 @@ const Dashboard: NextPageWithLayout = () => {
             <p className="text-lg font-bold">To Do</p>
 
             <div className="flex flex-col gap-4">
-              <KanbanItem
-                numberOfPeople="170"
-                title="Online platform"
-                date="17 March"
-                backgroundColor="bg-gradient-green"
-              />
-              <KanbanItem
-                numberOfPeople="170"
-                title="Online platform"
-                date="17 March"
-                backgroundColor="bg-gradient-green"
-              />
+              {status === "loading" &&
+                [...Array(3)].map((_, i) => (
+                  <KanbanItemLoadingSkeleton variant="to-do" key={i} />
+                ))}
+
+              {hackathons &&
+                hackathons[0].event_data.map((kanbanItem) => (
+                  <KanbanItem
+                    key={kanbanItem.id}
+                    kanbanItem={kanbanItem}
+                    variant={hackathons[0].status}
+                  />
+                ))}
+
+              {hackathons && hackathons[0].event_data.length === 0 && (
+                <div>No drafted hackathons.</div>
+              )}
             </div>
           </div>
 
@@ -97,24 +82,23 @@ const Dashboard: NextPageWithLayout = () => {
             <p className="text-lg font-bold">In progress</p>
 
             <div className="flex flex-col gap-4">
-              <KanbanItem
-                numberOfPeople="170"
-                title="Online platform"
-                date="17 March"
-                backgroundColor="bg-gradient-purple"
-              />
-              <KanbanItem
-                numberOfPeople="170"
-                title="Online platform"
-                date="17 March"
-                backgroundColor="bg-gradient-purple"
-              />
-              <KanbanItem
-                numberOfPeople="170"
-                title="Online platform"
-                date="17 March"
-                backgroundColor="bg-gradient-purple"
-              />
+              {status === "loading" &&
+                [...Array(3)].map((_, i) => (
+                  <KanbanItemLoadingSkeleton variant="in-progress" key={i} />
+                ))}
+
+              {hackathons &&
+                hackathons[1].event_data.map((kanbanItem) => (
+                  <KanbanItem
+                    key={kanbanItem.id}
+                    kanbanItem={kanbanItem}
+                    variant={hackathons[1].status}
+                  />
+                ))}
+
+              {hackathons && hackathons[1].event_data.length === 0 && (
+                <div>No hackathons in progress.</div>
+              )}
             </div>
           </div>
 
@@ -122,12 +106,23 @@ const Dashboard: NextPageWithLayout = () => {
             <p className="text-lg font-bold">Done</p>
 
             <div className="flex flex-col gap-4">
-              <KanbanItem
-                numberOfPeople="170"
-                title="Online platform"
-                date="17 March"
-                backgroundColor="bg-gradient-orange"
-              />
+              {status === "loading" &&
+                [...Array(3)].map((_, i) => (
+                  <KanbanItemLoadingSkeleton variant="done" key={i} />
+                ))}
+
+              {hackathons &&
+                hackathons[2].event_data.map((kanbanItem) => (
+                  <KanbanItem
+                    key={kanbanItem.id}
+                    kanbanItem={kanbanItem}
+                    variant={hackathons[2].status}
+                  />
+                ))}
+
+              {hackathons && hackathons[2].event_data.length === 0 && (
+                <div>No finished hackathons.</div>
+              )}
             </div>
           </div>
         </div>
