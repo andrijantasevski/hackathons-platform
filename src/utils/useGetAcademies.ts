@@ -1,13 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import { Student } from "@/pages/dashboard/tracking";
 import { env } from "@/env";
 
 type Academy = {
-    created_at: null | Date;
-    updated_at: null | Date;
-    academy_name: string;
-    id: number;
-}
+  created_at: null | Date;
+  updated_at: null | Date;
+  academy_name: string;
+  id: number;
+};
 
 export default function useGetAcademies() {
   async function fetchAcademies() {
@@ -24,7 +23,7 @@ export default function useGetAcademies() {
     return responseData;
   }
 
-  return useQuery<{academies: Academy[]}>({
+  return useQuery<{ academies: Academy[] }>({
     queryFn: fetchAcademies,
     queryKey: ["academies"],
   });
