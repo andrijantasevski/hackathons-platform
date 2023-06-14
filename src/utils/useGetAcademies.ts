@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Student } from "@/pages/dashboard/tracking";
+import { env } from "@/env";
 
 type Academy = {
     created_at: null | Date;
@@ -11,7 +12,7 @@ type Academy = {
 export default function useGetAcademies() {
   async function fetchAcademies() {
     const response = await fetch(
-      "https://hackathonplatform-production.up.railway.app/api/academies"
+      `${env.NEXT_PUBLIC_API_BASE_URL}/api/academies`
     );
 
     if (!response.ok) {

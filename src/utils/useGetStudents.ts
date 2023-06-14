@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { Student } from "@/pages/dashboard/tracking";
 import hackathonData from "../../data/hackathonData.json";
+import { env } from "@/env";
 
 export default function useGetStudents() {
   async function fetchStudents() {
-    const response = await fetch("https://david-petkovski.sharedwithexpose.com/api/applicants?event_id=3");
+    const response = await fetch(`${env.NEXT_PUBLIC_API_BASE_URL}/api/applicants?event_id=3`);
 
     const responseData = await response.json();
 

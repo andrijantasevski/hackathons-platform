@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { z } from "zod";
 import { useUserContext } from "./userContext";
+import { env } from "@/env";
 
 export type SignInFormData = {
   email: string;
@@ -21,7 +22,7 @@ export default function useSignIn() {
     formDataObj.set("email", formData.email);
     formDataObj.set("password", formData.password);
 
-    const response = await fetch("https://david-petkovski.sharedwithexpose.com/api/auth/login", {
+    const response = await fetch(`${env.NEXT_PUBLIC_API_BASE_URL}/api/auth/login`, {
       method: "POST",
       body: formDataObj,
     });

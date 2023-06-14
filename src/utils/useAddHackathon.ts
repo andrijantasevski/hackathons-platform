@@ -1,12 +1,13 @@
 import { HackathonFormData } from "@/pages/dashboard/create";
 import { useMutation } from "@tanstack/react-query";
 import { useUserContext } from "./userContext";
+import { env } from "@/env";
 
 export default function useAddHackathon() {
   const { user } = useUserContext();
 
   async function addHackathon(formData: HackathonFormData) {
-    const response = await fetch("https://david-petkovski.sharedwithexpose.com/api/event/create", {
+    const response = await fetch(`${env.NEXT_PUBLIC_API_BASE_URL}/api/event/create`, {
       method: "POST",
       body: JSON.stringify(formData),
       headers: {
