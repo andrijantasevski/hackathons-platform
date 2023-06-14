@@ -15,10 +15,10 @@ export default function MeetTheTeam() {
           <h1 className="text-4xl font-bold lg:text-5xl">Meet the team</h1>
 
           <p className="text-lg lg:text-xl">
-            Welcome to our Hackathon Platform Team! We're thrilled to have you
-            on board as we embark on an exciting journey to revolutionize the
-            world of innovation and collaboration. Our mission is to create a
-            cutting-edge platform that empowers teams to unleash their
+            Welcome to our Hackathon Platform Team! We{"'"}re thrilled to have
+            you on board as we embark on an exciting journey to revolutionize
+            the world of innovation and collaboration. Our mission is to create
+            a cutting-edge platform that empowers teams to unleash their
             creativity, problem-solving skills, and passion for technology.
           </p>
         </section>
