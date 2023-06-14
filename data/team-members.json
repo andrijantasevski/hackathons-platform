@@ -1,0 +1,174 @@
+[
+  {
+    "id": 1,
+    "academy": "UX/UI",
+    "team_members": [
+      {
+        "id": 1,
+        "first_name": "Pande",
+        "last_name": "Bojadziev",
+        "title": "UX/UI designer",
+        "image": "",
+        "instagram": "",
+        "linkedin": "",
+        "behance": "",
+        "github": ""
+      },
+      {
+        "id": 2,
+        "first_name": "Joana",
+        "last_name": "Karadakovska",
+        "title": "UX/UI designer",
+        "image": "",
+        "instagram": "",
+        "linkedin": "",
+        "behance": "",
+        "github": ""
+      },
+      {
+        "id": 3,
+        "first_name": "Monika",
+        "last_name": "Milenkova",
+        "title": "UX/UI designer",
+        "image": "",
+        "instagram": "",
+        "linkedin": "",
+        "behance": "",
+        "github": ""
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "academy": "Frontend",
+    "team_members": [
+      {
+        "id": 1,
+        "first_name": "Gjorgji",
+        "last_name": "Velkovski",
+        "title": "Front-end developer",
+        "image": "",
+        "instagram": "",
+        "linkedin": "",
+        "behance": "",
+        "github": ""
+      },
+      {
+        "id": 2,
+        "first_name": "Andrijan",
+        "last_name": "Tasevski",
+        "title": "Full-stack developer",
+        "image": "",
+        "instagram": "",
+        "linkedin": "",
+        "behance": "",
+        "github": ""
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "academy": "Backend",
+    "team_members": [
+      {
+        "id": 1,
+        "first_name": "Konstantin",
+        "last_name": "Jovikj",
+        "title": "Full-stack developer",
+        "image": "",
+        "instagram": "",
+        "linkedin": "",
+        "behance": "",
+        "github": ""
+      },
+      {
+        "id": 2,
+        "first_name": "Igor",
+        "last_name": "Talevski",
+        "title": "Full-stack developer",
+        "image": "",
+        "instagram": "",
+        "linkedin": "",
+        "behance": "",
+        "github": ""
+      },
+      {
+        "id": 3,
+        "first_name": "David",
+        "last_name": "Petkovski",
+        "title": "Full-stack developer",
+        "image": "",
+        "instagram": "",
+        "linkedin": "",
+        "behance": "",
+        "github": ""
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "academy": "Software testing",
+    "team_members": [
+      {
+        "id": 1,
+        "first_name": "Filip",
+        "last_name": "Gjorgjievski",
+        "title": "Software tester",
+        "image": "",
+        "instagram": "",
+        "linkedin": "",
+        "behance": "",
+        "github": ""
+      },
+      {
+        "id": 2,
+        "first_name": "Sanja",
+        "last_name": "Boceska",
+        "title": "Software tester",
+        "image": "",
+        "instagram": "",
+        "linkedin": "",
+        "behance": "",
+        "github": ""
+      },
+      {
+        "id": 3,
+        "first_name": "Eleonora",
+        "last_name": "Bogdanovska",
+        "title": "Software tester",
+        "image": "",
+        "instagram": "",
+        "linkedin": "",
+        "behance": "",
+        "github": ""
+      },
+      {
+        "id": 4,
+        "first_name": "Elvir",
+        "last_name": "Iljazoski",
+        "title": "Software tester",
+        "image": "",
+        "instagram": "",
+        "linkedin": "",
+        "behance": "",
+        "github": ""
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "academy": "Project and product management",
+    "team_members": [
+      {
+        "id": 1,
+        "first_name": "Filip",
+        "last_name": "Gjorgjievski",
+        "title": "Software tester",
+        "instagram": "",
+        "linkedin": "",
+        "behance": "",
+        "github": ""
+      }
+    ]
+  }
+]
