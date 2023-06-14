@@ -295,7 +295,12 @@ const DashboardCreate: NextPageWithLayout = () => {
                 name="type_id"
                 rules={{ required: true }}
                 render={({ field: { onChange } }) => (
-                  <RadioGroup id="hackathonTypeInput" onValueChange={onChange}>
+                  <RadioGroup
+                    id="hackathonTypeInput"
+                    onValueChange={onChange}
+                    direction="horizontal"
+                    className="gap-6"
+                  >
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem
                         variant={errors.type_id ? "error" : "primary"}

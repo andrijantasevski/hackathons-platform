@@ -1,33 +1,54 @@
 import Image from "next/image";
 import Link from "next/link";
-import { IconHome, IconCirclePlus, IconGraph, IconBackpack, IconMenu } from "@tabler/icons-react";
+import {
+  IconHome,
+  IconCirclePlus,
+  IconGraph,
+  IconBackpack,
+  IconMenu,
+  IconDoorExit,
+} from "@tabler/icons-react";
 import { useRouter } from "next/router";
 import ModalNavigationMenu from "@/components/ModalNavigationMenu";
 import { useEffect, useState } from "react";
-import useIsLoggedIn, { useUserContext } from "@/utils/userContext";
+import { useUserContext } from "@/utils/userContext";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { Separator } from "@/components/ui/Separator";
+import { Slot } from "@radix-ui/react-slot";
+import { twMerge } from "tailwind-merge";
 
-type Props = {
-  children: React.ReactNode;
-};
+// ${
+//   router.pathname === href ? "bg-primary text-white" : ""
+// }
 
-type DashboardLinkProps = {
-  href: string;
-  children: React.ReactNode;
-};
+interface DashboardSidebarButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  asChild?: boolean;
+}
 
-function DashboardLink({ href, children }: DashboardLinkProps) {
-  const router = useRouter();
+function DashboardSidebarButton({
+  asChild,
+  className,
+  ...props
+}: DashboardSidebarButtonProps) {
+  const Comp = asChild ? Slot : "button";
 
   return (
-    <Link href={href} className={`flex w-full items-center gap-2 rounded-lg p-3 transition-colors hover:bg-primary-100 hover:text-white ${router.pathname === href ? "bg-primary text-white" : ""}`}>
-      {children}
-    </Link>
+    <Comp
+      className={twMerge(
+        "flex w-full items-center gap-2 rounded-lg p-3 transition-colors hover:bg-primary-100 hover:text-white",
+        className
+      )}
+      {...props}
+    />
   );
 }
 
-export default function DashboardLayout({ children }: Props) {
+type DashboardLayoutProps = {
+  children: React.ReactNode;
+};
+
+export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const router = useRouter();
 
   const [isSlideInMenuOpen, setIsSlideInMenuOpen] = useState(false);
@@ -71,38 +92,94 @@ export default function DashboardLayout({ children }: Props) {
 
           <aside className="sticky top-0 hidden h-screen w-80 shrink-0 flex-col items-center gap-6 bg-white px-6 py-10 shadow-xl lg:flex 2xl:w-96">
             <div className="flex w-full items-center gap-6">
-              <Image priority src="/images/user-image.png" width={70} height={70} alt="user image" />
+              <Image
+                priority
+                src="/images/user-image.png"
+                width={70}
+                height={70}
+                alt="user image"
+              />
               <p className="text-lg font-bold">Andrijan Tasevski</p>
             </div>
 
             <Separator />
 
-            <div className="flex w-full flex-col gap-2">
-              <DashboardLink href="/dashboard">
-                <IconHome />
-                Home
-              </DashboardLink>
+            <div className="flex h-full w-full flex-col justify-between">
+              <div className="flex w-full flex-col gap-2">
+                <DashboardSidebarButton
+                  asChild
+                  className={
+                    router.pathname === "/dashboard"
+                      ? "bg-primary text-white"
+                      : ""
+                  }
+                >
+                  <Link href="/dashboard">
+                    <IconHome />
+                    Home
+                  </Link>
+                </DashboardSidebarButton>
 
-              <DashboardLink href="/dashboard/create">
-                <IconCirclePlus />
-                Create
-              </DashboardLink>
+                <DashboardSidebarButton
+                  asChild
+                  className={
+                    router.pathname === "/dashboard/create"
+                      ? "bg-primary text-white"
+                      : ""
+                  }
+                >
+                  <Link href="/dashboard/create">
+                    <IconCirclePlus />
+                    Create
+                  </Link>
+                </DashboardSidebarButton>
 
-              <DashboardLink href="/dashboard/academy">
-                <IconBackpack />
-                Academy
-              </DashboardLink>
+                <DashboardSidebarButton
+                  asChild
+                  className={
+                    router.pathname === "/dashboard/academy"
+                      ? "bg-primary text-white"
+                      : ""
+                  }
+                >
+                  <Link href="/dashboard/academy">
+                    <IconBackpack />
+                    Academy
+                  </Link>
+                </DashboardSidebarButton>
 
-              <DashboardLink href="/dashboard/tracking">
-                <IconGraph />
-                Tracking
-              </DashboardLink>
+                <DashboardSidebarButton
+                  asChild
+                  className={
+                    router.pathname === "/dashboard/tracking"
+                      ? "bg-primary text-white"
+                      : ""
+                  }
+                >
+                  <Link href="/dashboard/tracking">
+                    <IconGraph />
+                    Tracking
+                  </Link>
+                </DashboardSidebarButton>
+              </div>
+
+              <div>
+                <DashboardSidebarButton>
+                  <IconDoorExit />
+                  Log out
+                </DashboardSidebarButton>
+              </div>
             </div>
           </aside>
 
           <section className="w-full">{children}</section>
 
-          {isSlideInMenuOpen && <ModalNavigationMenu isSlideInMenuOpen={isSlideInMenuOpen} closeSlideInMenu={closeSlideInMenu} />}
+          {isSlideInMenuOpen && (
+            <ModalNavigationMenu
+              isSlideInMenuOpen={isSlideInMenuOpen}
+              closeSlideInMenu={closeSlideInMenu}
+            />
+          )}
         </main>
       )}
     </>
