@@ -1,13 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
 import { EventTypes } from "@/pages/event/[eventId]";
+import { env } from "@/env";
 
 export default function useAddRegistration() {
   async function addHackathon(formData: EventTypes) {
-    fetch(
-      "https://hackathonplatform-production.up.railway.app/sanctum/csrf-cookie"
-    );
     const response = await fetch(
-      "https://hackathonplatform-production.up.railway.app/api/applicants/create",
+      `${env.NEXT_PUBLIC_API_BASE_URL}/api/applicants/create`,
       {
         method: "POST",
         body: JSON.stringify(formData),
