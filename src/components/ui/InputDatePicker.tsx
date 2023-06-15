@@ -1,5 +1,6 @@
 import { IconCalendar } from "@tabler/icons-react";
 import { cva, type VariantProps } from "class-variance-authority";
+import { forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
 
 const inputDatePickerVariants = cva(
@@ -34,7 +35,7 @@ const inputDatePickerVariants = cva(
         ],
         underlined: [],
         "primary-error": [
-          "bg-white-primary-content",
+          "bg-white",
           "text-error",
           "shadow-lg",
           "border-error",
@@ -53,22 +54,22 @@ interface InputDatePickerProps
   children: React.ReactNode;
 }
 
-function InputDatePicker({
-  variant,
-  className,
-  children,
-  ...props
-}: InputDatePickerProps) {
-  return (
-    <button
-      type="button"
-      className={twMerge(inputDatePickerVariants({ variant }), className)}
-      {...props}
-    >
-      <IconCalendar />
-      <span>{children}</span>
-    </button>
-  );
-}
+const InputDatePicker = forwardRef<HTMLButtonElement, InputDatePickerProps>(
+  ({ variant, className, children, ...props }, ref) => {
+    return (
+      <button
+        type="button"
+        className={twMerge(inputDatePickerVariants({ variant }), className)}
+        ref={ref}
+        {...props}
+      >
+        <IconCalendar />
+        <span>{children}</span>
+      </button>
+    );
+  }
+);
 
-export { InputDatePicker };
+InputDatePicker.displayName = "InputRounded";
+
+export default InputDatePicker;
