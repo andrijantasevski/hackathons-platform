@@ -3,7 +3,13 @@ import { NextPageWithLayout } from "../_app";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import Head from "next/head";
 import InputRounded from "@/components/ui/InputRounded";
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import {
+  useForm,
+  Controller,
+  SubmitHandler,
+  FieldErrors,
+  UseFormSetError,
+} from "react-hook-form";
 import Button from "@/components/ui/Button";
 import useAddHackathon from "@/utils/useAddHackathon";
 import { toast } from "react-hot-toast";
@@ -16,8 +22,35 @@ import {
   PopoverTrigger,
 } from "@/components/ui/Popover";
 import { Calendar } from "@/components/ui/Calendar";
-import { InputDatePicker } from "@/components/ui/InputDatePicker";
+import InputDatePicker from "@/components/ui/InputDatePicker";
 import { format } from "date-fns";
+
+function checkFileExtension({
+  fileInput,
+  errors,
+}: {
+  fileInput: FileList;
+  errors: FieldErrors<HackathonFormData>;
+}) {
+  let isFileExtensionValid = true;
+
+  for (let i = 0; i < fileInput.length; i++) {
+    const currentFile = fileInput.item(i);
+
+    const fileExtension = currentFile?.name.split(".").pop();
+
+    if (fileExtension !== "pdf") {
+      isFileExtensionValid = false;
+      break;
+    }
+  }
+
+  if (!isFileExtensionValid) {
+    return false;
+  }
+
+  return true;
+}
 
 const academies = [
   {
@@ -58,6 +91,7 @@ export type HackathonFormData = {
   type_id: string;
   description: string;
   academies: string[];
+  file: FileList;
 };
 
 const DashboardCreate: NextPageWithLayout = () => {
@@ -72,9 +106,13 @@ const DashboardCreate: NextPageWithLayout = () => {
     control,
     formState: { errors },
     handleSubmit,
+    watch,
+    setError,
+    clearErrors,
   } = useForm<HackathonFormData>();
 
   const onSubmit: SubmitHandler<HackathonFormData> = (data) => {
+    console.log(data);
     mutate(data, {
       onSuccess: () => {
         setIsModalShown(true);
@@ -112,6 +150,23 @@ const DashboardCreate: NextPageWithLayout = () => {
     return [...selectedAcademies, academy];
   }
 
+  const fileInput = watch("file");
+
+  const isFileExtensionValid =
+    fileInput &&
+    checkFileExtension({
+      fileInput,
+      errors,
+    });
+
+  if (fileInput && !errors.file && !isFileExtensionValid) {
+    setError("file", { message: "Please choose .pdf file type!" });
+  }
+
+  if (fileInput && errors.file && isFileExtensionValid) {
+    clearErrors("file");
+  }
+
   return (
     <>
       <Head>
@@ -146,7 +201,7 @@ const DashboardCreate: NextPageWithLayout = () => {
               <InputRounded
                 variant={errors.title ? "error" : "primary"}
                 {...register("title", { required: true })}
-                errorMessage="Enter a name for the event"
+                errorMessage="Please enter a name for the event"
                 id="nameInput"
                 type="text"
                 placeholder="Name of the event"
@@ -164,7 +219,7 @@ const DashboardCreate: NextPageWithLayout = () => {
                   return (
                     <div className="flex flex-col gap-2">
                       <Popover>
-                        <PopoverTrigger>
+                        <PopoverTrigger asChild>
                           <InputDatePicker
                             variant={
                               value
@@ -190,7 +245,7 @@ const DashboardCreate: NextPageWithLayout = () => {
                       </Popover>
                       {errors.application_deadline && (
                         <p className="text-left font-medium text-error">
-                          Select a deadline for application
+                          Please select a deadline for application
                         </p>
                       )}
                     </div>
@@ -209,7 +264,7 @@ const DashboardCreate: NextPageWithLayout = () => {
                   return (
                     <div className="flex flex-col gap-2">
                       <Popover>
-                        <PopoverTrigger>
+                        <PopoverTrigger asChild>
                           <InputDatePicker
                             variant={
                               value
@@ -235,7 +290,7 @@ const DashboardCreate: NextPageWithLayout = () => {
                       </Popover>
                       {errors.start_date && (
                         <p className="text-left font-medium text-error">
-                          Select a start date for the hackathon
+                          Please select a start date for the hackathon
                         </p>
                       )}
                     </div>
@@ -254,7 +309,7 @@ const DashboardCreate: NextPageWithLayout = () => {
                   return (
                     <div className="flex flex-col gap-2">
                       <Popover>
-                        <PopoverTrigger>
+                        <PopoverTrigger asChild>
                           <InputDatePicker
                             variant={
                               value
@@ -280,7 +335,7 @@ const DashboardCreate: NextPageWithLayout = () => {
                       </Popover>
                       {errors.end_date && (
                         <p className="text-left font-medium text-error">
-                          Select an end date for the hackathon
+                          Please select an end date for the hackathon
                         </p>
                       )}
                     </div>
@@ -336,7 +391,7 @@ const DashboardCreate: NextPageWithLayout = () => {
                     <div>
                       {errors.type_id && (
                         <p className="text-left font-medium text-error">
-                          Select a hackathon type
+                          Please select a hackathon type
                         </p>
                       )}
                     </div>
@@ -363,17 +418,28 @@ const DashboardCreate: NextPageWithLayout = () => {
               <div>
                 {errors.description && (
                   <span className="font-medium text-error">
-                    Enter information about the event/client
+                    Please enter information about the event/client
                   </span>
                 )}
               </div>
             </div>
 
             <div className="flex flex-col gap-4">
-              <p className="font-bold">
+              <Label htmlFor="fileInput" fontWeight="bold">
                 Upload resources from the client (if provided)
-              </p>
-              <input type="file" />
+              </Label>
+              <InputRounded
+                {...register("file")}
+                variant={errors.file ? "error-file" : "primary-file"}
+                id="fileInput"
+                type="file"
+                placeholder=""
+                accept=".pdf"
+                multiple
+              />
+              {errors.file && (
+                <p className="font-medium text-error">{errors.file.message}</p>
+              )}
             </div>
           </div>
 
@@ -413,7 +479,7 @@ const DashboardCreate: NextPageWithLayout = () => {
               />
             </div>
 
-            <Button>Confirm</Button>
+            <Button size="lg">Submit</Button>
           </div>
         </form>
       </div>
