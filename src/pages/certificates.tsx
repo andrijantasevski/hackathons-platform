@@ -30,7 +30,10 @@ function CertificateCardLoading() {
 
       <div className="flex w-full items-center gap-2">
         {[...Array(3)].map((_, i) => (
-          <div className="h-7 w-7 animate-pulse rounded-lg bg-white shadow-2xl" />
+          <div
+            key={i}
+            className="h-7 w-7 animate-pulse rounded-lg bg-white shadow-2xl"
+          />
         ))}
       </div>
     </div>
