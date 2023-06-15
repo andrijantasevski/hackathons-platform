@@ -34,7 +34,9 @@ export default async function handler(
 ) {
   if (req.query.email) {
     if (typeof req.query.email !== "string") {
-      return res.status(400).json({ data: null, message: "Success" });
+      return res
+        .status(400)
+        .json({ data: null, message: "Please provide a correct email" });
     }
 
     const email = req.query.email;

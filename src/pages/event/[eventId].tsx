@@ -298,7 +298,7 @@ const Event: NextPage = () => {
                       </div>
                       <div>
                         {errors.availability && (
-                          <p className="text-left text-error-500">
+                          <p className="text-left text-error">
                             Please choose availability
                           </p>
                         )}
@@ -347,7 +347,7 @@ const Event: NextPage = () => {
                       </div>
                       <div>
                         {errors.availability && (
-                          <p className="text-left text-error-500">
+                          <p className="text-left text-error">
                             Please select presence
                           </p>
                         )}
@@ -409,7 +409,7 @@ const Event: NextPage = () => {
                       </div>
                       <div>
                         {errors.availability && (
-                          <p className="text-left text-error-500">
+                          <p className="text-left text-error">
                             Select presence
                           </p>
                         )}

@@ -1,4 +1,4 @@
-import { useState, type ReactElement, useEffect } from "react";
+import { useState, type ReactElement } from "react";
 import { NextPageWithLayout } from "../_app";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import Head from "next/head";
@@ -154,135 +154,139 @@ const DashboardCreate: NextPageWithLayout = () => {
             </div>
 
             <div className="flex flex-col gap-2">
-              <p className="font-bold">Date</p>
+              <p className="font-bold">Deadline for application</p>
 
-              <div className="flex flex-col gap-4">
-                <Controller
-                  name="application_deadline"
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { onChange, value } }) => {
-                    return (
-                      <div className="flex flex-col gap-2">
-                        <Popover>
-                          <PopoverTrigger>
-                            <InputDatePicker
-                              variant={
-                                value
-                                  ? "primary"
-                                  : errors.application_deadline
-                                  ? "primary-error"
-                                  : "primary-placeholder"
-                              }
-                            >
-                              {value
-                                ? format(new Date(value), "PPP")
-                                : "Deadline for application"}
-                            </InputDatePicker>
-                          </PopoverTrigger>
+              <Controller
+                name="application_deadline"
+                control={control}
+                rules={{ required: true }}
+                render={({ field: { onChange, value } }) => {
+                  return (
+                    <div className="flex flex-col gap-2">
+                      <Popover>
+                        <PopoverTrigger>
+                          <InputDatePicker
+                            variant={
+                              value
+                                ? "primary"
+                                : errors.application_deadline
+                                ? "primary-error"
+                                : "primary-placeholder"
+                            }
+                          >
+                            {value
+                              ? format(new Date(value), "PPP")
+                              : "Deadline for application"}
+                          </InputDatePicker>
+                        </PopoverTrigger>
 
-                          <PopoverContent className="w-auto">
-                            <Calendar
-                              mode="single"
-                              selected={new Date(value)}
-                              onSelect={onChange}
-                            />
-                          </PopoverContent>
-                        </Popover>
-                        {errors.application_deadline && (
-                          <p className="text-left font-medium text-error-500">
-                            Select a deadline for application
-                          </p>
-                        )}
-                      </div>
-                    );
-                  }}
-                />
+                        <PopoverContent className="w-auto">
+                          <Calendar
+                            mode="single"
+                            selected={new Date(value)}
+                            onSelect={onChange}
+                          />
+                        </PopoverContent>
+                      </Popover>
+                      {errors.application_deadline && (
+                        <p className="text-left font-medium text-error">
+                          Select a deadline for application
+                        </p>
+                      )}
+                    </div>
+                  );
+                }}
+              />
+            </div>
 
-                <Controller
-                  name="start_date"
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { onChange, value } }) => {
-                    return (
-                      <div className="flex flex-col gap-2">
-                        <Popover>
-                          <PopoverTrigger>
-                            <InputDatePicker
-                              variant={
-                                value
-                                  ? "primary"
-                                  : errors.start_date
-                                  ? "primary-error"
-                                  : "primary-placeholder"
-                              }
-                            >
-                              {value
-                                ? format(new Date(value), "PPP")
-                                : "Start of hackathon"}
-                            </InputDatePicker>
-                          </PopoverTrigger>
+            <div className="flex flex-col gap-2">
+              <p className="font-bold">Start of hackathon</p>
+              <Controller
+                name="start_date"
+                control={control}
+                rules={{ required: true }}
+                render={({ field: { onChange, value } }) => {
+                  return (
+                    <div className="flex flex-col gap-2">
+                      <Popover>
+                        <PopoverTrigger>
+                          <InputDatePicker
+                            variant={
+                              value
+                                ? "primary"
+                                : errors.start_date
+                                ? "primary-error"
+                                : "primary-placeholder"
+                            }
+                          >
+                            {value
+                              ? format(new Date(value), "PPP")
+                              : "Start of hackathon"}
+                          </InputDatePicker>
+                        </PopoverTrigger>
 
-                          <PopoverContent className="w-auto">
-                            <Calendar
-                              mode="single"
-                              selected={new Date(value)}
-                              onSelect={onChange}
-                            />
-                          </PopoverContent>
-                        </Popover>
-                        {errors.start_date && (
-                          <p className="text-left font-medium text-error-500">
-                            Select a start date for the hackathon
-                          </p>
-                        )}
-                      </div>
-                    );
-                  }}
-                />
+                        <PopoverContent className="w-auto">
+                          <Calendar
+                            mode="single"
+                            selected={new Date(value)}
+                            onSelect={onChange}
+                          />
+                        </PopoverContent>
+                      </Popover>
+                      {errors.start_date && (
+                        <p className="text-left font-medium text-error">
+                          Select a start date for the hackathon
+                        </p>
+                      )}
+                    </div>
+                  );
+                }}
+              />
+            </div>
 
-                <Controller
-                  name="end_date"
-                  rules={{ required: true }}
-                  control={control}
-                  render={({ field: { onChange, value } }) => {
-                    return (
-                      <div className="flex flex-col gap-2">
-                        <Popover>
-                          <PopoverTrigger>
-                            <InputDatePicker
-                              variant={
-                                value
-                                  ? "primary"
-                                  : errors.end_date
-                                  ? "primary-error"
-                                  : "primary-placeholder"
-                              }
-                            >
-                              {value
-                                ? format(new Date(value), "PPP")
-                                : "End of hackathon"}
-                            </InputDatePicker>
-                          </PopoverTrigger>
+            <div className="flex flex-col gap-2">
+              <p className="font-bold">End of hackathon</p>
+              <Controller
+                name="end_date"
+                rules={{ required: true }}
+                control={control}
+                render={({ field: { onChange, value } }) => {
+                  return (
+                    <div className="flex flex-col gap-2">
+                      <Popover>
+                        <PopoverTrigger>
+                          <InputDatePicker
+                            variant={
+                              value
+                                ? "primary"
+                                : errors.end_date
+                                ? "primary-error"
+                                : "primary-placeholder"
+                            }
+                          >
+                            {value
+                              ? format(new Date(value), "PPP")
+                              : "End of hackathon"}
+                          </InputDatePicker>
+                        </PopoverTrigger>
 
-                          <PopoverContent className="w-auto">
-                            <Calendar
-                              mode="single"
-                              selected={new Date(value)}
-                              onSelect={onChange}
-                            />
-                          </PopoverContent>
-                        </Popover>
-                        {errors.end_date && (
-                          <p className="text-left font-medium text-error-500">
-                            Select an end date for the hackathon
-                          </p>
-                        )}
-                      </div>
-                    );
-                  }}
-                />
-              </div>
+                        <PopoverContent className="w-auto">
+                          <Calendar
+                            mode="single"
+                            selected={new Date(value)}
+                            onSelect={onChange}
+                          />
+                        </PopoverContent>
+                      </Popover>
+                      {errors.end_date && (
+                        <p className="text-left font-medium text-error">
+                          Select an end date for the hackathon
+                        </p>
+                      )}
+                    </div>
+                  );
+                }}
+              />
             </div>
 
             <div className="flex flex-col gap-3">
@@ -295,46 +299,48 @@ const DashboardCreate: NextPageWithLayout = () => {
                 name="type_id"
                 rules={{ required: true }}
                 render={({ field: { onChange } }) => (
-                  <RadioGroup
-                    id="hackathonTypeInput"
-                    onValueChange={onChange}
-                    direction="horizontal"
-                    className="gap-6"
-                  >
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem
-                        variant={errors.type_id ? "error" : "primary"}
-                        value="live"
-                        id="live"
-                      />
-                      <Label
-                        variant={errors.type_id ? "error" : "primary"}
-                        htmlFor="live"
-                      >
-                        Live
-                      </Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem
-                        variant={errors.type_id ? "error" : "primary"}
-                        value="online"
-                        id="online"
-                      />
-                      <Label
-                        variant={errors.type_id ? "error" : "primary"}
-                        htmlFor="online"
-                      >
-                        Online
-                      </Label>
-                    </div>
+                  <div className="flex flex-col gap-2">
+                    <RadioGroup
+                      id="hackathonTypeInput"
+                      onValueChange={onChange}
+                      direction="horizontal"
+                      className="gap-6"
+                    >
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem
+                          variant={errors.type_id ? "error" : "primary"}
+                          value="live"
+                          id="live"
+                        />
+                        <Label
+                          variant={errors.type_id ? "error" : "primary"}
+                          htmlFor="live"
+                        >
+                          Live
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem
+                          variant={errors.type_id ? "error" : "primary"}
+                          value="online"
+                          id="online"
+                        />
+                        <Label
+                          variant={errors.type_id ? "error" : "primary"}
+                          htmlFor="online"
+                        >
+                          Online
+                        </Label>
+                      </div>
+                    </RadioGroup>
                     <div>
                       {errors.type_id && (
-                        <p className="text-left font-medium text-error-500">
+                        <p className="text-left font-medium text-error">
                           Select a hackathon type
                         </p>
                       )}
                     </div>
-                  </RadioGroup>
+                  </div>
                 )}
               />
             </div>
@@ -350,13 +356,13 @@ const DashboardCreate: NextPageWithLayout = () => {
                 rows={10}
                 className={`resize-none rounded-lg border p-4 shadow-lg focus:outline-none focus:ring-1 ${
                   errors.description
-                    ? "border-error-500 focus:border-error-500 focus:ring-error-500"
+                    ? "border-error focus:border-error focus:ring-error"
                     : "focus:border-primary-100 focus:ring-primary"
                 }`}
               ></textarea>
               <div>
                 {errors.description && (
-                  <span className="font-medium text-red-500">
+                  <span className="font-medium text-error">
                     Enter information about the event/client
                   </span>
                 )}
@@ -371,7 +377,7 @@ const DashboardCreate: NextPageWithLayout = () => {
             </div>
           </div>
 
-          <div className="flex w-full flex-col justify-between gap-8 border-primary-50 lg:w-5/12 lg:border-l-2 lg:pl-10">
+          <div className="flex w-full flex-col justify-between gap-8 border-primary lg:w-5/12 lg:border-l-2 lg:pl-10">
             <div className="flex flex-col justify-between gap-3">
               <p className="font-bold">Select academies</p>
 
@@ -394,7 +400,7 @@ const DashboardCreate: NextPageWithLayout = () => {
                             selectedAcademies.includes(academy.value)
                               ? "border-transparent bg-primary text-white"
                               : errors.academies
-                              ? "border-error-500 bg-white text-error-500"
+                              ? "border-error bg-white text-error"
                               : "border-transparent bg-white"
                           }`}
                         >

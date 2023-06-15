@@ -18,16 +18,16 @@ const inputUnderlinedVariants = cva(
     variants: {
       variant: {
         primary: [
-          "border-neutral-900",
-          "focus:ring-primary",
-          "focus:border-primary",
+          "border-base-content",
+          "focus:ring-primary-focus",
+          "focus:border-primary-focus",
         ],
         error: [
-          "text-error-600",
-          "border-error-600",
-          "focus:ring-error-500",
-          "focus:border-error-500",
-          "placeholder:text-error-600",
+          "text-error",
+          "border-error",
+          "focus:ring-error",
+          "focus:border-error",
+          "placeholder:text-error",
         ],
       },
     },
@@ -59,14 +59,12 @@ const InputUnderlined = forwardRef<HTMLInputElement, Props>(
           />
 
           {variant === "error" && (
-            <IconExclamationCircle className="absolute right-2 top-1/2 -translate-y-1/2 text-error-600" />
+            <IconExclamationCircle className="absolute right-2 top-1/2 -translate-y-1/2 text-error" />
           )}
         </div>
 
         {variant === "error" && (
-          <div className="text-left font-medium text-error-500">
-            {errorMessage}
-          </div>
+          <div className="text-left font-medium text-error">{errorMessage}</div>
         )}
       </div>
     );

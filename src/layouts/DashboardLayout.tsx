@@ -17,10 +17,6 @@ import { Separator } from "@/components/ui/Separator";
 import { Slot } from "@radix-ui/react-slot";
 import { twMerge } from "tailwind-merge";
 
-// ${
-//   router.pathname === href ? "bg-primary text-white" : ""
-// }
-
 interface DashboardSidebarButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean;
@@ -36,7 +32,7 @@ function DashboardSidebarButton({
   return (
     <Comp
       className={twMerge(
-        "flex w-full items-center gap-2 rounded-lg p-3 transition-colors hover:bg-primary-100 hover:text-white",
+        "flex w-full items-center gap-2 rounded-lg p-3 transition-colors hover:bg-primary hover:text-white",
         className
       )}
       {...props}

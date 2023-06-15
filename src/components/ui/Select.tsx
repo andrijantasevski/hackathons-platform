@@ -17,7 +17,7 @@ const Select = ({ children, errorMessage, isError, ...props }: SelectProps) => {
     <SelectPrimitive.Root {...props}>
       {children}
 
-      {isError && <p className="text-left text-error-500">{errorMessage}</p>}
+      {isError && <p className="text-left text-error">{errorMessage}</p>}
     </SelectPrimitive.Root>
   );
 };
@@ -48,23 +48,23 @@ const selectTriggerVariants = cva(
           "p-3",
           "shadow-lg",
           "rounded-md",
-          "data-[placeholder]:text-neutral-400",
+          "data-[placeholder]:text-base-400",
         ],
         underlined: [
           "rounded-sm",
           "border-b-2",
-          "border-neutral-900",
+          "border-base-content",
           "py-3 pr-3",
-          "data-[placeholder]:text-neutral-400",
+          "data-[placeholder]:text-base-400",
         ],
         error: [],
         "underlined-error": [
           "border-b-2",
-          "border-error-500",
+          "border-error",
           "py-3",
           "pr-3",
-          "text-error-500",
-          "data-[placeholder]:text-error-500",
+          "text-error",
+          "data-[placeholder]:text-error",
         ],
       },
       defaultVariants: {
@@ -105,7 +105,7 @@ const SelectContent = React.forwardRef<
         <SelectPrimitive.Viewport asChild>
           <ScrollArea.Viewport
             style={{ overflowY: undefined }}
-            className="max-h-56 w-full min-w-[var(--radix-select-trigger-width)] rounded-lg bg-white p-3 shadow-lg mt-1"
+            className="mt-1 max-h-56 w-full min-w-[var(--radix-select-trigger-width)] rounded-lg bg-white p-3 shadow-lg"
           >
             {children}
           </ScrollArea.Viewport>
@@ -114,7 +114,7 @@ const SelectContent = React.forwardRef<
           className="w-3 px-0.5 py-1"
           orientation="vertical"
         >
-          <ScrollArea.Thumb className="rounded-md bg-gray-200" />
+          <ScrollArea.Thumb className="rounded-md bg-base-200" />
         </ScrollArea.Scrollbar>
       </ScrollArea.Root>
     </SelectPrimitive.Content>
