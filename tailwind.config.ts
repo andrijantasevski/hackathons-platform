@@ -1,6 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-const defaultTheme = require("tailwindcss/defaultTheme");
-import colors from "tailwindcss/colors";
 
 module.exports = {
   content: [
@@ -12,17 +10,51 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "primary-50": "#8ea2e1",
+        /**
+         * Primary color
+         */
         primary: "#4364CD",
-        "primary-100": "#3c5ab9",
-        success: { ...colors.green },
-        warning: { ...colors.yellow },
-        error: { ...colors.red },
+        /**
+         * Primary color when focused
+         */
+        "primary-focus": "#2E4CAD",
+        /**
+         * Foreground content color to use on primary color
+         */
+        "primary-content": "#FFF",
+        /**
+         * Base color of page, used for blank backgrounds
+         */
+        "base-100": "#F7F9FE",
+        /**
+         * Base color, darker
+         */
+        "base-200": "#dee0e5",
+        /**
+         * Base color, darker
+         */
+        "base-300": "#c6c7cb",
+        /**
+         * Base color, darker
+         */
+        "base-400": "#adaeb2",
+        /**
+         * Foreground content color to use on base color
+         */
+        "base-content": "#000",
+        /**
+         * Error color
+         */
+        error: "#dc2626",
+        /**
+         * Error color when focused
+         */
+        "error-focus": "#b91c1c",
+        /**
+         * Foreground content color to use on error color
+         */
+        "error-content": "#fef2f2",
       },
-      fontFamily: {
-        sans: ["Verdana", ...defaultTheme.fontFamily.sans],
-      },
-
       backgroundImage: {
         cloud: "url('/images/background-images/background-cloud.svg')",
         "gradient-primary":

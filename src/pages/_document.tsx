@@ -10,7 +10,7 @@ export default function Document() {
           as="image/svg+xml"
         />
       </Head>
-      <body className="">
+      <body className="bg-base-100 text-base-content">
         <Main />
         <NextScript />
       </body>

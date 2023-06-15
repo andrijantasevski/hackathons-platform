@@ -30,7 +30,7 @@ export default function MeetTheTeam() {
             </p>
           </section>
 
-          <section className="flex flex-col gap-6">
+          <section className="flex flex-col gap-12">
             {teamMembers.map((academy) => (
               <div key={academy.id} className="flex flex-col gap-6">
                 <h2 className="text-2xl font-bold lg:text-3xl">

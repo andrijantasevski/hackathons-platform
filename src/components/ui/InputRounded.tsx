@@ -19,16 +19,16 @@ const inputRoundedVariants = cva(
       variant: {
         primary: [
           "border-transparent",
-          "focus:ring-primary",
-          "focus:border-primary-100",
-          "placeholder:text-neutral-400",
+          "focus:ring-primary-focus",
+          "focus:border-primary-focus",
+          "placeholder:text-base-400",
         ],
         error: [
-          "text-error-600",
-          "border-error-600",
-          "focus:ring-error-500",
-          "focus:border-error-500",
-          "placeholder:text-error-600",
+          "text-error",
+          "border-error",
+          "focus:ring-error",
+          "focus:border-error",
+          "placeholder:text-error",
         ],
       },
     },
@@ -111,12 +111,12 @@ const InputRounded = forwardRef<HTMLInputElement, Props>(
           />
 
           {variant === "error" && (
-            <IconExclamationCircle className="absolute right-2 top-1/2 -translate-y-1/2 text-red-600" />
+            <IconExclamationCircle className="absolute right-2 top-1/2 -translate-y-1/2 text-error" />
           )}
         </div>
 
         {variant === "error" && errorMessage && (
-          <div className="font-medium text-red-500">{errorMessage}</div>
+          <div className="font-medium text-error">{errorMessage}</div>
         )}
       </div>
     );

@@ -55,8 +55,8 @@ const radioGroupItemVariants = cva(
   {
     variants: {
       variant: {
-        primary: ["border-neutral-950", "text-primary"],
-        error: ["border-error-500"],
+        primary: ["border-base-content", "text-primary"],
+        error: ["border-error"],
       },
     },
     defaultVariants: { variant: "primary" },

@@ -12,8 +12,8 @@ const labelVariants = cva(
         bold: "font-bold",
       },
       variant: {
-        primary: ["text-neutral-950"],
-        error: ["text-red-500"],
+        primary: ["text-base-content"],
+        error: ["text-error"],
       },
       srOnly: {
         true: ["sr-only"],
