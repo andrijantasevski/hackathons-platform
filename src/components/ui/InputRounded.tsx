@@ -42,7 +42,7 @@ interface Props
   extends React.InputHTMLAttributes<HTMLInputElement>,
     VariantProps<typeof inputRoundedVariants> {
   id: string;
-  errorMessage: string;
+  errorMessage?: string;
   placeholder: string;
   /**
    * Icon to show before the placeholder/input text.
@@ -115,7 +115,7 @@ const InputRounded = forwardRef<HTMLInputElement, Props>(
           )}
         </div>
 
-        {variant === "error" && (
+        {variant === "error" && errorMessage && (
           <div className="font-medium text-red-500">{errorMessage}</div>
         )}
       </div>
