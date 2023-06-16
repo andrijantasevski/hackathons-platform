@@ -3,13 +3,7 @@ import { NextPageWithLayout } from "../_app";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import Head from "next/head";
 import InputRounded from "@/components/ui/InputRounded";
-import {
-  useForm,
-  Controller,
-  SubmitHandler,
-  FieldErrors,
-  UseFormSetError,
-} from "react-hook-form";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import Button from "@/components/ui/Button";
 import useAddHackathon from "@/utils/useAddHackathon";
 import { toast } from "react-hot-toast";
@@ -24,14 +18,11 @@ import {
 import { Calendar } from "@/components/ui/Calendar";
 import InputDatePicker from "@/components/ui/InputDatePicker";
 import { format } from "date-fns";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { DateBefore } from "react-day-picker";
 
-function checkFileExtension({
-  fileInput,
-  errors,
-}: {
-  fileInput: FileList;
-  errors: FieldErrors<HackathonFormData>;
-}) {
+function checkFileExtension({ fileInput }: { fileInput: FileList }) {
   let isFileExtensionValid = true;
 
   for (let i = 0; i < fileInput.length; i++) {
@@ -46,6 +37,38 @@ function checkFileExtension({
   }
 
   if (!isFileExtensionValid) {
+    return false;
+  }
+
+  return true;
+}
+
+function checkFilesSizes({
+  fileInput,
+  fileSizeLimit,
+}: {
+  fileInput: FileList;
+  fileSizeLimit: number;
+}) {
+  let isFileSizeValid = true;
+
+  const fileSizeLimitToBytes = fileSizeLimit * 1048576;
+
+  for (let i = 0; i < fileInput.length; i++) {
+    const currentFile = fileInput.item(i);
+
+    if (!currentFile) {
+      isFileSizeValid = false;
+      break;
+    }
+
+    if (currentFile.size > fileSizeLimitToBytes) {
+      isFileSizeValid = false;
+      break;
+    }
+  }
+
+  if (!isFileSizeValid) {
     return false;
   }
 
@@ -83,6 +106,67 @@ const academies = [
   },
 ];
 
+const hackathonFormSchema = z
+  .object({
+    title: z.string().min(1, { message: "Please enter a name for the event!" }),
+    application_deadline: z.date({
+      required_error: "Please select a deadline for application!",
+    }),
+    start_date: z.date({
+      required_error: "Please select a start date for the hackathon!",
+    }),
+    end_date: z.date({
+      required_error: "Please select an end date for the hackathon!",
+    }),
+    type_id: z.string().min(1, { message: "Please select a hackathon type!" }),
+    description: z
+      .string()
+      .min(1, { message: "Please enter information about the event/client!" }),
+    academies: z.array(z.string(), {
+      required_error: "Please select at least one academy!",
+    }),
+    file: z
+      .custom<FileList>()
+      .refine((files) => checkFileExtension({ fileInput: files }), {
+        message: "Please choose .pdf files only!",
+      })
+      .refine(
+        (files) => checkFilesSizes({ fileInput: files, fileSizeLimit: 8 }),
+        {
+          message: "Please choose files smaller than 8MB!",
+        }
+      )
+      .optional(),
+  })
+  .refine(
+    (data) =>
+      data.application_deadline < data.start_date &&
+      data.application_deadline < data.end_date,
+    {
+      message: "Application deadline must be before start and end date!",
+      path: ["application_deadline"],
+    }
+  )
+  .refine(
+    (data) =>
+      data.start_date > data.application_deadline &&
+      data.start_date <= data.end_date,
+    {
+      message:
+        "Start date must be after application deadline and before end date!",
+      path: ["start_date"],
+    }
+  )
+  .refine(
+    (data) =>
+      data.end_date > data.application_deadline &&
+      data.end_date >= data.start_date,
+    {
+      message: "End date must be after application deadline and start date!",
+      path: ["end_date"],
+    }
+  );
+
 export type HackathonFormData = {
   title: string;
   application_deadline: string;
@@ -107,9 +191,9 @@ const DashboardCreate: NextPageWithLayout = () => {
     formState: { errors },
     handleSubmit,
     watch,
-    setError,
-    clearErrors,
-  } = useForm<HackathonFormData>();
+  } = useForm<HackathonFormData>({
+    resolver: zodResolver(hackathonFormSchema),
+  });
 
   const onSubmit: SubmitHandler<HackathonFormData> = (data) => {
     console.log(data);
@@ -150,22 +234,20 @@ const DashboardCreate: NextPageWithLayout = () => {
     return [...selectedAcademies, academy];
   }
 
-  const fileInput = watch("file");
+  const applicationDeadline = watch("application_deadline");
+  const startDate = watch("start_date");
 
-  const isFileExtensionValid =
-    fileInput &&
-    checkFileExtension({
-      fileInput,
-      errors,
-    });
+  const applicationDeadlinePlusOneDay = new Date(applicationDeadline).setDate(
+    new Date(applicationDeadline).getDate() + 1
+  );
 
-  if (fileInput && !errors.file && !isFileExtensionValid) {
-    setError("file", { message: "Please choose .pdf file type!" });
-  }
+  const applicationDeadlineMatcher: DateBefore = { before: new Date() };
+  const startDateMatcher: DateBefore = {
+    before: new Date(applicationDeadlinePlusOneDay),
+  };
+  const endDateMatcher: DateBefore = { before: new Date(startDate) };
 
-  if (fileInput && errors.file && isFileExtensionValid) {
-    clearErrors("file");
-  }
+  console.log(errors);
 
   return (
     <>
@@ -200,8 +282,8 @@ const DashboardCreate: NextPageWithLayout = () => {
 
               <InputRounded
                 variant={errors.title ? "error" : "primary"}
-                {...register("title", { required: true })}
-                errorMessage="Please enter a name for the event"
+                {...register("title")}
+                errorMessage={errors.title?.message}
                 id="nameInput"
                 type="text"
                 placeholder="Name of the event"
@@ -214,7 +296,6 @@ const DashboardCreate: NextPageWithLayout = () => {
               <Controller
                 name="application_deadline"
                 control={control}
-                rules={{ required: true }}
                 render={({ field: { onChange, value } }) => {
                   return (
                     <div className="flex flex-col gap-2">
@@ -222,7 +303,7 @@ const DashboardCreate: NextPageWithLayout = () => {
                         <PopoverTrigger asChild>
                           <InputDatePicker
                             variant={
-                              value
+                              value && !errors.application_deadline
                                 ? "primary"
                                 : errors.application_deadline
                                 ? "primary-error"
@@ -230,7 +311,7 @@ const DashboardCreate: NextPageWithLayout = () => {
                             }
                           >
                             {value
-                              ? format(new Date(value), "PPP")
+                              ? format(new Date(value), "d MMMM y")
                               : "Deadline for application"}
                           </InputDatePicker>
                         </PopoverTrigger>
@@ -240,12 +321,13 @@ const DashboardCreate: NextPageWithLayout = () => {
                             mode="single"
                             selected={new Date(value)}
                             onSelect={onChange}
+                            disabled={applicationDeadlineMatcher}
                           />
                         </PopoverContent>
                       </Popover>
                       {errors.application_deadline && (
                         <p className="text-left font-medium text-error">
-                          Please select a deadline for application
+                          {errors.application_deadline.message}
                         </p>
                       )}
                     </div>
@@ -259,15 +341,14 @@ const DashboardCreate: NextPageWithLayout = () => {
               <Controller
                 name="start_date"
                 control={control}
-                rules={{ required: true }}
                 render={({ field: { onChange, value } }) => {
                   return (
                     <div className="flex flex-col gap-2">
                       <Popover>
-                        <PopoverTrigger asChild>
+                        <PopoverTrigger disabled={!applicationDeadline} asChild>
                           <InputDatePicker
                             variant={
-                              value
+                              value && !errors.start_date
                                 ? "primary"
                                 : errors.start_date
                                 ? "primary-error"
@@ -275,7 +356,7 @@ const DashboardCreate: NextPageWithLayout = () => {
                             }
                           >
                             {value
-                              ? format(new Date(value), "PPP")
+                              ? format(new Date(value), "d MMMM y")
                               : "Start of hackathon"}
                           </InputDatePicker>
                         </PopoverTrigger>
@@ -285,12 +366,13 @@ const DashboardCreate: NextPageWithLayout = () => {
                             mode="single"
                             selected={new Date(value)}
                             onSelect={onChange}
+                            disabled={startDateMatcher}
                           />
                         </PopoverContent>
                       </Popover>
                       {errors.start_date && (
                         <p className="text-left font-medium text-error">
-                          Please select a start date for the hackathon
+                          {errors.start_date.message}
                         </p>
                       )}
                     </div>
@@ -303,16 +385,15 @@ const DashboardCreate: NextPageWithLayout = () => {
               <p className="font-bold">End of hackathon</p>
               <Controller
                 name="end_date"
-                rules={{ required: true }}
                 control={control}
                 render={({ field: { onChange, value } }) => {
                   return (
                     <div className="flex flex-col gap-2">
                       <Popover>
-                        <PopoverTrigger asChild>
+                        <PopoverTrigger disabled={!startDate} asChild>
                           <InputDatePicker
                             variant={
-                              value
+                              value && !errors.end_date
                                 ? "primary"
                                 : errors.end_date
                                 ? "primary-error"
@@ -320,7 +401,7 @@ const DashboardCreate: NextPageWithLayout = () => {
                             }
                           >
                             {value
-                              ? format(new Date(value), "PPP")
+                              ? format(new Date(value), "d MMMM y")
                               : "End of hackathon"}
                           </InputDatePicker>
                         </PopoverTrigger>
@@ -330,12 +411,13 @@ const DashboardCreate: NextPageWithLayout = () => {
                             mode="single"
                             selected={new Date(value)}
                             onSelect={onChange}
+                            disabled={endDateMatcher}
                           />
                         </PopoverContent>
                       </Popover>
                       {errors.end_date && (
                         <p className="text-left font-medium text-error">
-                          Please select an end date for the hackathon
+                          {errors.end_date.message}
                         </p>
                       )}
                     </div>
@@ -352,7 +434,6 @@ const DashboardCreate: NextPageWithLayout = () => {
                 control={control}
                 defaultValue={""}
                 name="type_id"
-                rules={{ required: true }}
                 render={({ field: { onChange } }) => (
                   <div className="flex flex-col gap-2">
                     <RadioGroup
@@ -405,21 +486,19 @@ const DashboardCreate: NextPageWithLayout = () => {
                 Information about the event/client
               </Label>
               <textarea
-                {...register("description", { required: true })}
+                {...register("description")}
                 id="informationClientInput"
                 cols={10}
                 rows={10}
                 className={`resize-none rounded-lg border p-4 shadow-lg focus:outline-none focus:ring-1 ${
                   errors.description
                     ? "border-error focus:border-error focus:ring-error"
-                    : "focus:border-primary-100 focus:ring-primary"
+                    : "focus:border-primary focus:ring-primary"
                 }`}
               ></textarea>
               <div>
                 {errors.description && (
-                  <span className="font-medium text-error">
-                    Please enter information about the event/client
-                  </span>
+                  <span className="font-medium text-error"></span>
                 )}
               </div>
             </div>
@@ -477,6 +556,11 @@ const DashboardCreate: NextPageWithLayout = () => {
                   );
                 }}
               />
+              {errors.academies && (
+                <p className="font-medium text-error">
+                  {errors.academies.message}
+                </p>
+              )}
             </div>
 
             <Button size="lg">Submit</Button>

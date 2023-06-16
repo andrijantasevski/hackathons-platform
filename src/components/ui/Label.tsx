@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { twMerge } from "tailwind-merge";
 
 const labelVariants = cva(
-  "text-left leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+  "text-left leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 self-start",
   {
     variants: {
       fontWeight: {
