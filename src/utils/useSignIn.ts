@@ -26,21 +26,15 @@ export default function useSignIn() {
     formDataObj.set("email", formData.email);
     formDataObj.set("password", formData.password);
 
-    axios.get("/sanctum/csrf-cookie").then((response) => {
-      console.log(response);
-      axios
-        .post("/api/auth/login", formDataObj, {
-          headers: {
-            Authorization: "Bearer 37|vuBrhdbptOSI06Ih3gF4FGuXoxZt3NJ9tUZpaOZb",
-          },
-        })
-        .then((response) => console.log(response));
-    });
+    await csrf();
 
-    const response = await fetch(`${env.NEXT_PUBLIC_API_BASE_URL}/api/auth/login`, {
-      method: "POST",
-      body: formDataObj,
-    });
+    const response = await fetch(
+      `${env.NEXT_PUBLIC_API_BASE_URL}/api/auth/login`,
+      {
+        method: "POST",
+        body: formDataObj,
+      }
+    );
 
     if (!response.ok) {
       throw new Error("There was an error signing you in!");
@@ -54,7 +48,7 @@ export default function useSignIn() {
       throw new Error("There was an error signing you in!");
     }
 
-    localStorage.setItem("token", parsedResponse.data.token);
+    // localStorage.setItem("token", parsedResponse.data.token);
     setUser({ token: parsedResponse.data.token, isLoggedIn: true });
 
     return responseData;
