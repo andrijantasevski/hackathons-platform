@@ -36,6 +36,7 @@ const inputRoundedVariants = cva(
           "file:p-3",
           "file:mr-3",
           "file:hover:bg-primary-focus",
+          "file:transition-colors",
         ],
         error: [
           "text-error",
