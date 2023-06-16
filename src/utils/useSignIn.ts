@@ -26,7 +26,7 @@ export default function useSignIn() {
     formDataObj.set("email", formData.email);
     formDataObj.set("password", formData.password);
 
-    await csrf();
+    // await csrf();
 
     const response = await fetch(
       `${env.NEXT_PUBLIC_API_BASE_URL}/api/auth/login`,
