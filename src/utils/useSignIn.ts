@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { z } from "zod";
 import { useUserContext } from "./userContext";
 import { env } from "@/env";
+import axios from "@/utils/axios";
 
 export type SignInFormData = {
   email: string;
@@ -14,13 +15,27 @@ const responseSchema = z.object({
   token: z.string(),
 });
 
+const csrf = () => axios.get("/sanctum/csrf-cookie");
+
 export default function useSignIn() {
   const { setUser } = useUserContext();
+
   async function signInUser(formData: SignInFormData) {
     const formDataObj = new FormData();
 
     formDataObj.set("email", formData.email);
     formDataObj.set("password", formData.password);
+
+    axios.get("/sanctum/csrf-cookie").then((response) => {
+      console.log(response);
+      axios
+        .post("/api/auth/login", formDataObj, {
+          headers: {
+            Authorization: "Bearer 37|vuBrhdbptOSI06Ih3gF4FGuXoxZt3NJ9tUZpaOZb",
+          },
+        })
+        .then((response) => console.log(response));
+    });
 
     const response = await fetch(`${env.NEXT_PUBLIC_API_BASE_URL}/api/auth/login`, {
       method: "POST",
@@ -45,5 +60,7 @@ export default function useSignIn() {
     return responseData;
   }
 
-  return useMutation<SignInFormData, Error, SignInFormData>({ mutationFn: (formData) => signInUser(formData) });
+  return useMutation<SignInFormData, Error, SignInFormData>({
+    mutationFn: (formData) => signInUser(formData),
+  });
 }
