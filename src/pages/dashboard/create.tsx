@@ -196,7 +196,6 @@ const DashboardCreate: NextPageWithLayout = () => {
   });
 
   const onSubmit: SubmitHandler<HackathonFormData> = (data) => {
-    console.log(data);
     mutate(data, {
       onSuccess: () => {
         setIsModalShown(true);
@@ -246,8 +245,6 @@ const DashboardCreate: NextPageWithLayout = () => {
     before: new Date(applicationDeadlinePlusOneDay),
   };
   const endDateMatcher: DateBefore = { before: new Date(startDate) };
-
-  console.log(errors);
 
   return (
     <>
